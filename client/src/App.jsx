@@ -17,6 +17,7 @@ import StaffAugment from './pages/StaffAugment'
 import SolutionsProd from './pages/SolutionsProd'
 import NotFound from './pages/NotFound'
 import CancelPage from './pages/CancelPage'
+import SuccessPage from './pages/SuccessPage'
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
         <Route path="/staff-augment" element={<StaffAugment />} />
         <Route path="/solutions" element={<SolutionsProd/>} />
         <Route path="/cancel" element={<CancelPage/>} />
+        <Route path="/success" element={<SuccessPage/>} />
         {/* Catch-all route for undefined paths */}
         <Route path="*" element={<NotFound />} />
       </Routes>

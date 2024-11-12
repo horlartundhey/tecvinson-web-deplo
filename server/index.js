@@ -7,9 +7,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const app = express();
 app.use(cors(
     { 
-        // origin: process.env.CLIENT_URL 
-        origin: ["https://tecvinson-web-declient.vercel.app"],
-        methods:["GET", "POST", "PUT", "DELETE"]
+        origin: process.env.CLIENT_URL 
     }
 ));
 app.use(express.json());

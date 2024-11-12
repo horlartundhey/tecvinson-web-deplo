@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
+:root {
+  --navbar-height: 125px; 
+}
+
+header {
+  height: var(--navbar-height);
+} */
+
+html {
+  scroll-behavior: smooth;
+}

@@ -1,7 +1,7 @@
 import React from 'react'
-import ava1 from '../assets/avatar.png'
-import ava2 from '../assets/avatar2.png'
-import ava3 from '../assets/avatar3.png'
+import ava1 from '@/assets/avatar.png';
+import ava2 from '@/assets/avatar2.png';
+import ava3 from '@/assets/avatar3.png';
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 

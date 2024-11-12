@@ -1,5 +1,6 @@
   import React, { useState } from 'react';
   import { X } from 'lucide-react';
+import { FaSpinner } from 'react-icons/fa6';
 
   const ApplicationModal = ({ isOpen, onClose, courseData }) => {
     const [formData, setFormData] = useState({

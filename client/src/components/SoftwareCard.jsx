@@ -16,8 +16,11 @@ const SoftwareCard = ({
   description // Add description field
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);  // Loading state
 
-  const handleApplyNow = () => {    
+  const handleApplyNow = () => {
+    setIsLoading(true); // Show loading animation
+
     const courseData = {
        title,
        cost,
@@ -28,9 +31,15 @@ const SoftwareCard = ({
        endDate,
        imageUrl
     };
+    
     console.log("Course Data:", courseData);
-    setIsModalOpen(true);  // Ensure this triggers modal opening
- };
+
+    // Simulate a delay (e.g., API call) before opening the modal
+    setTimeout(() => {
+      setIsLoading(false);   // Hide loading animation
+      setIsModalOpen(true);   // Open modal after loading
+    }, 2000); // Adjust the delay as needed
+  };
 
   return (
     <>
@@ -93,10 +102,34 @@ const SoftwareCard = ({
           {/* Apply Button */}
           <div className="mt-6 flex justify-end">
             <button 
-              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg transition-colors"
+              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg transition-colors flex items-center"
               onClick={handleApplyNow}
+              disabled={isLoading} // Disable button when loading
             >
-              Apply Now
+              {isLoading ? (
+                <svg
+                  className="animate-spin h-5 w-5 mr-3 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C6.268 0 0 6.268 0 14h4z"
+                  ></path>
+                </svg>
+              ) : (
+                "Apply Now"
+              )}
             </button>
           </div>
         </div>

@@ -34,6 +34,22 @@ const applicationSchema = new mongoose.Schema({
 
 const Application = mongoose.model('Application', applicationSchema);
 
+// Define the Subscription Schema
+const subscriptionSchema = new mongoose.Schema({
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        match: [/.+@.+\..+/, 'Please enter a valid email address']
+    },
+    subscribedAt: {
+        type: Date,
+        default: Date.now
+    }
+});
+
+const Subscription = mongoose.model('Subscription', subscriptionSchema);
+
 // Save application data
 app.post('/api/save-application', async (req, res) => {
     try {
@@ -58,6 +74,33 @@ app.post('/api/save-application', async (req, res) => {
         res.json({ url: session.url });
     } catch (error) {
         console.error("Error saving application:", error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+// Handle new subscriptions
+app.post('/api/subscribe', async (req, res) => {
+    const { email } = req.body;
+
+    // Server-side email validation
+    if (!email || !/.+@.+\..+/.test(email)) {
+        return res.status(400).json({ message: "Please enter a valid email address." });
+    }
+
+    try {
+        // Check if the email already exists
+        const existingSubscription = await Subscription.findOne({ email });
+        if (existingSubscription) {
+            return res.status(400).json({ message: "Email is already subscribed." });
+        }
+
+        // Save the new subscription
+        const subscription = new Subscription({ email });
+        await subscription.save();
+
+        res.status(200).json({ message: "Subscription successful!" });
+    } catch (error) {
+        console.error("Error subscribing:", error);
         res.status(500).json({ message: "Server error" });
     }
 });

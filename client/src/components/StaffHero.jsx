@@ -1,5 +1,5 @@
 import React from 'react'
-import staffauagment from '../assets/staffauagment.png';
+import staffauagment from '../assets/staffauagment2.png';
 import { HiOutlineUsers } from 'react-icons/hi2';
 
 
@@ -9,7 +9,7 @@ const StaffHero = () => {
     <div className="relative w-full">
       {/* Background Image Container */}
       <div 
-        className="w-full h-[500px] bg-cover bg-center" 
+        className="w-full h-[300px] md:h-[500px] bg-cover bg-[center_20%]" 
         style={{ backgroundImage: `url(${staffauagment})` }}
       >        
       </div>

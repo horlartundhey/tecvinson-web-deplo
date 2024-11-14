@@ -7,10 +7,10 @@ const Aboutcomp = () => {
     <div className='bg-brandbackground w-full m-auto py-[60px] flex lg:flex-row flex-col justify-between items-start gap-[50px] lg:px-[150px] px-[20px]'>
 
       <div className='lg:w-full w-full flex flex-col justify-center items-start gap-6'>
-        <h3 className='font-semibold text-[20px]'>
+        <h3 className='font-bold text-[16px] text-[#001533]'>
           ABOUT US
         </h3>
-        <h1 className='text-[40px] font-semibold'>
+        <h1 className='text-[33px] font-semibold'>
           Tecvinson at a Glance
         </h1>
 
@@ -25,7 +25,7 @@ const Aboutcomp = () => {
             {/* Text and Button Section */}
             <div className='lg:w-[50%] w-full flex flex-col justify-start items-start gap-6'>
                 
-                <p className='text-lg leading-relaxed mb-4 text-justify'>
+                <p className='md:text-lg leading-relaxed mb-4 text-justify no-word' style={{ wordSpacing: "0" }}>
                 Tecvinson is a dynamic and innovative for-profit organization based in Sweden, committed to delivering exceptional IT Training, Solutions and Product Development, IT Consultancy, and Staff Augmentation services. We serve a diverse clientele, including private individuals, companies, and government entities. Our commitment to excellence, sustainability, and the well-being of our planet, customers, and co-workers is at the heart of everything we do.
                 </p>
 

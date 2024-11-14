@@ -51,10 +51,10 @@ const Services = () => {
 
         <div className='w-full m-auto py-[60px] flex lg:flex-row flex-col justify-between items-start gap-[50px] lg:px-[150px] px-[20px] mt-32'>
             <div className='lg:w-full w-full flex flex-col justify-center items-start gap-6'>
-                <h3 className='font-semibold text-[20px]'>
+                <h3 className='font-semibold text-[14px]'>
                     COURSES OFFERED
                 </h3>
-                <h1 className='text-[40px] font-semibold'>
+                <h1 className='text-[40px] leading-10 font-semibold'>
                     We provide courses in these categories
                 </h1>
 

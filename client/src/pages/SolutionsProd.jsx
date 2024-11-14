@@ -6,6 +6,8 @@ import { TbBulb } from 'react-icons/tb'
 import solu1 from '../assets/solu1.png'
 import solu2 from '../assets/solu2.png'
 import solu3 from '../assets/solu3.png'
+import BodyContainer from '../components/BodyContainer'
+import Footer from '../components/Footer'
 
 
 const Solutions = () => {
@@ -15,10 +17,10 @@ const Solutions = () => {
 
         <div className='bg-brandbackground w-full m-auto py-[60px] flex lg:flex-row flex-col justify-between items-start gap-[50px] lg:px-[150px] px-[20px] mx-4'>
           <div className='lg:w-full w-full flex flex-col justify-center items-start gap-6'>
-            <h3 className='font-semibold text-[20px]'>
+            <h3 className='font-semibold text-[14px]'>
               CONTACT US
             </h3>
-            <h1 className='text-[40px] font-semibold'>
+            <h1 className='text-[40px] leading-10 font-semibold'>
                 Feel free to reach out to us
             </h1>   
 
@@ -53,11 +55,11 @@ const Solutions = () => {
                     <p className="text-[#131313]">Once the solution is ready, we launch it in stages, allowing for continuous improvements and adaptation to real-world feedback.</p>
                 </div>
               </div>     
-                    <div className='w-full flex lg:flex-row flex-col justify-between items-center mt-5 mx-4'>
-                        <p className='text-[#001533] font-semibold text-2xl'>
+                    <div className='w-full flex lg:flex-row flex-col justify-between items-start mt-5 mx-4'>
+                        <p className='text-[#001533] font-semibold text-2xl mb-3'>
                         Expand your team with skilled professionals—connect with us today!
                         </p>
-                        <a href="/contact" className='inline-flex items-center bg-brandprimary text-white px-6 py-3 rounded-[10px] font-semibold hover:bg-gray-200 transition-colors duration-300'>
+                        <a href="/contact" className='inline-flex items-start bg-brandprimary text-white px-6 py-3 rounded-[10px] font-semibold hover:bg-gray-200 transition-colors duration-300'>
                             Contact Us
                         </a>
                     </div>     
@@ -65,90 +67,90 @@ const Solutions = () => {
       </div>
       
     </div>      
-    <div className="w-full m-auto py-[60px] flex lg:flex-row flex-col justify-between items-start gap-[50px] lg:px-[150px] px-[20px] mx-4">    
-      <div className='lg:w-full w-full flex flex-col justify-center items-start gap-6'>
-            <h3 className='font-semibold text-[20px]'>
-              SOLUTIONS AT TECVINSON
-            </h3>
-            <h1 className='text-[40px] font-semibold'>
-                Here are some solutions we've built
-            </h1>   
+    <div className="w-full m-auto py-[60px] flex lg:flex-row flex-col justify-between items-start gap-[50px] lg:px-[150px] px-[20px]">
+  <div className='lg:w-full w-full flex flex-col justify-center items-start gap-6'>
+    <h3 className='font-semibold text-[14px]'>
+      SOLUTIONS AT TECVINSON
+    </h3>
+    <h1 className='text-[40px] font-semibold'>
+      Here are some solutions we've built
+    </h1>
 
-            <div className='lg:w-full w-full'>              
-            
-              {/* About Us Section */}
-              <section  className="mb-32">
-                <div className="relative flex flex-col lg:flex-row items-start">
-                  {/* Image Container */}
-                  <div className="w-full lg:w-1/2">
-                    <img 
-                      src={solu1}
-                      alt="Team collaborating"
-                      className="rounded-lg object-cover w-full h-[400px] lg:h-[500px]"
-                    />
-                  </div>
-                  
-                  {/* Overlapping Content */}
-                  <div className="bg-white rounded-lg shadow-lg p-8 lg:p-12 
-                                lg:absolute lg:right-0 lg:top-12 lg:w-[60%]
-                                w-[95%] -mt-16 mx-auto lg:mt-0 lg:mx-0">
-                    <h2 className="text-3xl font-bold mb-6 text-gray-800">Event Management System (D’EventMatcha)</h2>
-                    <p className="text-gray-600 mb-6 leading-relaxed">
-                    Our Event Management System is designed to create a unified platform for event venue owners, service providers, event planners, and customers. This solution enables seamless engagement and management of events, ensuring a safe and professional experience for all parties involved. Key features include venue booking, service coordination, event planning tools, and customer feedback management.
-                    </p>                    
-                  </div>
-                </div>
-              </section>
-
-              {/* Vision Section */}
-              <section className="mb-32">
-                <div className="relative flex flex-col lg:flex-row items-start">
-                  <div className="w-full lg:w-1/2 lg:ml-auto">
-                    <img 
-                      src={solu2}
-                      alt="Person with VR headset"
-                      className="rounded-lg object-cover w-full h-[400px] lg:h-[500px]"
-                    />
-                  </div>
-                  
-                  <div className="bg-white rounded-lg shadow-lg p-8 lg:p-12 
-                                lg:absolute lg:left-0 lg:top-12 lg:w-[60%]
-                                w-[95%] -mt-16 mx-auto lg:mt-0 lg:mx-0">
-                    <h2 className="text-3xl font-bold mb-6 text-gray-800">Diaspora System</h2>
-                    <p className="text-gray-600 leading-relaxed">
-                    The Diaspora System aims to connect embassies, communities, associations, and organizations, fostering collaboration and support among them. This platform facilitates engagement, leverages collective strengths, and brings communities closer together to address common issues and celebrate achievements. It is designed to enhance communication, coordination, and resource sharing within the diaspora.
-                    </p>
-                  </div>
-                </div>
-              </section>
-
-              {/*mission section */}
-              <section  className="mb-32">
-                <div className="relative flex flex-col lg:flex-row items-start">
-                  {/* Image Container */}
-                  <div className="w-full lg:w-1/2">
-                    <img 
-                      src={solu3}
-                      alt="Team collaborating"
-                      className="rounded-lg object-cover w-full h-[400px] lg:h-[500px]"
-                    />
-                  </div>
-                  
-                  {/* Overlapping Content */}
-                  <div className="bg-white rounded-lg shadow-lg p-8 lg:p-12 
-                                lg:absolute lg:right-0 lg:top-12 lg:w-[60%]
-                                w-[95%] -mt-16 mx-auto lg:mt-0 lg:mx-0">
-                    <h2 className="text-3xl font-bold mb-6 text-gray-800">Service Request and Delivery Solution (HelpMeg)</h2>
-                    <p className="text-gray-600 mb-6 leading-relaxed">
-                    Our Service Request and Delivery Solution provides a streamlined way for individuals to access cleaning services from freelance providers. This platform simplifies the process of finding and booking reliable cleaning services, ensuring convenience and quality for customers. Features include service provider profiles, booking management, payment processing, and customer reviews.
-                    </p>            
-                  </div>
-                </div>
-              </section>
-            </div>
-      </div>  
+    <div className='lg:w-full w-full'>
+      {/* About Us Section */}
+      <section className="mb-8 md:mb-12">
+        <div className="relative flex flex-col lg:flex-row items-start gap-4">
+          {/* Image Container */}
+          <div className="w-full lg:w-1/2">
+            <img 
+              src={solu1}
+              alt="Team collaborating"
+              className="rounded-lg object-scale-down w-full h-[300px] md:h-[400px] lg:h-[500px]"
+            />
+          </div>
           
+          {/* Overlapping Content */}
+          <div className="bg-white rounded-lg shadow-lg p-8 lg:p-12 
+                        lg:absolute lg:right-0 lg:top-12 lg:w-[60%]
+                        w-full -mt-16 mx-auto lg:mt-[50px] lg:mx-0">
+            <h2 className="text-3xl font-bold mb-6 text-gray-800">Event Management System (D’EventMatcha)</h2>
+            <p className="text-gray-600 mb-6 leading-relaxed">
+              Our Event Management System is designed to create a unified platform for event venue owners, service providers, event planners, and customers. This solution enables seamless engagement and management of events, ensuring a safe and professional experience for all parties involved. Key features include venue booking, service coordination, event planning tools, and customer feedback management.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Vision Section */}
+      <section className="mb-8 md:mb-12">
+        <div className="relative flex flex-col lg:flex-row items-start gap-4">
+          <div className="w-full lg:w-1/2 lg:ml-auto">
+            <img 
+              src={solu2}
+              alt="Person with VR headset"
+              className="rounded-lg object-scale-down w-full h-[300px] md:h-[400px] lg:h-[500px]"
+            />
+          </div>
+          
+          <div className="bg-white rounded-lg shadow-lg p-8 lg:p-12 
+                        lg:absolute lg:left-0 lg:top-12 lg:w-[60%]
+                        w-full -mt-16 mx-auto lg:mt-[50px] lg:mx-0">
+            <h2 className="text-3xl font-bold mb-6 text-gray-800">Diaspora System</h2>
+            <p className="text-gray-600 leading-relaxed">
+              The Diaspora System aims to connect embassies, communities, associations, and organizations, fostering collaboration and support among them. This platform facilitates engagement, leverages collective strengths, and brings communities closer together to address common issues and celebrate achievements. It is designed to enhance communication, coordination, and resource sharing within the diaspora.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Mission Section */}
+      <section className="mb-8 md:mb-12">
+        <div className="relative flex flex-col lg:flex-row items-start gap-4">
+          {/* Image Container */}
+          <div className="w-full lg:w-1/2">
+            <img 
+              src={solu3}
+              alt="Team collaborating"
+              className="rounded-lg object-scale-down w-full h-[300px] md:h-[400px] lg:h-[500px]"
+            />
+          </div>
+          
+          {/* Overlapping Content */}
+          <div className="bg-white rounded-lg shadow-lg p-8 lg:p-12 
+                        lg:absolute lg:right-0 lg:top-12 lg:w-[60%]
+                        w-full -mt-16 mx-auto lg:mt-[50px] lg:mx-0">
+            <h2 className="text-3xl font-bold mb-6 text-gray-800">Service Request and Delivery Solution (HelpMeg)</h2>
+            <p className="text-gray-600 mb-6 leading-relaxed">
+              Our Service Request and Delivery Solution provides a streamlined way for individuals to access cleaning services from freelance providers. This platform simplifies the process of finding and booking reliable cleaning services, ensuring convenience and quality for customers. Features include service provider profiles, booking management, payment processing, and customer reviews.
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
+  </div>
+</div>
+<BodyContainer />
+<Footer />
     </>
   )
 }

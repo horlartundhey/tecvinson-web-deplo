@@ -49,7 +49,7 @@ const SoftwareCard = ({
           <img 
             src={imageUrl} 
             alt={title} 
-            className="w-full h-[400px] object-cover"
+            className="w-full h-[200px] md:h-[400px] object-cover object-top"
           />
         </div>
 

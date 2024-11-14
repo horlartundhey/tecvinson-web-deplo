@@ -1,125 +1,126 @@
-  import React, { useState } from 'react';
-  import { X } from 'lucide-react';
+import React, { useState } from 'react';
+import { X } from 'lucide-react';
 import { FaSpinner } from 'react-icons/fa6';
 
-  const ApplicationModal = ({ isOpen, onClose, courseData }) => {
-    const [formData, setFormData] = useState({
-      fullName: '',
-      email: '',
-      phoneNumber: '',
-      preferredStartDate: '',
-      currentExperienceLevel: '',
-      timezone: '',
-      reasonForInterest: ''
-    });
-    const [loading, setLoading] = useState(false);
+const ApplicationModal = ({ isOpen, onClose, courseData }) => {
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    phoneNumber: '',
+    preferredStartDate: '',
+    currentExperienceLevel: '',
+    timezone: '',
+    reasonForInterest: ''
+  });
+  const [loading, setLoading] = useState(false);
 
-    const experienceLevels = [
-      'Beginner',
-      'Intermediate',
-      'Advanced',
-      'Professional'
-    ];
+  const experienceLevels = [
+    'Beginner',
+    'Intermediate',
+    'Advanced',
+    'Professional'
+  ];
 
-    const timezones = [
-      'GMT-12:00', 'GMT-11:00', 'GMT-10:00', 'GMT-09:00', 'GMT-08:00',
-      'GMT-07:00', 'GMT-06:00', 'GMT-05:00', 'GMT-04:00', 'GMT-03:00',
-      'GMT-02:00', 'GMT-01:00', 'GMT+00:00', 'GMT+01:00', 'GMT+02:00',
-      'GMT+03:00', 'GMT+04:00', 'GMT+05:00', 'GMT+06:00', 'GMT+07:00',
-      'GMT+08:00', 'GMT+09:00', 'GMT+10:00', 'GMT+11:00', 'GMT+12:00'
-    ];
+  const timezones = [
+    'GMT-12:00', 'GMT-11:00', 'GMT-10:00', 'GMT-09:00', 'GMT-08:00',
+    'GMT-07:00', 'GMT-06:00', 'GMT-05:00', 'GMT-04:00', 'GMT-03:00',
+    'GMT-02:00', 'GMT-01:00', 'GMT+00:00', 'GMT+01:00', 'GMT+02:00',
+    'GMT+03:00', 'GMT+04:00', 'GMT+05:00', 'GMT+06:00', 'GMT+07:00',
+    'GMT+08:00', 'GMT+09:00', 'GMT+10:00', 'GMT+11:00', 'GMT+12:00'
+  ];
 
-    const handleInputChange = (e) => {
-      const { name, value } = e.target;
-      setFormData(prev => ({
-        ...prev,
-        [name]: value
-      }));
-    };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
-    const redirectToStripe = async () => {
-      try {
-        const response = await fetch('/api/create-checkout-session', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            courseTitle: courseData.title,
-            amount: courseData.cost,
-            currency: 'usd',
-            customerEmail: formData.email,
-            customerName: formData.fullName
-          }),
-        });
+  const redirectToStripe = async () => {
+    try {
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          courseTitle: courseData.title,
+          amount: courseData.cost,
+          currency: 'usd',
+          customerEmail: formData.email,
+          customerName: formData.fullName
+        }),
+      });
 
-        const session = await response.json();
-        
-        // Redirect to Stripe Checkout
-        window.location.href = session.url;
-      } catch (error) {
-        console.error('Error creating checkout session:', error);
+      const session = await response.json();
+
+      // Redirect to Stripe Checkout
+      window.location.href = session.url;
+    } catch (error) {
+      console.error('Error creating checkout session:', error);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!formData.fullName || !formData.email || !formData.phoneNumber) {
+      alert('Please fill in all required fields');
+      return;
+    }
+
+    try {
+      const response = await fetch('https://tecvinson-web-server.vercel.app/api/save-application', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formData,
+          courseTitle: courseData.title,
+          courseCost: courseData.cost,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Error response:', errorData);
+        throw new Error(errorData.message || 'Unknown error');
       }
-    };
 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-    
-      if (!formData.fullName || !formData.email || !formData.phoneNumber) {
-        alert('Please fill in all required fields');
-        return;
+      const data = await response.json();
+      if (data.url) {
+        window.location.href = data.url; // Redirect to Stripe payment
       }
-    
-      try {
-        const response = await fetch('https://tecvinson-web-server.vercel.app/api/save-application', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            ...formData,
-            courseTitle: courseData.title,
-            courseCost: courseData.cost,
-          }),
-        });
-    
-        if (!response.ok) {
-          const errorData = await response.json();
-          console.error('Error response:', errorData);
-          throw new Error(errorData.message || 'Unknown error');
-        }
-    
-        const data = await response.json();
-        if (data.url) {
-          window.location.href = data.url; // Redirect to Stripe payment
-        }
-      } catch (error) {
-        console.error('Error submitting application:', error);
-      }
-    };
+    } catch (error) {
+      console.error('Error submitting application:', error);
+    }
+  };
 
-    if (!isOpen) return null;
+  if (!isOpen) return null;
 
-    return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-lg max-w-2xl w-full p-6 relative">
-          <button
-            onClick={onClose}
-            className="absolute right-4 top-4 text-gray-500 hover:text-gray-700"
-          >
-            <X className="w-6 h-6" />
-          </button>
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-lg max-w-2xl w-full p-6 relative max-h-[90vh] overflow-hidden flex flex-col">
+        <button
+          onClick={onClose}
+          className="absolute right-4 top-4 text-gray-500 hover:text-gray-700"
+        >
+          <X className="w-6 h-6" />
+        </button>
 
-          <h2 className="text-2xl font-bold mb-6">Professional IT Training Application Form</h2>
+        <h2 className="text-2xl font-bold mb-6">Professional IT Training Application Form</h2>
 
-          <div className="mb-6 text-sm text-gray-600">
-            <h3 className="font-semibold mb-2">Enrollment Process:</h3>
-            <ul className="list-disc pl-5 space-y-1">
-              <li>Application: Interested participants fill out the application form.</li>
-              <li>Entry Test: After applying, participants need to pass a test to confirm their understanding of the course</li>
-              <li>Payment: Once the test is passed, participants can make payment.</li>
-              <li>Course Start: Training will commence as per the schedule.</li>
-            </ul>
-          </div>
+        <div className="mb-6 text-sm text-gray-600">
+          <h3 className="font-semibold mb-2">Enrollment Process:</h3>
+          <ul className="list-disc pl-5 space-y-1">
+            <li>Application: Interested participants fill out the application form.</li>
+            <li>Entry Test: After applying, participants need to pass a test to confirm their understanding of the course</li>
+            <li>Payment: Once the test is passed, participants can make payment.</li>
+            <li>Course Start: Training will commence as per the schedule.</li>
+          </ul>
+        </div>
 
+        <div className="overflow-y-auto max-h-full">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -236,7 +237,6 @@ import { FaSpinner } from 'react-icons/fa6';
                 placeholder="Tell us why you're interested in taking this course"
               />
             </div>
-            
 
             <div className="flex justify-end space-x-4">
               <button
@@ -247,21 +247,22 @@ import { FaSpinner } from 'react-icons/fa6';
                 Cancel
               </button>
               <button
-              type="submit"
-              disabled={loading} // Disable button when loading
-              className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded flex items-center"
-            >
-              {loading ? (
-                <FaSpinner className="animate-spin mr-2" /> // Loading spinner
-              ) : (
-                'Submit and Make Payment'
-              )}
-            </button>
+                type="submit"
+                disabled={loading} // Disable button when loading
+                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded flex items-center"
+              >
+                {loading ? (
+                  <FaSpinner className="animate-spin mr-2" />
+                ) : (
+                  'Submit Application'
+                )}
+              </button>
             </div>
           </form>
         </div>
       </div>
-    );
-  };
+    </div>
+  );
+};
 
-  export default ApplicationModal;
+export default ApplicationModal;

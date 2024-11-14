@@ -20,10 +20,10 @@ const StaffAugment = () => {
         <div className='w-full m-auto py-[60px] flex lg:flex-row flex-col justify-between items-start gap-[50px] lg:px-[150px] px-[20px] mt-10'>
 
             <div className='lg:w-full w-full flex flex-col justify-center items-start gap-6'>
-                <h3 className='font-semibold text-[20px]'>
+                <h3 className='font-semibold text-[14px]'>
                 OUR APPROACH
                 </h3>
-                <h1 className='text-[40px] font-semibold'>
+                <h1 className='text-[40px] leading-10 font-semibold'>
                     We offer a wide range of resources for all experience levels.
                 </h1>                                   
                
@@ -32,7 +32,7 @@ const StaffAugment = () => {
                     {/* Contact Information Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
                     {/* Email Card */}
-                    <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col items-start border-t-4 border-[#5D976E] h-[230px] ">
+                    <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col items-start border-t-4 border-[#5D976E] h-[160px]">
                         {/* <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mb-4">
                         <Mail className="w-6 h-6 text-blue-600" />
                         </div> */}
@@ -41,7 +41,7 @@ const StaffAugment = () => {
                     </div>
 
                     {/* Phone Card */}
-                    <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col items-start border-t-4 border-[#5D976E] h-[230px]">
+                    <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col items-start border-t-4 border-[#5D976E] h-[160px]">
                         {/* <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mb-4">
                         <Phone className="w-6 h-6 text-blue-600" />
                         </div> */}
@@ -50,7 +50,7 @@ const StaffAugment = () => {
                     </div>
 
                     {/* Visit Card */}
-                    <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col items-start border-t-4 border-[#5D976E] h-[230px]">
+                    <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col items-start border-t-4 border-[#5D976E] h-[160px]">
                         {/* <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mb-4">
                         <MapPin className="w-6 h-6 text-blue-600" />
                         </div> */}

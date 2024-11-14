@@ -51,8 +51,8 @@ const Coreservice = () => {
                 </div>
 
                 {/* Explore Services Section Inside the Blue Box */}
-                <div className='w-full flex lg:flex-row flex-col justify-between items-center mt-5'>
-                <p className='text-white text-2xl'>
+                <div className='w-full flex lg:flex-row flex-col justify-between  mt-5 mb-6'>
+                <p className='text-white text-xl mb-5'>
                     Would you like an in-depth understanding of what we do?
                 </p>
                 <a href="/services" className='inline-flex items-center bg-white text-[#05385D] px-6 py-3 rounded-[10px] font-semibold hover:bg-gray-200 transition-colors duration-300'>

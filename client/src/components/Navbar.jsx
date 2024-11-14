@@ -107,12 +107,12 @@ const Navbar = () => {
                                             {servicesItems.map((service, index) => (
                                                 <Link key={index} to={service.path} className="flex items-center space-x-3 hover:text-brandprimary">
                                                     <span
-                                                        className="flex items-center justify-center w-10 h-10 rounded-full"
+                                                        className="flex items-center justify-center w-10 h-10 rounded"
                                                         style={{ backgroundColor: service.bgColor }}
                                                     >
                                                         {service.icon}
                                                     </span>
-                                                    <span className="text-gray-900 dark:text-white">{service.name}</span>
+                                                    <span className="text-gray-900 dark:text-white font-bold">{service.name}</span>
                                                 </Link>
                                             ))}
                                         </div>
@@ -164,50 +164,55 @@ const Navbar = () => {
                     
                     {/* Mobile Navigation Links */}
                     <ul className="flex flex-col space-y-4">
-                        {navitems.map(({ link, path }) => 
-                            link === "Services" ? (
-                                <li key={path} className="relative">
-                                    <div
-                                        className="flex items-center justify-between text-gray-900 dark:text-white px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded cursor-pointer"
-                                        onClick={toggleMobileServicesDropdown}
-                                    >
-                                        {link}
-                                        <FaChevronDown
-                                            className={`transform transition-transform duration-200 ${
-                                                isMobileServicesDropdownOpen ? "rotate-180" : ""
-                                            }`}
-                                        />
-                                    </div>
-                                    
-                                    {isMobileServicesDropdownOpen && (
-                                        <div className="mt-2 pl-4 space-y-2">
-                                            {servicesItems.map((service, index) => (
-                                                <Link key={index} to={service.path} className="flex items-center space-x-3 hover:text-brandprimary">
-                                                    <span
-                                                        className="flex items-center justify-center w-8 h-8 rounded-full"
-                                                        style={{ backgroundColor: service.bgColor }}
-                                                    >
-                                                        {service.icon}
-                                                    </span>
-                                                    <span className="text-gray-900 dark:text-white">{service.name}</span>
-                                                </Link>
-                                            ))}
-                                        </div>
-                                    )}
-                                </li>
-                            ) : (
-                                <li key={path}>
-                                    <Link
-                                        to={path}
-                                        onClick={toggleMenu} // Close menu on item click
-                                        className="text-gray-900 dark:text-white block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
-                                    >
-                                        {link}
-                                    </Link>
-                                </li>
-                            )
-                        )}
-                    </ul>
+    {navitems.map(({ link, path }) => 
+        link === "Services" ? (
+            <li key={path} className="relative">
+                <div
+                    className="flex items-center justify-between text-gray-900 dark:text-white px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded cursor-pointer"
+                    onClick={toggleMobileServicesDropdown}
+                >
+                    {link}
+                    <FaChevronDown
+                        className={`transform transition-transform duration-200 ${isMobileServicesDropdownOpen ? "rotate-180" : ""}`}
+                    />
+                </div>
+                
+                {isMobileServicesDropdownOpen && (
+                    <div className="mt-2 pl-4 space-y-2">
+                        {servicesItems.map((service, index) => (
+                            <Link
+                                key={index}
+                                to={service.path}
+                                onClick={() => {
+                                    toggleMenu(); // Close the menu when the service is clicked
+                                }}
+                                className="flex items-center space-x-3 hover:text-brandprimary"
+                            >
+                                <span
+                                    className="flex items-center justify-center w-8 h-8 rounded-full"
+                                    style={{ backgroundColor: service.bgColor }}
+                                >
+                                    {service.icon}
+                                </span>
+                                <span className="text-gray-900 dark:text-white">{service.name}</span>
+                            </Link>
+                        ))}
+                    </div>
+                )}
+            </li>
+        ) : (
+            <li key={path}>
+                <Link
+                    to={path}
+                    onClick={toggleMenu} // Close the menu when the link is clicked
+                    className="text-gray-900 dark:text-white block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                >
+                    {link}
+                </Link>
+            </li>
+        )
+    )}
+</ul>
                 </div>
             </div>
         </header>

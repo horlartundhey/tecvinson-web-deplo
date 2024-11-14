@@ -1,5 +1,5 @@
 import React from 'react';
-import Servicehero2 from '../assets/Servicehero2.png';
+import servicesHero from '../assets/Serviceshero.png';
 import { HiOutlineComputerDesktop } from 'react-icons/hi2';
 
 const ServiceHero = () => {
@@ -8,7 +8,7 @@ const ServiceHero = () => {
       {/* Background Image Container */}
       <div 
         className="w-full h-[300px] md:h-[500px] bg-cover bg-center" 
-        style={{ backgroundImage: `url(${Servicehero2})` }}
+        style={{ backgroundImage: `url(${servicesHero})` }}
       >        
       </div>
 

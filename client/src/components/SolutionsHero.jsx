@@ -1,5 +1,5 @@
 import React from 'react'
-import productsolution from '../assets/solutionhero2.png';
+import solutionhero2 from '../assets/solutionhero2.png';
 import { HiCodeBracket } from 'react-icons/hi2';
 
 const SolutionsHero = () => {
@@ -8,7 +8,7 @@ const SolutionsHero = () => {
       {/* Background Image Container */}
       <div 
         className="w-full h-[300px] md:h-[500px] bg-cover bg-center" 
-        style={{ backgroundImage: `url(${productsolution})` }}
+        style={{ backgroundImage: `url(${solutionhero2})` }}
       >        
       </div>
 

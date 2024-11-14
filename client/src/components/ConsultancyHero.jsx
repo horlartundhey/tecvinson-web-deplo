@@ -1,5 +1,5 @@
 import React from 'react'
-import consultancy from '../assets/consultancybg.png';
+import consultancybg from '../assets/consultancybg.png';
 import { HiOutlineChatBubbleLeftRight } from 'react-icons/hi2';
 
 const ConsultancyHero = () => {
@@ -8,7 +8,7 @@ const ConsultancyHero = () => {
       {/* Background Image Container */}
       <div 
         className="w-full h-[300px] md:h-[500px] bg-cover bg-[center_20%]" 
-        style={{ backgroundImage: `url(${consultancy})` }}
+        style={{ backgroundImage: `url(${consultancybg})` }}
       >        
       </div>
 

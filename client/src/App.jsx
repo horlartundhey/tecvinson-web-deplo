@@ -18,16 +18,17 @@ import SolutionsProd from './pages/SolutionsProd'
 import NotFound from './pages/NotFound'
 import CancelPage from './pages/CancelPage'
 import SuccessPage from './pages/SuccessPage'
+import ScrollToTop from './components/ScrollToTop'
 
 function App() {
 
   return (
     <Router>
       <Navbar />
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about-us" element={<AboutUs />} />
-        <Route path="/services" element={<Services />} />
+        <Route path="/about-us" element={<AboutUs />} />        
         <Route path="/trainings" element={<Trainings />} />
         <Route path="/solutions" element={<Solutions />} />
         <Route path="/contact-us" element={<ContactUs />} />

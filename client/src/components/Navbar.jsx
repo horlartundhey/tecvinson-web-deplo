@@ -42,14 +42,14 @@ const Navbar = () => {
     const navitems = [
         { link: "Home", path: "/" },
         { link: "About Us", path: "/about-us" },
-        { link: "Services", path: "/services" },        
+        { link: "Services" },        
         // { link: "Solutions", path: "/solutions" },
         { link: "Contact Us", path: "/contact-us" },
     ];
 
     const servicesItems = [
-        {name: "IT Training", icon: <HiOutlineComputerDesktop />, bgColor: "#D2F8FF", path: "/services" },
-        { name: "Solutions & Product Development", icon: <HiCodeBracket />, bgColor: "#FFEAE7", path: "/solutions" },
+        {name: "IT Training", icon: <HiOutlineComputerDesktop />, bgColor: "#D2F8FF", path: "/trainings" },
+        { name: "Solutions & Product", icon: <HiCodeBracket />, bgColor: "#FFEAE7", path: "/solutions" },
         { name: "IT Consultancy", icon: <HiOutlineChatBubbleLeftRight />, bgColor: "#F7E3FF", path: "/consultancy" },
         { name: "Staff Augmentation", icon: <HiOutlineUsers />, bgColor: "#DFFFE8", path: "/staff-augment" },
     ];
@@ -189,7 +189,7 @@ const Navbar = () => {
                                 className="flex items-center space-x-3 hover:text-brandprimary"
                             >
                                 <span
-                                    className="flex items-center justify-center w-8 h-8 rounded-full"
+                                    className="flex items-center justify-center w-8 h-8 rounded"
                                     style={{ backgroundColor: service.bgColor }}
                                 >
                                     {service.icon}

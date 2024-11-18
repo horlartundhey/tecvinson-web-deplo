@@ -59,7 +59,7 @@ const Solutions = () => {
                         <p className='text-[#001533] font-semibold text-2xl mb-3'>
                         Expand your team with skilled professionals—connect with us today!
                         </p>
-                        <a href="/contact" className='inline-flex items-start bg-brandprimary text-white px-6 py-3 rounded-[10px] font-semibold hover:bg-gray-200 transition-colors duration-300'>
+                        <a href="/contact-us" className='inline-flex items-start bg-brandprimary text-white px-6 py-3 rounded-[10px] font-semibold hover:bg-gray-200 transition-colors duration-300'>
                             Contact Us
                         </a>
                     </div>     

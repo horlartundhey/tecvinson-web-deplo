@@ -254,7 +254,7 @@ const ApplicationModal = ({ isOpen, onClose, courseData }) => {
                 {loading ? (
                   <FaSpinner className="animate-spin mr-2" />
                 ) : (
-                  'Submit Application'
+                  'Submit and Make Payment'
                 )}
               </button>
             </div>

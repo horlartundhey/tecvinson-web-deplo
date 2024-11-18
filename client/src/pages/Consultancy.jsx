@@ -69,11 +69,11 @@ const Consultancy = () => {
 
                     <p className='text-[#5E5E5E]'>We offer both onsite and offshore consultants, ensuring flexibility to match your specific needs.</p>
 
-                    <div className='w-full flex lg:flex-row flex-col justify-between items-center mt-5'>
-                        <p className='text-[#001533] font-semibold text-2xl'>
+                    <div className='w-full flex lg:flex-row flex-col justify-between items-start mt-5'>
+                        <p className='text-[#001533] font-semibold text-2xl mb-8    '>
                         Need to get tailored IT insights that deliver real results?—Let’s talk!
                         </p>
-                        <a href="/contact" className='inline-flex items-center bg-brandprimary text-white px-6 py-3 rounded-[10px] font-semibold hover:bg-gray-200 transition-colors duration-300'>
+                        <a href="/contact-us" className='inline-flex items-center bg-brandprimary text-white px-6 py-3 rounded-[10px] font-semibold hover:bg-gray-200 transition-colors duration-300'>
                             Contact Us
                         </a>
                     </div>

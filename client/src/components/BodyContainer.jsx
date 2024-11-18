@@ -9,7 +9,7 @@ const BodyContainer = () => {
         <p className='text-lg text-center max-w-xl mb-6'>
           Ready to enhance your team’s skills, scale your business, or launch the next big tech product? Whether it's specialized IT training, expert staff augmentation, or end-to-end consultancy and product development, we’ve got you covered.
         </p>
-        <Link to="/contact-us">
+        <Link to="/contact-us" onClick={() => window.scrollTo(0, 0)}>
           <button className='bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200'>
             Contact Us
           </button>

@@ -120,6 +120,16 @@ const ProductDevelopment = () => {
           cost: "500",
           startDate: "January 15, 2025",
           endDate: "April 15, 2025"
+        },
+        {
+          number: 12,
+          title: "Data Engineering",
+          imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1732097563/data-engineering_w21ygk.jpg',
+          prerequisites: "Basic knowledge of Data Engineering",
+          duration: "3 Months",
+          cost: "500",
+          startDate: "January 15, 2025",
+          endDate: "April 15, 2025"
         }
       ];
       setCourses(courseData);
@@ -133,7 +143,7 @@ const ProductDevelopment = () => {
     <ServiceHero />    
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <h1 className="text-3xl font-bold text-gray-900 mb-8">
+            <h1 className="text-[40px] font-semibold text-gray-900 mb-8">
                 Software Development Courses
             </h1>
             

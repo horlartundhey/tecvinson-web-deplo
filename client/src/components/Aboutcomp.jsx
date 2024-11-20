@@ -15,17 +15,17 @@ const Aboutcomp = () => {
         </h1>
 
         {/* Main White Box Container */}
-        <div className='bg-white w-full m-auto py-[50px] flex lg:flex-row flex-col justify-between items-start gap-[50px] lg:px-[40px] px-[20px] rounded-xl'>
+        <div className='bg-white border-2 border-solid border-[#E3E3E3] w-full m-auto py-[50px] flex lg:flex-row flex-col justify-between items-start gap-[50px] lg:px-[40px] px-[20px] rounded-xl'>
       
             {/* Image Section */}
             <div className='lg:w-[50%] w-full'>
-                <img src={aboutImage} alt="About Us" className='w-full h-auto object-cover rounded-lg shadow-lg' />
+                <img src={aboutImage} alt="About Us" className='w-full h-[366px] object-cover rounded-lg shadow-lg' />
             </div>
 
             {/* Text and Button Section */}
             <div className='lg:w-[50%] w-full flex flex-col justify-start items-start gap-6'>
                 
-                <p className='md:text-lg leading-relaxed mb-4 text-justify no-word' style={{ wordSpacing: "0" }}>
+                <p className='md:text-[20px] text-[16px] leading-[30px] mb-4 text-justify no-word' style={{ wordSpacing: "0" }}>
                 Tecvinson is a dynamic and innovative for-profit organization based in Sweden, committed to delivering exceptional IT Training, Solutions and Product Development, IT Consultancy, and Staff Augmentation services. We serve a diverse clientele, including private individuals, companies, and government entities. Our commitment to excellence, sustainability, and the well-being of our planet, customers, and co-workers is at the heart of everything we do.
                 </p>
 

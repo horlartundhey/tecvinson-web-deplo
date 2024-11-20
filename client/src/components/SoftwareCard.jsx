@@ -55,7 +55,7 @@ const SoftwareCard = ({
 
         {/* Course Details */}
         <div className="md:w-2/3">
-          <h3 className="text-xl font-semibold mb-6">
+          <h3 className="md:text-[32px] text-[16px] font-semibold mb-6">
             {number}. {title}
           </h3>
 

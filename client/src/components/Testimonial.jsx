@@ -104,8 +104,8 @@ const Testimonial = () => {
             <div className='w-full py-[50px] relative'>
             <Slider ref={sliderRef} {...settings} className="w-full">
       <div className="p-4">
-        <div className="bg-white p-6 rounded-md shadow-md w-full h-auto sm:h-auto overflow-hidden">
-          <p className="text-sm">
+        <div className="bg-white p-6 rounded-2xl  w-full h-auto sm:h-auto overflow-hidden border-2 border-solid border-[#E3E3E3]">
+          <p className="text-[16px] italic leading-[24px] text-[#5E5E5E] ">
             "Working with Tecvinson transformed our business. Their expertise in
             cloud migration was exceptional, and the entire process was
             seamless. They not only met our needs but anticipated future
@@ -122,8 +122,8 @@ const Testimonial = () => {
         </div>
       </div>
       <div className="p-4">
-        <div className="bg-[#F7F8FA] p-6 rounded-md shadow-md w-full h-auto sm:h-auto overflow-hidden">
-          <p className="text-sm">
+        <div className="bg-white p-6 rounded-2xl  w-full h-auto sm:h-auto overflow-hidden border-2 border-solid border-[#E3E3E3]">
+          <p className="text-[16px] italic leading-[24px] text-[#5E5E5E] ">
             "The team at [IT Consultancy Name] provided invaluable support
             during our digital transformation. Their knowledge of data
             analytics and system integration helped us streamline operations,
@@ -140,8 +140,8 @@ const Testimonial = () => {
         </div>
       </div>
       <div className="p-4">
-        <div className="bg-[#F7F8FA] p-6 rounded-md shadow-md w-full h-auto sm:h-auto overflow-hidden">
-          <p className="text-sm">
+        <div className="bg-white p-6 rounded-2xl  w-full h-auto sm:h-auto overflow-hidden border-2 border-solid border-[#E3E3E3]">
+          <p className="text-[16px] italic leading-[24px] text-[#5E5E5E] ">
             "We were struggling with cybersecurity vulnerabilities until we
             partnered with [IT Consultancy Name]. Their expert team identified
             our weak points and implemented a comprehensive security strategy.

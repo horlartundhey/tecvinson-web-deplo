@@ -105,5 +105,77 @@ app.post('/api/subscribe', async (req, res) => {
     }
 });
 
+// Define the Contact Schema
+const contactSchema = new mongoose.Schema({
+    fullName: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        match: [/.+@.+\..+/, 'Please enter a valid email address']
+    },
+    phone: {
+        type: String,
+        required: true,
+        match: [/^\+?(\d{1,4}[-\s]?)?(\(?\d{1,4}\)?[-\s]?)?[\d\s-]{7,15}$/, 'Please enter a valid phone number']
+
+    },
+    companyName: {
+        type: String,
+        required: true
+    },
+    service: {
+        type: String,
+        required: true
+    },
+    note: {
+        type: String,
+        required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+});
+
+const Contact = mongoose.model('Contact', contactSchema);
+
+// Handle Contact Form Submission
+app.post('/api/contact', async (req, res) => {
+    const { fullName, email, phone, companyName, service, note } = req.body;
+
+    // Validate the input
+    if (!fullName || !email || !phone || !service || !note) {
+        return res.status(400).json({ message: "All fields are required." });
+    }
+
+    // Validate email format
+    if (!/.+@.+\..+/.test(email)) {
+        return res.status(400).json({ message: "Please enter a valid email address." });
+    }
+
+    try {
+        // Save the contact form submission
+        const contact = new Contact({
+            fullName,
+            email,
+            phone,
+            companyName,
+            service,
+            note
+        });
+        await contact.save();
+
+        res.status(200).json({ message: "Your message has been sent successfully." });
+    } catch (error) {
+        console.error("Error saving contact form:", error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+
+
 // Start the server
 app.listen(process.env.PORT, () => console.log(`Server running on port ${process.env.PORT}`));

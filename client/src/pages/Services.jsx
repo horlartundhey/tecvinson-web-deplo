@@ -30,7 +30,7 @@ const Services = () => {
           icon: (
             <HiCodeBracket className='w-14 h-14' />
           ),
-          title: 'Development',
+          title: 'Product Development',
           description: 'Build expertise in programming and development',
           path: '/development',
         },
@@ -49,7 +49,7 @@ const Services = () => {
     <div>
         <ServiceHero />
 
-        <div className='w-full m-auto py-[60px] flex lg:flex-row flex-col justify-between items-start gap-[50px] lg:px-[150px] px-[20px] mt-32'>
+        <div className='w-full m-auto pb-[60px] flex lg:flex-row flex-col justify-between items-start gap-[50px] lg:px-[150px] px-[20px] mt-32'>
             <div className='lg:w-full w-full flex flex-col justify-center items-start gap-6'>
                 <h3 className='font-semibold text-[14px]'>
                     COURSES OFFERED

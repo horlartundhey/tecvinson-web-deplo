@@ -1,24 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Mail, Phone, MapPin } from 'lucide-react';
 import Footer from '../components/Footer';
 
 
 const ContactUs = () => {
     
-    const [formData, setFormData] = React.useState({
-        fullName: '',
-        email: '',
-        phone: '',
-        companyName: '',
-        service: '',
-        note: ''
-      });
+    const [fullName, setFullName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [companyName, setCompanyName] = useState('');
+    const [service, setService] = useState('');
+    const [note, setNote] = useState('');
+    const [status, setStatus] = useState('');
+//     const [error, setError] = useState('');
+//   const [message, setMessage] = useState('');
 
-      const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle form submission
-        console.log(formData);
-      };
+        setStatus('Submitting...');
+
+        try {
+            const response = await axios.post('https://tecvinson-web-server.vercel.app/api/contact', {
+                fullName, email, phone, companyName, service, note
+            });
+
+            if (response.status === 200) {
+                setStatus('Message sent successfully!');
+                setFullName('');
+                setEmail('');
+                setSubject('');
+                setMessage('');
+            }
+        } catch (error) {
+            setStatus('Error sending message.');
+        }
+    };
 
       const handleChange = (e) => {
         setFormData({
@@ -77,6 +93,9 @@ const ContactUs = () => {
                 Fill out the form below, and we will get back to you promptly.
             </p>
 
+            
+            {status && <p className="text-brandprimary mb-4">{status}</p>}
+
             <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Full Name */}
                 <div>
@@ -86,8 +105,8 @@ const ContactUs = () => {
                 <input
                     type="text"
                     name="fullName"
-                    value={formData.fullName}
-                    onChange={handleChange}
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
                     placeholder="Enter your full name"
                     className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     required
@@ -103,8 +122,8 @@ const ContactUs = () => {
                     <input
                     type="email"
                     name="email"
-                    value={formData.email}
-                    onChange={handleChange}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="example@domain.com"
                     className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     required
@@ -117,8 +136,8 @@ const ContactUs = () => {
                     <input
                     type="tel"
                     name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
                     placeholder="XXX XXX XXX XXX"
                     className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     />
@@ -133,8 +152,8 @@ const ContactUs = () => {
                 <input
                     type="text"
                     name="companyName"
-                    value={formData.companyName}
-                    onChange={handleChange}
+                    value={companyName}
+                    onChange={(e) => setCompanyName(e.target.value)}
                     placeholder="Enter your company name"
                     className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
@@ -147,8 +166,8 @@ const ContactUs = () => {
                 </label>
                 <select
                     name="service"
-                    value={formData.service}
-                    onChange={handleChange}
+                    value={service}
+                    onChange={(e) => setService(e.target.value)}
                     className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     required
                 >
@@ -167,8 +186,8 @@ const ContactUs = () => {
                 </label>
                 <textarea
                     name="note"
-                    value={formData.note}
-                    onChange={handleChange}
+                    value={note}
+                    onChange={(e) => setNote(e.target.value)}
                     placeholder="Leave a note..."
                     rows={4}
                     className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -182,7 +201,7 @@ const ContactUs = () => {
                 >
                 Submit
                 </button>
-            </form>
+            </form>            
             </div>
             </div>        
       </div>                

@@ -55,7 +55,7 @@ const Coreservice = () => {
                 <p className='text-white text-xl mb-5'>
                     Would you like an in-depth understanding of what we do?
                 </p>
-                <a className='inline-flex items-center bg-white text-[#05385D] px-6 py-3 rounded-[10px] font-semibold hover:bg-gray-200 transition-colors duration-300'>
+                <a href='/services' className='inline-flex items-center bg-white text-[#05385D] px-6 py-3 rounded-[10px] font-semibold hover:bg-gray-200 transition-colors duration-300'>
                     Explore our services <FaArrowRight className='ml-3' />
                 </a>
                 </div>

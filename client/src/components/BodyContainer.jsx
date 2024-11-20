@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const BodyContainer = () => {
   return (
-    <div className='bg-[#E7F3FD] w-full m-auto py-[60px] flex lg:flex-row flex-col justify-between items-start gap-[50px] lg:px-[150px] px-[20px] pb-10 mb-14'>
+    <div className='bg-[#E7F3FD] w-full m-auto py-[60px] flex lg:flex-row flex-col justify-between items-start gap-[50px] lg:px-[150px] px-[20px] mb-14'>
       <div className='flex flex-col items-center w-full'>
         <h1 className='text-3xl font-bold text-center mb-4'>Empowering Your IT Journey—Together</h1>
         <p className='text-lg text-center max-w-xl mb-6'>

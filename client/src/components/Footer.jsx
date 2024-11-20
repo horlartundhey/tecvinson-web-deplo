@@ -65,13 +65,19 @@ const Footer = () => {
         </div>
 
         {/* Right Column - Newsletter Signup */}
-        <div className='flex flex-col items-start '>
-          <h2 className='text-lg font-semibold mb-4'>Subscribe to our Newsletter</h2>
+        <div className="flex flex-col items-start">
+          <h2 className="text-lg font-semibold mb-4">Subscribe to our Newsletter</h2>
+
+          {/* Error or Success Message */}
+          {error && <p className="text-red-500 mb-4">{error}</p>}
+          {message && <p className="text-green-500 mb-4">{message}</p>}
+
+          {/* Subscription Form */}
           <form onSubmit={handleSubscribe} className="flex items-center mb-4">
             <input
               type="email"
               placeholder="Enter your email"
-              value={email}
+              value={email}       
               onChange={(e) => {
                 setEmail(e.target.value);
                 setError('');
@@ -79,11 +85,12 @@ const Footer = () => {
               }}
               className="p-2 border border-gray-300 rounded-l-md focus:outline-none"
             />
-            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600">
+            <button
+              type="submit"
+              className="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600"
+            >
               Subscribe
             </button>
-            {error && <p className="text-red-500 ml-4">{error}</p>}
-            {message && <p className="text-green-500 ml-4">{message}</p>}
           </form>
           <div className='flex space-x-4 mt-20'>
             {/* Social Icons - replace with actual icons */}

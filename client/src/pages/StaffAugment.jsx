@@ -31,34 +31,44 @@ const StaffAugment = () => {
 
                     {/* Contact Information Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-                    {/* Email Card */}
-                    <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col items-start border-t-4 border-[#5D976E] h-[160px]">
-                        {/* <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mb-4">
-                        <Mail className="w-6 h-6 text-blue-600" />
-                        </div> */}
-                        <h3 className="text-lg font-semibold mb-2">Junior Level Consultants</h3>
-                        <p className="text-gray-600">For less complex tasks or roles where mentorship is provided.</p>
+                        {/* Junior Level Consultants */}
+                        <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col  border-t-4 border-[#5D976E] h-[200px]">
+                            {/* Large Number */}
+                            <div className="text-gray-300 text-6xl font-bold mb-4">
+                            01
+                            </div>
+                            <h3 className="text-lg font-semibold mb-2 ">Junior Level </h3>
+                            <p className="text-gray-600 ">
+                            For businesses needing fresh talent to handle entry-level tasks or contribute to less complex projects.
+                            </p>
+                        </div>
+
+                        {/* Intermediate Level Consultants */}
+                        <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col border-t-4 border-[#5D976E] h-[200px]">
+                            {/* Large Number */}
+                            <div className="text-gray-300 text-6xl font-bold mb-4">
+                            02
+                            </div>
+                            <h3 className="text-lg font-semibold mb-2 ">Intermediate Level</h3>
+                            <p className="text-gray-600">
+                            Ideal for projects that require a blend of experience and creativity to move quickly from idea to execution.
+                            </p>
+                        </div>
+
+                        {/* Senior Level Consultants */}
+                        <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col border-t-4 border-[#5D976E] h-[200px]">
+                            {/* Large Number */}
+                            <div className="text-gray-300 text-6xl font-bold mb-4">
+                            03
+                            </div>
+                            <h3 className="text-lg font-semibold mb-2 ">Senior Level </h3>
+                            <p className="text-gray-600">
+                            Perfect for projects that need strong leadership, in-depth technical expertise, and a strategic approach.
+                            </p>
+                        </div>
                     </div>
 
-                    {/* Phone Card */}
-                    <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col items-start border-t-4 border-[#5D976E] h-[160px]">
-                        {/* <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mb-4">
-                        <Phone className="w-6 h-6 text-blue-600" />
-                        </div> */}
-                        <h3 className="text-lg font-semibold mb-2">Intermediate Level Consultants</h3>
-                        <p className="text-gray-600">For projects requiring more experience and autonomy.</p>
-                    </div>
-
-                    {/* Visit Card */}
-                    <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col items-start border-t-4 border-[#5D976E] h-[160px]">
-                        {/* <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mb-4">
-                        <MapPin className="w-6 h-6 text-blue-600" />
-                        </div> */}
-                        <h3 className="text-lg font-semibold mb-2">Senior Level Consultants</h3>
-                        <p className="text-gray-600">For leadership roles or projects that require high-level strategic thinking.</p>
-                    </div>
-
-                    </div>                    
+                  
 
                     <div className='w-full flex lg:flex-row flex-col justify-between items-start mt-5'>
                         <p className='text-[#001533] font-semibold text-2xl mb-8'>

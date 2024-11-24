@@ -84,7 +84,7 @@ const StaffAugment = () => {
      
         <div className='w-full m-auto py-[10px] flex lg:flex-row flex-col justify-between items-start gap-[50px] lg:px-[150px] px-[20px] mt-10'>
 
-            <div className='lg:w-full w-full flex flex-col justify-center items-start gap-6'>
+            <div className='lg:w-full w-full flex flex-col  items-start gap-6'>
                 <h3 className='font-semibold text-[20px]'>
                     Our Clients
                 </h3>
@@ -92,8 +92,8 @@ const StaffAugment = () => {
                     Here are some companies we’ve worked with
                 </h1> 
 
-                <div className="w-full py-10">                                   
-                    <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6 items-start justify-center ">
+                <div className="py-10">                                   
+                    <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6 ">
                             <img 
                             src={conglogo} // Replace with your logo image source
                             alt="Logo 1"

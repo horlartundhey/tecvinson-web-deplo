@@ -1,5 +1,5 @@
 import React from 'react';
-import ava1 from '@/assets/Avatar.png';
+import Default from '@/assets/Default.png';
 import ava2 from '@/assets/Avatar2.png';
 import ava3 from '@/assets/Avatar3.png';
 
@@ -40,7 +40,7 @@ const Testimonial = () => {
           position: 'absolute',
           bottom: '-50px',
           width: '100%',
-          padding: '0 40px',          
+          // padding: '0 40px',          
         }}
       >
         {/* Dots on the left */}
@@ -92,7 +92,7 @@ const Testimonial = () => {
   };
 
   return (
-    <div className='w-full m-auto py-[60px] flex lg:flex-row flex-col justify-between items-start gap-[50px] lg:px-[100px] px-[20px]'>
+    <div className='w-full m-auto py-[60px] flex lg:flex-row flex-col justify-between items-start gap-[50px] lg:px-[150px] px-[20px]'>
         <div className='lg:w-full w-full flex flex-col justify-center items-start gap-6'>
             <h3 className='font-semibold text-[20px]'>
               TESTIMONIALS
@@ -103,61 +103,120 @@ const Testimonial = () => {
 
             <div className='w-full py-[50px] relative'>
             <Slider ref={sliderRef} {...settings} className="w-full">
-      <div className="p-4">
-        <div className="bg-white p-6 rounded-2xl  w-full h-auto sm:h-auto overflow-hidden border-2 border-solid border-[#E3E3E3]">
-          <p className="text-[16px] italic leading-[24px] text-[#5E5E5E] ">
-            "Working with Tecvinson transformed our business. Their expertise in
-            cloud migration was exceptional, and the entire process was
-            seamless. They not only met our needs but anticipated future
-            challenges, delivering solutions ahead of time. We're now more
-            efficient and scalable than ever."
-          </p>
-          <div className="flex items-center mt-4">
-            <img src={ava1} alt="Client" className="w-12 h-12 rounded-full mr-4" />
-            <div>
-              <p className="font-semibold">Sarah M., CTO</p>
-              <p className="text-sm text-gray-500">Tech Innovators Inc.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="p-4">
-        <div className="bg-white p-6 rounded-2xl  w-full h-auto sm:h-auto overflow-hidden border-2 border-solid border-[#E3E3E3]">
-          <p className="text-[16px] italic leading-[24px] text-[#5E5E5E] ">
-            "The team at [IT Consultancy Name] provided invaluable support
-            during our digital transformation. Their knowledge of data
-            analytics and system integration helped us streamline operations,
-            saving us both time and resources. Their professionalism and
-            commitment are unparalleled."
-          </p>
-          <div className="flex items-center mt-4">
-            <img src={ava2} alt="Client" className="w-12 h-12 rounded-full mr-4" />
-            <div>
-              <p className="font-semibold">David L., CEO</p>
-              <p className="text-sm text-gray-500">Global Solutions Group</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="p-4">
-        <div className="bg-white p-6 rounded-2xl  w-full h-auto sm:h-auto overflow-hidden border-2 border-solid border-[#E3E3E3]">
-          <p className="text-[16px] italic leading-[24px] text-[#5E5E5E] ">
-            "We were struggling with cybersecurity vulnerabilities until we
-            partnered with [IT Consultancy Name]. Their expert team identified
-            our weak points and implemented a comprehensive security strategy.
-            We now feel confident that our data is secure, and we can focus on
-            growth."
-          </p>
-          <div className="flex items-center mt-4">
-            <img src={ava3} alt="Client" className="w-12 h-12 rounded-full mr-4" />
-            <div>
-              <p className="font-semibold">Emily W., Head of IT</p>
-              <p className="text-sm text-gray-500">Secure Solutions</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </Slider>
+            <div className="p-4">
+                  <div className="bg-white p-6 rounded-2xl  w-full h-auto sm:h-auto overflow-hidden border-2 border-solid border-[#E3E3E3]">
+                    <p className="text-[16px] italic leading-[24px] text-[#5E5E5E] ">
+                    "In the financial services sector, precision and reliability are non-negotiable. Tecvinson AB has provided Core Credit Investment with unparalleled IT consultancy and product development services, enabling us to serve our customers with cutting-edge technology solutions. Their attention to detail and innovative spirit set them apart."
+                    </p>
+                    <div className="flex items-center mt-4">
+                      <img src={Default} alt="Client" className="w-12 h-12 rounded-full mr-4" />
+                      <div>
+                        <p className="font-semibold">Femi Shadamoro</p>
+                        <p className="text-sm text-gray-500">CEO Core Credit Investment Company Limited Nigeria</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <div className="bg-white p-6 rounded-2xl  w-full h-auto sm:h-auto overflow-hidden border-2 border-solid border-[#E3E3E3]">
+                    <p className="text-[16px] italic leading-[24px] text-[#5E5E5E] ">
+                    "Tecvinson AB has been a vital partner in our mission to empower African professionals and enhance digital financial solutions. Their custom-tailored IT solutions have not only strengthened AfriProEdu’s educational platform but also optimized the operational capabilities of AfriPay. They understand the nuances of our vision and bring it to life with exceptional expertise."
+                    </p>
+                    <div className="flex items-center mt-4">
+                    <img src={Default} alt="Client" className="w-12 h-12 rounded-full mr-4" />
+                      <div>
+                        <p className="font-semibold">John Samuel</p>
+                        <p className="text-sm text-gray-500">CEO/Founder AfriProEdu and AfriPay Finland</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <div className="bg-white p-6 rounded-2xl  w-full h-auto sm:h-auto overflow-hidden border-2 border-solid border-[#E3E3E3]">
+                    <p className="text-[16px] italic leading-[24px] text-[#5E5E5E] ">
+                    "At Redi-School of Integration, technology bridges the gap between communities, and Tecvinson AB has been our go-to partner for innovative IT solutions. Their ability to create impactful, user-friendly platforms has significantly enhanced our outreach and integration programs. Their team is dedicated, responsive, and a pleasure to work with."
+                    </p>
+                    <div className="flex items-center mt-4">
+                    <img src={Default} alt="Client" className="w-12 h-12 rounded-full mr-4" />
+                      <div>
+                        <p className="font-semibold">Felix Onogwu</p>
+                        <p className="text-sm text-gray-500">CEO Redi-School of Integration Malmö</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <div className="bg-white p-6 rounded-2xl  w-full h-auto sm:h-auto overflow-hidden border-2 border-solid border-[#E3E3E3]">
+                    <p className="text-[16px] italic leading-[24px] text-[#5E5E5E] ">
+                    "Working with Tecvinson AB has been a game-changer for Nordic Bridge Partner AB. Their deep understanding of integration platforms and seamless data solutions has enabled us to streamline our operations and enhance client satisfaction. Their innovative approach and commitment to excellence make them an invaluable partner in our digital transformation journey."
+                    </p>
+                    <div className="flex items-center mt-4">
+                    <img src={Default} alt="Client" className="w-12 h-12 rounded-full mr-4" />
+                      <div>
+                        <p className="font-semibold">Francis Otuoba</p>
+                        <p className="text-sm text-gray-500">Managing Partner at Nordic Bridge Partner AB Sweden</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <div className="bg-white p-6 rounded-2xl  w-full h-auto sm:h-auto overflow-hidden border-2 border-solid border-[#E3E3E3]">
+                    <p className="text-[16px] italic leading-[24px] text-[#5E5E5E] ">
+                    "Tecvinson AB's expertise across IT consultancy and managed services has been pivotal for our multiple ventures. Whether supporting our complex integration needs at Nordic Bridge Partner AB or providing scalable solutions for FAStrust AB and Preskriber AB, their dedication to innovation and customer-centric strategies stands out. Tecvinson AB is more than a service provider; they are true partners in our growth."
+                    </p>
+                    <div className="flex items-center mt-4">
+                    <img src={Default} alt="Client" className="w-12 h-12 rounded-full mr-4" />
+                      <div>
+                        <p className="font-semibold">Saliu Amedu</p>
+                        <p className="text-sm text-gray-500">Managing Partner at Nordic Bridge Partner AB Sweden, CEO FAStrsust AB, CEO Preskriber AB</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <div className="bg-white p-6 rounded-2xl  w-full h-auto sm:h-auto overflow-hidden border-2 border-solid border-[#E3E3E3]">
+                    <p className="text-[16px] italic leading-[24px] text-[#5E5E5E] ">
+                    "At Nordic Bridge Sweden, our mission to connect businesses globally relies on robust and reliable IT systems. Tecvinson AB has consistently delivered cutting-edge solutions that align with our strategic goals. Their professionalism and technical know-how have helped us scale with confidence."
+                    </p>
+                    <div className="flex items-center mt-4">
+                    <img src={Default} alt="Client" className="w-12 h-12 rounded-full mr-4" />
+                      <div>
+                        <p className="font-semibold">Awa Karlsson</p>
+                        <p className="text-sm text-gray-500">Partner at Nordic Bridge Sweden</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <div className="bg-white p-6 rounded-2xl  w-full h-auto sm:h-auto overflow-hidden border-2 border-solid border-[#E3E3E3]">
+                    <p className="text-[16px] italic leading-[24px] text-[#5E5E5E] ">
+                    "BisCom TDigits thrives on delivering top-tier IT products, and Tecvinson AB has been instrumental in ensuring our backend processes are optimized and future-ready. Their collaborative approach and ability to tackle complex challenges head-on have made them a key partner in our success."
+                    </p>
+                    <div className="flex items-center mt-4">
+                    <img src={Default} alt="Client" className="w-12 h-12 rounded-full mr-4" />
+                      <div>
+                        <p className="font-semibold">Celestine Bamisaye</p>
+                        <p className="text-sm text-gray-500">CEO, BisCom TDigits</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="p-4">
+                  <div className="bg-white p-6 rounded-2xl  w-full h-auto sm:h-auto overflow-hidden border-2 border-solid border-[#E3E3E3]">
+                    <p className="text-[16px] italic leading-[24px] text-[#5E5E5E] ">
+                    "Tecvinson AB has been a cornerstone of Gyzer Technologies' success. Their expertise in product development and IT consultancy has empowered us to deliver state-of-the-art solutions to our clients. Tecvinson AB’s commitment to quality and their ability to innovate consistently make them our preferred IT partner."
+                    </p>
+                    <div className="flex items-center mt-4">
+                    <img src={Default} alt="Client" className="w-12 h-12 rounded-full mr-4" />
+                      <div>
+                        <p className="font-semibold">Michael Alude</p>
+                        <p className="text-sm text-gray-500">CEO Gyzer Technologies Limited</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Slider>
             </div>
         </div>
     </div>

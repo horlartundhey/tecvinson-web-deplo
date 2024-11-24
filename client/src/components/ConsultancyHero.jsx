@@ -2,6 +2,7 @@ import React from 'react'
 import consultancybg from '../assets/consultancybg.png';
 import { Link, useLocation } from 'react-router-dom';
 import {  HiOutlineComputerDesktop, HiCodeBracket, HiOutlineChatBubbleLeftRight, HiOutlineUsers} from 'react-icons/hi2';
+import SectionWithScroll from './SectionWithScroll';
 
 const ConsultancyHero = () => {
   const location = useLocation();
@@ -49,9 +50,10 @@ const ConsultancyHero = () => {
 
   return (
     <>
+    <SectionWithScroll>
       {/* Navigation Tabs Section */}
-      <div className="bg-white border-b border-t-2 pt-6 ">
-        <div className="max-w-6xl mx-auto px-4">
+      <div className="bg-white border-b border-t-2 pt-6 sticky top-0 z-50 lg:px-[150px] px-[20px] ">
+        <div className="mx-auto px-4">
           <div className="relative">
             {/* Gradient indicators for scroll */}
             <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none md:hidden" />
@@ -130,8 +132,8 @@ const ConsultancyHero = () => {
       <div className="relative mx-auto px-[20px] lg:px-[150px]" style={{ marginTop: '-100px' }}>
         <div className="bg-white rounded-lg shadow-lg p-8 max-w-3xl  w-full text-left">
           <div className="flex items-center gap-3 mb-4">
-            <div className="bg-[#F7E3FF]  p-3 rounded-lg w-10 h-10">
-              <HiOutlineChatBubbleLeftRight />
+            <div className="bg-[#F7E3FF]  p-3 rounded-lg w-10 h-10 flex items-center justify-center transition-transform duration-300 ease-in-out hover:rotate-[360deg]">
+              <HiOutlineChatBubbleLeftRight className="transition-transform duration-300 ease-in-out hover:rotate-[360deg]"/>
             </div>
             <h2 className="text-xl font-semibold">IT Consultancy Services</h2>
           </div>
@@ -141,6 +143,7 @@ const ConsultancyHero = () => {
         </div>
       </div>
     </div>
+    </SectionWithScroll>
     </>
   )
 }

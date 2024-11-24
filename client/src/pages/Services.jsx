@@ -7,6 +7,13 @@ import { FiPenTool } from 'react-icons/fi'
 import Footer from '../components/Footer'
 import BodyContainer from '../components/BodyContainer'
 import { Link } from 'react-router-dom';
+import SectionWithScroll from '../components/SectionWithScroll'
+import { motion } from 'framer-motion';
+
+const h3Variants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: { opacity: 1, scale: 1 },
+};
 
 const Services = () => {
     const categories = [
@@ -49,11 +56,18 @@ const Services = () => {
     <div>
         <ServiceHero />
 
+        
         <div className='w-full m-auto pb-[60px] flex lg:flex-row flex-col justify-between items-start gap-[50px] lg:px-[150px] px-[20px] mt-32'>
             <div className='lg:w-full w-full flex flex-col justify-center items-start gap-6'>
-                <h3 className='font-semibold text-[14px]'>
-                    COURSES OFFERED
-                </h3>
+            <motion.h3
+                className="font-semibold text-[14px]"
+                variants={h3Variants}
+                initial="hidden"
+                animate="visible"
+                transition={{ duration: 0.6, ease: 'easeOut' }}
+              >
+                COURSES OFFERED
+              </motion.h3>
                 <h1 className='text-[40px] leading-10 font-semibold'>
                     We provide courses in these categories
                 </h1>
@@ -64,7 +78,7 @@ const Services = () => {
                         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                             {categories.map((category, index) => (
                             <Link to={category.path} key={index} className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center ">
-                                <div className=" flex justify-center items-center text-blue-600 mb-4 items-center">
+                                <div className=" flex justify-center text-blue-600 mb-4 items-center">
                                 {category.icon}
                                 </div>
                                 <h3 className="text-lg font-semibold text-gray-900 mb-2">{category.title}</h3>
@@ -79,8 +93,11 @@ const Services = () => {
 
             </div>
         </div>        
+      
     </div>    
-     <BodyContainer />
+      <SectionWithScroll>
+        <BodyContainer />
+      </SectionWithScroll>
      <Footer />
     </>
   )

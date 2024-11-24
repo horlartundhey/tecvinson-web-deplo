@@ -17,10 +17,6 @@ const Navbar = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    // const changeLanguage = (lang) => {
-    //     setLanguage(lang);
-    // };
-
     useEffect(() => {
         const handleScroll = () => {
             setIsSticky(window.scrollY > 100);
@@ -34,17 +30,17 @@ const Navbar = () => {
     }, []);
 
     const navitems = [
-        { link: "Home", path: "/" },
-        { link: "About Us", path: "/about-us" },
-        { link: "Services" },
-        { link: "Contact Us", path: "/contact-us" },
+        { id: 'home', link: "Home", path: "/" },
+        { id: 'about', link: "About Us", path: "/about-us" },
+        { id: 'services', link: "Services" },
+        { id: 'contact', link: "Contact Us", path: "/contact-us" },
     ];
 
     const servicesItems = [
-        { name: "IT Training", icon: <HiOutlineComputerDesktop />, bgColor: "#D2F8FF", path: "/trainings" },
-        { name: "Solutions & Product", icon: <HiCodeBracket />, bgColor: "#FFEAE7", path: "/solutions" },
-        { name: "IT Consultancy", icon: <HiOutlineChatBubbleLeftRight />, bgColor: "#F7E3FF", path: "/consultancy" },
-        { name: "Staff Augmentation", icon: <HiOutlineUsers />, bgColor: "#DFFFE8", path: "/staff-augment" },
+        { id: 'training', name: "IT Training", icon: <HiOutlineComputerDesktop />, bgColor: "#D2F8FF", path: "/trainings" },
+        { id: 'solutions', name: "Solutions & Product", icon: <HiCodeBracket />, bgColor: "#FFEAE7", path: "/solutions" },
+        { id: 'consultancy', name: "IT Consultancy", icon: <HiOutlineChatBubbleLeftRight />, bgColor: "#F7E3FF", path: "/consultancy" },
+        { id: 'staff', name: "Staff Augmentation", icon: <HiOutlineUsers />, bgColor: "#DFFFE8", path: "/staff-augment" },
     ];
 
     const handleMouseEnter = () => {
@@ -66,20 +62,18 @@ const Navbar = () => {
     };
 
     return (
-        <header className="w-full bg-white top-0 left-0 right-0" style={{ position: 'relative', zIndex: 50 }}>
-            <nav className={`py-4 lg:px-14 px-4 ${isSticky ? "sticky top-0 left-0 right-0 border-b bg-white duration-300" : ""}`}>
+        <header className="w-full bg-white top-0 left-0 right-0 lg:px-[150px] px-[20px]" style={{ position: 'relative', zIndex: 50 }}>
+            <nav className={`py-4 ${isSticky ? "sticky top-0 left-0 right-0 border-b bg-white duration-300" : ""}`}>
                 <div className="flex justify-between items-center text-base gap-0">
-                    {/* Logo */}
                     <div>
                         <Link to="/"><img src={logo} alt="Logo" /></Link>
                     </div>
 
-                    {/* Desktop Menu */}
                     <ul className="md:flex space-x-12 hidden">
-                        {navitems.map(({ link, path }) => 
+                        {navitems.map(({ id, link, path }) => 
                             link === "Services" ? (
                                 <li
-                                    key={path}
+                                    key={id}
                                     onMouseEnter={handleMouseEnter}
                                     onMouseLeave={handleMouseLeave}
                                     className="relative"
@@ -90,12 +84,13 @@ const Navbar = () => {
 
                                     {isServicesDropdownOpen && (
                                         <div
-                                            className="absolute top-full left-0 mt-2 w-96 bg-white shadow-lg rounded-md p-4 space-y-4 z-50" style={{ zIndex: 60 }} 
-                                            onMouseEnter={handleMouseEnter} 
+                                            className="absolute top-full left-0 mt-2 w-96 bg-white shadow-lg rounded-md p-4 space-y-4 z-50"
+                                            style={{ zIndex: 60 }}
+                                            onMouseEnter={handleMouseEnter}
                                             onMouseLeave={handleMouseLeave}
                                         >
-                                            {servicesItems.map((service, index) => (
-                                                <Link key={index} to={service.path} className="flex items-center space-x-3 hover:text-brandprimary">
+                                            {servicesItems.map((service) => (
+                                                <Link key={service.id} to={service.path} className="flex items-center space-x-3 hover:text-brandprimary">
                                                     <span
                                                         className="flex items-center justify-center w-10 h-10 rounded"
                                                         style={{ backgroundColor: service.bgColor }}
@@ -109,7 +104,7 @@ const Navbar = () => {
                                     )}
                                 </li>
                             ) : (
-                                <li key={path}>
+                                <li key={id}>
                                     <Link to={path} className="text-gray900 hover:text-brandprimary first:font-medium">
                                         {link}
                                     </Link>
@@ -118,14 +113,12 @@ const Navbar = () => {
                         )}
                     </ul>
 
-                    {/* Mobile Menu Button */}
                     <div className="md:hidden">
                         <button onClick={toggleMenu} className="text-brandprimary focus:outline-none">
                             {isMenuOpen ? <FaXmark className="h-6 w-6 text-brandprimary" /> : <FaBars className="h-6 w-6 text-brandprimary" />}
                         </button>
                     </div>
 
-                    {/* Language Options (Desktop Only) */}
                     <div className="hidden md:flex items-center space-x-6">
                         <div className="relative group">
                             <button className="flex items-center focus:outline-none text-gray900">
@@ -137,21 +130,16 @@ const Navbar = () => {
                 </div>
             </nav>
 
-            {/* Mobile Menu (Sliding Sidebar) */}
-            <div
-                className={`fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-900 shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}`}
->
+            <div className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}`}>
                 <div className="p-6 flex flex-col space-y-4">
-                    {/* Close button */}
                     <button onClick={toggleMenu} className="self-end focus:outline-none text-brandprimary">
                         <FaXmark className="h-6 w-6" />
                     </button>
                     
-                    {/* Mobile Navigation Links */}
                     <ul className="flex flex-col space-y-4">
-                        {navitems.map(({ link, path }) => 
+                        {navitems.map(({ id, link, path }) => 
                             link === "Services" ? (
-                                <li key={path} className="relative">
+                                <li key={id} className="relative">
                                     <div
                                         className="flex items-center justify-between text-gray-900 px-4 py-2 hover:bg-gray-100 rounded cursor-pointer"
                                         onClick={toggleMobileServicesDropdown}
@@ -164,13 +152,11 @@ const Navbar = () => {
                                     
                                     {isMobileServicesDropdownOpen && (
                                         <div className="mt-2 pl-4 space-y-2">
-                                            {servicesItems.map((service, index) => (
+                                            {servicesItems.map((service) => (
                                                 <Link
-                                                    key={index}
+                                                    key={service.id}
                                                     to={service.path}
-                                                    onClick={() => {
-                                                        toggleMenu(); // Close the menu when the service is clicked
-                                                    }}
+                                                    onClick={toggleMenu}
                                                     className="flex items-center space-x-3 hover:text-brandprimary"
                                                 >
                                                     <span
@@ -186,10 +172,10 @@ const Navbar = () => {
                                     )}
                                 </li>
                             ) : (
-                                <li key={path}>
+                                <li key={id}>
                                     <Link
                                         to={path}
-                                        onClick={toggleMenu} // Close the menu when the link is clicked
+                                        onClick={toggleMenu}
                                         className="text-gray-900 block px-4 py-2 hover:bg-gray-100 rounded"
                                     >
                                         {link}

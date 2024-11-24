@@ -5,6 +5,7 @@ import mission from '../assets/mission.png';
 import strategy from '../assets/strategy.png';
 import BodyContainer from '../components/BodyContainer';
 import Footer from '../components/Footer';
+import SectionWithScroll from '../components/SectionWithScroll';
 
 const AboutUs = () => {
   const [activeSection, setActiveSection] = useState('about');
@@ -29,6 +30,7 @@ const AboutUs = () => {
 
   return (
     <>
+      <SectionWithScroll>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <nav className="mb-20 sticky top-0 w-full py-10 px-3 bg-white z-10 shadow-sm">
           <ul className="flex flex-wrap justify-center md:justify-start space-x-4 md:space-x-8">
@@ -46,7 +48,9 @@ const AboutUs = () => {
             </li>
           </ul>
         </nav>
+        
 
+        <SectionWithScroll>
         <section id="about" className="mb-32">
           <div className="relative flex flex-col lg:flex-row items-center">
             <div className="w-full lg:w-1/2">
@@ -63,7 +67,10 @@ const AboutUs = () => {
             </div>
           </div>
         </section>
+        </SectionWithScroll>
+        
 
+        <SectionWithScroll>
         <section id="vision" className="mb-32">
           <div className="relative flex flex-col lg:flex-row items-center">
             <div className="w-full lg:w-1/2 lg:ml-auto">
@@ -76,8 +83,10 @@ const AboutUs = () => {
               </p>
             </div>
           </div>
-        </section>
+        </section>  
+        </SectionWithScroll>      
 
+        <SectionWithScroll>
         <section id="mission" className="mb-32">
           <div className="relative flex flex-col lg:flex-row items-center">
             <div className="w-full lg:w-1/2">
@@ -91,7 +100,10 @@ const AboutUs = () => {
             </div>
           </div>
         </section>
+        </SectionWithScroll>
+        
 
+        
         <section id="strategy" className="mb-32">
           <div className="relative flex flex-col lg:flex-row items-center">
             <div className="w-full lg:w-1/2 lg:ml-auto">
@@ -106,6 +118,7 @@ const AboutUs = () => {
           </div>
         </section>
       </div>
+      </SectionWithScroll>
       <BodyContainer />
       <Footer />
     </>

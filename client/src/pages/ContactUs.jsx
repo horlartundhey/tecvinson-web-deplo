@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Mail, Phone, MapPin } from 'lucide-react';
 import Footer from '../components/Footer';
+import SectionWithScroll from '../components/SectionWithScroll';
 
 
 const ContactUs = () => {
@@ -46,6 +47,7 @@ const ContactUs = () => {
 
   return (
     <>
+    <SectionWithScroll>
     <div className='bg-brandbackground w-full m-auto py-[60px] flex lg:flex-row flex-col justify-between items-start gap-[50px] lg:px-[150px] px-[20px]'>
       <div className='lg:w-full w-full flex flex-col justify-center items-start gap-6'>
         <h3 className='font-semibold text-[20px]'>
@@ -60,27 +62,27 @@ const ContactUs = () => {
             {/* Contact Information Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
             {/* Email Card */}
-            <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col items-center text-center">
-                <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mb-4">
-                <Mail className="w-6 h-6 text-blue-600" />
+            <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col items-start text-center">
+                <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-4">
+                <Mail className="w-6 h-6 text-[#07548C]" />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">Send an Email</h3>
                 <p className="text-gray-600">info@tecvinson.com</p>
             </div>
 
             {/* Phone Card */}
-            <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col items-center text-center">
-                <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mb-4">
-                <Phone className="w-6 h-6 text-blue-600" />
+            <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col items-start text-center">
+                <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-4">
+                <Phone className="w-6 h-6 text-[#07548C]" />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">Call Us</h3>
                 <p className="text-gray-600">+46 703 699 614</p>
             </div>
 
             {/* Visit Card */}
-            <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col items-center text-center">
-                <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mb-4">
-                <MapPin className="w-6 h-6 text-blue-600" />
+            <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col items-start text-center">
+                <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-4">
+                <MapPin className="w-6 h-6 text-[#07548C]" />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">Visit Us</h3>
                 <p className="text-gray-600">Rudhögsgatan 10B, 21231 Malmö, Sweden</p>
@@ -229,6 +231,7 @@ const ContactUs = () => {
       </div>
 
 </div>
+</SectionWithScroll>
 <Footer />
 </>
   )

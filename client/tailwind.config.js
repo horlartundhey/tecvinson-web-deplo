@@ -10,7 +10,10 @@ module.exports = {
       colors: {
         'brandbackground': "#FAFAFA",
         'brandprimary': '#0C8CE9'
-      }
+      },
+      boxShadow: {
+        neon: '0 0 10px rgba(0, 123, 255, 0.8), 0 0 20px rgba(0, 123, 255, 0.8)', // Neon blue glow
+      },
     },
   },
   plugins: [],

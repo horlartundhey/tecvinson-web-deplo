@@ -49,7 +49,7 @@ const SoftwareCard = ({
           <img 
             src={imageUrl} 
             alt={title} 
-            className="w-full h-[200px] md:h-[400px] object-cover object-top"
+            className="w-full h-[200px] md:h-[400px] object-cover object-top rounded-xl"
           />
         </div>
 
@@ -61,48 +61,51 @@ const SoftwareCard = ({
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {/* Prerequisites */}
-            <div className='border border-[#E3E3E3] p-9 flex flex-col items-start lg:px-4'>
-              <div className='bg-[#E7F3FD] p-3 rounded-md mb-4'>
-                <MdChecklist  className='w-5 h-5 text-[#07548C]'/>
+            <div className="border border-[#E3E3E3] p-4 sm:p-9 flex flex-col items-start sm:px-4 rounded-xl">
+              <div className="bg-[#E7F3FD] p-2 sm:p-3 rounded-md mb-2 sm:mb-4">
+                <MdChecklist className="w-4 h-4 sm:w-5 sm:h-5 text-[#07548C]" />
               </div>
-              <span className="text-sm font-bold text-[#001533] uppercase mb-2 text-left">Prerequisites:</span>
-              <p className="text-sm text-[#5E5E5E]">{prerequisites}</p>
+              <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">
+                Prerequisites:
+              </span>
+              <p className="text-xs sm:text-sm text-[#5E5E5E]">{prerequisites}</p>
             </div>
 
+
             {/* Duration */}
-            <div className='border border-[#E3E3E3] p-9 flex flex-col items-start lg:px-4'>
-              <div className='bg-[#E7F3FD] p-3 rounded-md mb-4'>
-                <HiClock  className='w-5 h-5 text-[#07548C]'/>
+            <div className='border border-[#E3E3E3] p-4 sm:p-9 flex flex-col items-start sm:px-4 rounded-xl'>
+              <div className='bg-[#E7F3FD] p-2 sm:p-3 rounded-md mb-2 sm:mb-4'>
+                <HiClock  className='w-4 h-4 sm:w-5 sm:h-5 text-[#07548C]'/>
               </div>
-              <span className="text-sm font-bold text-[#001533] uppercase mb-2 text-left">Duration</span>
-              <p className="text-sm text-[#5E5E5E]">{duration}</p>
+              <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">Duration</span>
+              <p className="text-xs sm:text-sm text-[#5E5E5E]">{duration}</p>
             </div>
 
             {/* Cost */}
-            <div className='border border-[#E3E3E3] p-9 flex flex-col items-start lg:px-4'>
-              <div className='bg-[#E7F3FD] p-3 rounded-md mb-4'>
-                <HiBanknotes  className='w-5 h-5 text-[#07548C]'/>
+            <div className='border border-[#E3E3E3] p-4 sm:p-9 flex flex-col items-start sm:px-4 rounded-xl'>
+              <div className='bg-[#E7F3FD] p-2 sm:p-3 rounded-md mb-2 sm:mb-4'>
+                <HiBanknotes  className='w-4 h-4 sm:w-5 sm:h-5 text-[#07548C]'/>
               </div>
-              <span className="text-sm font-bold text-[#001533] uppercase mb-2 text-left">Cost</span>
-              <p className="text-sm text-[#5E5E5E]">${cost}</p>
+              <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">Cost</span>
+              <p className="text-xs sm:text-sm text-[#5E5E5E]">${cost}</p>
             </div>
 
             {/* Dates */}
-            <div className='border border-[#E3E3E3] p-9 flex flex-col items-start lg:px-4'>
-              <div className='bg-[#E7F3FD] p-3 rounded-md mb-4'>
-                <HiCalendarDays className='w-5 h-5 text-[#07548C]'/>
+            <div className='border border-[#E3E3E3] p-4 sm:p-9 flex flex-col items-start sm:px-4 rounded-xl'>
+              <div className='bg-[#E7F3FD] p-2 sm:p-3 rounded-md mb-2 sm:mb-4'>
+                <HiCalendarDays className='w-4 h-4 sm:w-5 sm:h-5 text-[#07548C]'/>
               </div>
-              <span className="text-sm font-bold text-[#001533] uppercase mb-2 text-left">Start Date</span>
-              <p className="text-sm mb-5 text-[#5E5E5E]">{startDate}</p>
-              <span className="text-sm font-bold text-[#001533] uppercase mb-2 text-left">End Date</span>
-              <p className="text-sm text-[#5E5E5E]">{endDate}</p>
+              <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">Start Date</span>
+              <p className="text-xs sm:text-sm text-[#5E5E5E]">{startDate}</p>
+              <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">End Date</span>
+              <p className="text-xs sm:text-sm text-[#5E5E5E]">{endDate}</p>
             </div>
           </div>
 
           {/* Apply Button */}
           <div className="mt-6 flex justify-end">
             <button 
-              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg transition-colors flex items-center"
+              className="bg-blue-500 hover:bg-white hover:text-blue-500 text-white px-6 py-2 rounded-lg transition-all duration-500 ease-in-out delay-100 flex items-center hover:shadow-neon hover:scale-105"
               onClick={handleApplyNow}
               disabled={isLoading} // Disable button when loading
             >
@@ -132,6 +135,7 @@ const SoftwareCard = ({
               )}
             </button>
           </div>
+
         </div>
       </div>
 

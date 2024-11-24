@@ -4,6 +4,9 @@ import SoftwareCard from '../components/SoftwareCard';
 import BodyContainer from '../components/BodyContainer';
 import Footer from '../components/Footer';
 
+import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
+
 const ProductDevelopment = () => {
   const [courses, setCourses] = useState([]);
 
@@ -138,19 +141,47 @@ const ProductDevelopment = () => {
   fetchCourses();
 }, []);
 
+
+
+const fadeInVariants = {
+  hidden: { opacity: 0, y: 50 }, // Initial state: invisible and slightly below
+  visible: { opacity: 1, y: 0 }, // Final state: fully visible in place
+}
+
+const CourseCardWithScrollEffect = ({ index, ...course }) => {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { triggerOnce: true }) // Trigger only once when in view
+
+  return (
+    <motion.div
+      ref={ref}
+      variants={fadeInVariants}
+      initial="hidden"
+      animate={isInView ? 'visible' : 'hidden'}
+      transition={{
+        duration: 0.8,
+        ease: 'easeOut',
+        delay: index * 0.2, // Stagger animation based on index
+      }}
+    >
+      <SoftwareCard {...course} />
+    </motion.div>
+  )
+}
+
   return (
     <>
     <ServiceHero />    
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="mx-auto sm:px-6 lg:px-[150px] px-[20px] py-12">
             <h1 className="text-[40px] font-semibold text-gray-900 mb-8">
                 Software Development Courses
             </h1>
             
             <div className="space-y-6">
-                {courses.map((course) => (
-                <SoftwareCard key={course.number} {...course} />
-                ))}
+                {courses.map((course, index) => (                
+                <CourseCardWithScrollEffect key={course.number} {...course} index={index} />
+                ))}            
             </div>
         </div>
 

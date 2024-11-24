@@ -8,7 +8,12 @@ import solu2 from '../assets/solu2.png'
 import solu3 from '../assets/solu3.png'
 import BodyContainer from '../components/BodyContainer'
 import Footer from '../components/Footer'
+import { motion } from 'framer-motion';
 
+const h3Variants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: { opacity: 1, scale: 1 },
+};
 
 const Solutions = () => {
   return (
@@ -17,11 +22,17 @@ const Solutions = () => {
 
         <div className='bg-brandbackground w-full m-auto py-[60px] flex lg:flex-row flex-col justify-between items-start gap-[50px] lg:px-[150px] px-[20px] mx-4'>
           <div className='lg:w-full w-full flex flex-col justify-center items-start gap-6'>
-            <h3 className='font-semibold text-[14px]'>
-              CONTACT US
-            </h3>
+          <motion.h3
+                className="font-semibold text-[14px]"
+                variants={h3Variants}
+                initial="hidden"
+                animate="visible"
+                transition={{ duration: 0.6, ease: 'easeOut', delay: 0.8}}
+              >
+                OUR APPROACH 
+              </motion.h3>            
             <h1 className='text-[40px] leading-10 font-semibold'>
-                Feel free to reach out to us
+              Our Development Process
             </h1>   
 
               <div className="lg:w-full w-full">
@@ -29,7 +40,7 @@ const Solutions = () => {
                 {/* Contact Information Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
                 {/* Email Card */}
-                <div className="bg-[#FFF7F5] p-6 rounded-lg shadow-sm flex flex-col items-center text-center h-[350px]">
+                <div className="bg-[#FFF7F5] p-6 rounded-lg shadow-sm flex flex-col items-center text-center h-[350px] transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-[#F8E2D5] hover:shadow-lg hover:delay-150">
                     <div className="  flex items-center justify-center mb-4">
                     <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-24 h-24 text-[#B4746A]">
                     <path d="M30.45 74.995C28.5033 70.595 27.4984 65.8364 27.5 61.025C27.5 42.5 42.05 27.495 60 27.495C77.95 27.495 92.5 42.505 92.5 61.025C92.5016 65.8364 91.4967 70.595 89.55 74.995M60 9.995V14.995M110 59.995H105M15 59.995H10M95.35 24.64L91.815 28.175M28.185 28.18L24.65 24.645M72.585 96.53C77.635 94.895 79.665 90.27 80.235 85.62C80.405 84.23 79.26 83.075 77.86 83.075H42.385C42.0431 83.0695 41.704 83.1367 41.39 83.2722C41.076 83.4076 40.7944 83.6081 40.5637 83.8605C40.3331 84.1129 40.1587 84.4115 40.052 84.7363C39.9453 85.0612 39.9089 85.405 39.945 85.745C40.505 90.385 41.915 93.775 47.265 96.525M72.585 96.53L47.265 96.525M72.585 96.53C71.98 106.255 69.17 110.105 60.035 109.995C50.265 110.175 48.015 105.41 47.265 96.525" stroke="#B4746A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -41,7 +52,7 @@ const Solutions = () => {
                 </div>
 
                 {/* Phone Card */}
-                <div className="bg-[#FCF4FF] p-6 rounded-lg shadow-sm flex flex-col items-center text-center h-[350px]">
+                <div className="bg-[#FCF4FF] p-6 rounded-lg shadow-sm flex flex-col items-center text-center h-[350px] transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-[#F2D4F9] hover:shadow-lg hover:delay-150">
                     <div className="  flex items-center justify-center mb-4">
                     {/* <HiCodeBracket className="w-24 h-24 text-[#845896]" /> */}
                     <svg width="120" className="w-24 h-24 text-[#5A7E64]" height="120" viewBox="0 0 120 120" fill="none"  xmlns="http://www.w3.org/2000/svg">
@@ -54,7 +65,7 @@ const Solutions = () => {
                 </div>
 
                 {/* Visit Card */}
-                <div className="bg-[#F2FFF6] p-6 rounded-lg shadow-sm flex flex-col items-center text-center h-[350px]">
+                <div className="bg-[#F2FFF6] p-6 rounded-lg shadow-sm flex flex-col items-center text-center h-[350px] transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-[#D1F6D1] hover:shadow-lg hover:delay-150">
                     <div className="  flex items-center justify-center mb-4">
                     {/* <MdOutlineHandshake className="w-24 h-24 text-[#5A7E64] font-normal" /> */}
                     <svg className="w-24 h-24 text-[#5A7E64]" width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -87,16 +98,16 @@ const Solutions = () => {
       Here are some solutions we've built
     </h1>
 
-    <div className='lg:w-full w-full'>
+    <div className='lg:w-full'>
       {/* About Us Section */}
       <section className="mb-8 md:mb-12">
-        <div className="relative flex flex-col lg:flex-row items-start gap-4">
+        <div className="relative flex flex-col lg:flex-row items-start gap-4 ">
           {/* Image Container */}
           <div className="w-full lg:w-1/2">
             <img 
               src={solu1}
               alt="Team collaborating"
-              className="rounded-lg object-scale-down w-full h-[300px] md:h-[400px] lg:h-[500px]"
+              className="rounded-lg object-cover w-full h-[300px] md:h-[400px] lg:h-[500px]"
             />
           </div>
           
@@ -104,7 +115,7 @@ const Solutions = () => {
           <div className="bg-white rounded-lg shadow-lg p-8 lg:p-12 
                         lg:absolute lg:right-0 lg:top-12 lg:w-[60%]
                         w-full -mt-16 mx-auto lg:mt-[50px] lg:mx-0">
-            <h2 className="text-3xl font-bold mb-6 text-gray-800">Event Management System (D’EventMatcha)</h2>
+            <h2 className="text-3xl font-bold mb-6 text-gray-800">Event Management System <br /> (D’EventMatcha)</h2>
             <p className="text-gray-600 mb-6 leading-relaxed">
               Our Event Management System is designed to create a unified platform for event venue owners, service providers, event planners, and customers. This solution enables seamless engagement and management of events, ensuring a safe and professional experience for all parties involved. Key features include venue booking, service coordination, event planning tools, and customer feedback management.
             </p>
@@ -119,7 +130,7 @@ const Solutions = () => {
             <img 
               src={solu2}
               alt="Person with VR headset"
-              className="rounded-lg object-scale-down w-full h-[300px] md:h-[400px] lg:h-[500px]"
+              className="rounded-lg object-cover w-full h-[300px] md:h-[400px] lg:h-[500px]"
             />
           </div>
           
@@ -142,7 +153,7 @@ const Solutions = () => {
             <img 
               src={solu3}
               alt="Team collaborating"
-              className="rounded-lg object-scale-down w-full h-[300px] md:h-[400px] lg:h-[500px]"
+              className="rounded-lg object-cover w-full h-[300px] md:h-[400px] lg:h-[500px]"
             />
           </div>
           

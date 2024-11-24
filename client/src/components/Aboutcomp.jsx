@@ -15,7 +15,7 @@ const Aboutcomp = () => {
         </h1>
 
         {/* Main White Box Container */}
-        <div className='bg-white border-2 border-solid border-[#E3E3E3] w-full m-auto py-[50px] flex lg:flex-row flex-col justify-between items-start gap-[50px] lg:px-[40px] px-[20px] rounded-xl'>
+        <div className='bg-white border-2 border-solid border-[#E3E3E3] w-full m-auto py-[20px] flex lg:flex-row flex-col justify-between items-start gap-[20px] lg:px-[40px] px-[20px] rounded-xl'>
       
             {/* Image Section */}
             <div className='lg:w-[50%] w-full'>

@@ -40,7 +40,7 @@ const Footer = () => {
   };
 
   return (
-    <div className='bg-white py-10 px-5 lg:px-20'>
+    <div className='bg-white py-10 lg:px-[150px] px-[20px]'>
       {/* Main Footer Content */}
       <div className='flex flex-col lg:flex-row justify-between gap-10'>
         

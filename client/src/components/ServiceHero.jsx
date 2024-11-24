@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import {  HiOutlineComputerDesktop, HiCodeBracket, HiOutlineChatBubbleLeftRight, HiOutlineUsers} from 'react-icons/hi2';
 
 import servicesHero from '../assets/Serviceshero.png';
+import SectionWithScroll from './SectionWithScroll';
 
 const ServiceHero = () => {
   const location = useLocation();
@@ -51,9 +52,10 @@ const ServiceHero = () => {
 
   return (
     <>
+    <SectionWithScroll>
       {/* Navigation Tabs Section */}
-<div className="bg-white border-b border-t-2 pt-6 sticky top-0 z-50">
-  <div className="max-w-6xl mx-auto px-4">
+<div className="bg-white border-b border-t-2 pt-6 sticky top-0 z-50 lg:px-[150px] px-[20px]">
+  <div className=" mx-auto px-4">
     <div className="relative">
       {/* Gradient indicators for scroll */}
       <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none md:hidden" />
@@ -93,8 +95,8 @@ const ServiceHero = () => {
 
 {/* Sub-Tabs Section */}
 {isSubTabPath && (
-  <div className="bg-white border-b border-t-2 pt-6 sticky top-[70px] z-40">
-    <div className="max-w-6xl mx-auto px-4">
+  <div className="bg-white border-b border-t-2 pt-6 sticky top-[70px] z-40 lg:px-[150px] px-[20px]">
+    <div className="mx-auto px-4">
       <div className="relative">
         {/* Gradient indicators for scroll */}
         <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none md:hidden" />
@@ -138,8 +140,8 @@ const ServiceHero = () => {
         <div className="relative mx-auto px-[20px] lg:px-[150px]" style={{ marginTop: '-100px' }}>
         <div className="bg-white rounded-lg shadow-lg p-8 max-w-3xl w-full text-left">
           <div className="flex items-center gap-3 mb-4">
-            <div className="bg-[#D2F8FF] p-3 rounded-lg w-10 h-10">
-              <HiOutlineComputerDesktop />
+            <div className="bg-[#D2F8FF] p-3 rounded-lg w-10 h-10 flex items-center justify-center transition-transform duration-300 ease-in-out hover:rotate-[360deg]">
+              <HiOutlineComputerDesktop className='transition-transform duration-300 ease-in-out hover:rotate-[360deg]'/>
             </div>
             <h2 className="text-xl font-semibold">Professional IT Training Courses</h2>
           </div>
@@ -149,6 +151,7 @@ const ServiceHero = () => {
         </div>
       </div>
     </div>
+    </SectionWithScroll>
     </>
   );
 }

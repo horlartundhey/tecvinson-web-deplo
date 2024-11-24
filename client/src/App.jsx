@@ -20,6 +20,7 @@ import CancelPage from './pages/CancelPage'
 import SuccessPage from './pages/SuccessPage'
 import ScrollToTop from './components/ScrollToTop'
 import { AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 function App() {
 

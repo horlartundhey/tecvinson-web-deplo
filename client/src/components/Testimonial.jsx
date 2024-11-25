@@ -40,11 +40,18 @@ const Testimonial = () => {
           position: 'absolute',
           bottom: '-50px',
           width: '100%',
-          // padding: '0 40px',          
         }}
       >
         {/* Dots on the left */}
-        <div style={{ display: 'flex', gap: '5px', backgroundColor: '#ffffff', padding:'5px 0', borderRadius: '10px' }}>
+        <div
+          style={{
+            display: 'flex',
+            gap: '5px',
+            backgroundColor: '#ffffff',
+            padding: '5px 0',
+            borderRadius: '10px',
+          }}
+        >
           {dots}
         </div>
         {/* Arrows on the right */}
@@ -64,14 +71,14 @@ const Testimonial = () => {
         </div>
       </div>
     ),
-    customPaging: i => (
+    customPaging: (i) => (
       <div
         style={{
           width: '10px',
           height: '10px',
-          backgroundColor: '#c4c4c4',
           borderRadius: '50%',
           display: 'inline-block',
+          backgroundColor: i === sliderRef?.current?.innerSlider?.state?.currentSlide ? '#007bff' : '#c4c4c4',
         }}
       ></div>
     ),
@@ -90,6 +97,7 @@ const Testimonial = () => {
       },
     ],
   };
+  
 
   return (
     <div className='w-full m-auto py-[60px] flex lg:flex-row flex-col justify-between items-start gap-[50px] lg:px-[150px] px-[20px]'>
@@ -104,7 +112,7 @@ const Testimonial = () => {
             <div className='w-full py-[50px] relative'>
             <Slider ref={sliderRef} {...settings} className="w-full">
             <div className="p-4">
-                  <div className="bg-white p-6 rounded-2xl  w-full h-auto sm:h-auto overflow-hidden border-2 border-solid border-[#E3E3E3]">
+                  <div className="bg-white p-6 rounded-2xl  w-full h-[550px] sm:h-[350px] overflow-hidden border-2 border-solid border-[#E3E3E3]">
                     <p className="text-[16px] italic leading-[24px] text-[#5E5E5E] ">
                     "In the financial services sector, precision and reliability are non-negotiable. Tecvinson AB has provided Core Credit Investment with unparalleled IT consultancy and product development services, enabling us to serve our customers with cutting-edge technology solutions. Their attention to detail and innovative spirit set them apart."
                     </p>
@@ -118,7 +126,7 @@ const Testimonial = () => {
                   </div>
                 </div>
                 <div className="p-4">
-                  <div className="bg-white p-6 rounded-2xl  w-full h-auto sm:h-auto overflow-hidden border-2 border-solid border-[#E3E3E3]">
+                  <div className="bg-white p-6 rounded-2xl  w-full h-[550px] sm:h-[350px] overflow-hidden border-2 border-solid border-[#E3E3E3]">
                     <p className="text-[16px] italic leading-[24px] text-[#5E5E5E] ">
                     "Tecvinson AB has been a vital partner in our mission to empower African professionals and enhance digital financial solutions. Their custom-tailored IT solutions have not only strengthened AfriProEdu’s educational platform but also optimized the operational capabilities of AfriPay. They understand the nuances of our vision and bring it to life with exceptional expertise."
                     </p>
@@ -132,7 +140,7 @@ const Testimonial = () => {
                   </div>
                 </div>
                 <div className="p-4">
-                  <div className="bg-white p-6 rounded-2xl  w-full h-auto sm:h-auto overflow-hidden border-2 border-solid border-[#E3E3E3]">
+                  <div className="bg-white p-6 rounded-2xl  w-full h-[550px] sm:h-[350px] overflow-hidden border-2 border-solid border-[#E3E3E3]">
                     <p className="text-[16px] italic leading-[24px] text-[#5E5E5E] ">
                     "At Redi-School of Integration, technology bridges the gap between communities, and Tecvinson AB has been our go-to partner for innovative IT solutions. Their ability to create impactful, user-friendly platforms has significantly enhanced our outreach and integration programs. Their team is dedicated, responsive, and a pleasure to work with."
                     </p>
@@ -146,7 +154,7 @@ const Testimonial = () => {
                   </div>
                 </div>
                 <div className="p-4">
-                  <div className="bg-white p-6 rounded-2xl  w-full h-auto sm:h-auto overflow-hidden border-2 border-solid border-[#E3E3E3]">
+                  <div className="bg-white p-6 rounded-2xl  w-full h-[550px] sm:h-[350px] overflow-hidden border-2 border-solid border-[#E3E3E3]">
                     <p className="text-[16px] italic leading-[24px] text-[#5E5E5E] ">
                     "Working with Tecvinson AB has been a game-changer for Nordic Bridge Partner AB. Their deep understanding of integration platforms and seamless data solutions has enabled us to streamline our operations and enhance client satisfaction. Their innovative approach and commitment to excellence make them an invaluable partner in our digital transformation journey."
                     </p>
@@ -160,7 +168,7 @@ const Testimonial = () => {
                   </div>
                 </div>
                 <div className="p-4">
-                  <div className="bg-white p-6 rounded-2xl  w-full h-auto sm:h-auto overflow-hidden border-2 border-solid border-[#E3E3E3]">
+                  <div className="bg-white p-6 rounded-2xl  w-full h-[550px] sm:h-[350px] overflow-hidden border-2 border-solid border-[#E3E3E3]">
                     <p className="text-[16px] italic leading-[24px] text-[#5E5E5E] ">
                     "Tecvinson AB's expertise across IT consultancy and managed services has been pivotal for our multiple ventures. Whether supporting our complex integration needs at Nordic Bridge Partner AB or providing scalable solutions for FAStrust AB and Preskriber AB, their dedication to innovation and customer-centric strategies stands out. Tecvinson AB is more than a service provider; they are true partners in our growth."
                     </p>
@@ -174,7 +182,7 @@ const Testimonial = () => {
                   </div>
                 </div>
                 <div className="p-4">
-                  <div className="bg-white p-6 rounded-2xl  w-full h-auto sm:h-auto overflow-hidden border-2 border-solid border-[#E3E3E3]">
+                  <div className="bg-white p-6 rounded-2xl  w-full h-[550px] sm:h-[350px] overflow-hidden border-2 border-solid border-[#E3E3E3]">
                     <p className="text-[16px] italic leading-[24px] text-[#5E5E5E] ">
                     "At Nordic Bridge Sweden, our mission to connect businesses globally relies on robust and reliable IT systems. Tecvinson AB has consistently delivered cutting-edge solutions that align with our strategic goals. Their professionalism and technical know-how have helped us scale with confidence."
                     </p>
@@ -188,7 +196,7 @@ const Testimonial = () => {
                   </div>
                 </div>
                 <div className="p-4">
-                  <div className="bg-white p-6 rounded-2xl  w-full h-auto sm:h-auto overflow-hidden border-2 border-solid border-[#E3E3E3]">
+                  <div className="bg-white p-6 rounded-2xl  w-full h-[550px] sm:h-[350px] overflow-hidden border-2 border-solid border-[#E3E3E3]">
                     <p className="text-[16px] italic leading-[24px] text-[#5E5E5E] ">
                     "BisCom TDigits thrives on delivering top-tier IT products, and Tecvinson AB has been instrumental in ensuring our backend processes are optimized and future-ready. Their collaborative approach and ability to tackle complex challenges head-on have made them a key partner in our success."
                     </p>
@@ -203,7 +211,7 @@ const Testimonial = () => {
                 </div>
                 
                 <div className="p-4">
-                  <div className="bg-white p-6 rounded-2xl  w-full h-auto sm:h-auto overflow-hidden border-2 border-solid border-[#E3E3E3]">
+                  <div className="bg-white p-6 rounded-2xl  w-full h-[550px] sm:h-[350px] overflow-hidden border-2 border-solid border-[#E3E3E3]">
                     <p className="text-[16px] italic leading-[24px] text-[#5E5E5E] ">
                     "Tecvinson AB has been a cornerstone of Gyzer Technologies' success. Their expertise in product development and IT consultancy has empowered us to deliver state-of-the-art solutions to our clients. Tecvinson AB’s commitment to quality and their ability to innovate consistently make them our preferred IT partner."
                     </p>

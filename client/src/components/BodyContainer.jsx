@@ -10,7 +10,7 @@ const BodyContainer = () => {
           Ready to enhance your team’s skills, scale your business, or launch the next big tech product? Whether it's specialized IT training, expert staff augmentation, or end-to-end consultancy and product development, we’ve got you covered.
         </p>
         <Link to="/contact-us" onClick={() => window.scrollTo(0, 0)}>
-          <button className='bg-blue-500 hover:bg-white hover:text-blue-500 text-white px-6 py-2 rounded-lg transition-all duration-500 ease-in-out delay-100 flex items-center hover:shadow-neon hover:scale-105'>
+          <button className='bg-blue-500 text-white px-6 py-2 rounded-lg transition-all duration-500 ease-in-out delay-100 flex items-center hover:shadow-lg hover:scale-105'>
             Contact Us
           </button>
         </Link>

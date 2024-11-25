@@ -14,7 +14,7 @@ const StaffHero = () => {
       id: 'it-training',
       title: 'IT Training',
       icon: HiOutlineComputerDesktop,
-      path: '/services',
+      path: '/trainings',
       description: ' At Tecvinson, we offer professional training courses in various fields. Our courses are designed to equip participants with industry-ready skills in a matter of months.'
     },
     {

@@ -82,7 +82,7 @@ const Trainings = () => {
                   <motion.div
                     key={index}
                     className="bg-white p-6 rounded-xl shadow-md text-center cursor-pointer"
-                    variants={glowVariants}
+                    
                     initial="rest"
                     whileHover="hover"
                     transition={{ duration: 0.3, ease: 'easeInOut' }}

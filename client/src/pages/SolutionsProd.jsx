@@ -40,7 +40,7 @@ const Solutions = () => {
                 {/* Contact Information Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
                 {/* Email Card */}
-                <div className="bg-[#FFF7F5] p-6 rounded-lg shadow-sm flex flex-col items-center text-center h-[350px] transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-[#F8E2D5] hover:shadow-lg hover:delay-150">
+                <div className="bg-[#FFF7F5] p-6 rounded-lg shadow-sm flex flex-col items-center text-center h-[350px] transition-transform duration-300 ease-in-out hover:shadow-lg hover:delay-150">
                     <div className="  flex items-center justify-center mb-4">
                     <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-24 h-24 text-[#B4746A]">
                     <path d="M30.45 74.995C28.5033 70.595 27.4984 65.8364 27.5 61.025C27.5 42.5 42.05 27.495 60 27.495C77.95 27.495 92.5 42.505 92.5 61.025C92.5016 65.8364 91.4967 70.595 89.55 74.995M60 9.995V14.995M110 59.995H105M15 59.995H10M95.35 24.64L91.815 28.175M28.185 28.18L24.65 24.645M72.585 96.53C77.635 94.895 79.665 90.27 80.235 85.62C80.405 84.23 79.26 83.075 77.86 83.075H42.385C42.0431 83.0695 41.704 83.1367 41.39 83.2722C41.076 83.4076 40.7944 83.6081 40.5637 83.8605C40.3331 84.1129 40.1587 84.4115 40.052 84.7363C39.9453 85.0612 39.9089 85.405 39.945 85.745C40.505 90.385 41.915 93.775 47.265 96.525M72.585 96.53L47.265 96.525M72.585 96.53C71.98 106.255 69.17 110.105 60.035 109.995C50.265 110.175 48.015 105.41 47.265 96.525" stroke="#B4746A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -52,7 +52,7 @@ const Solutions = () => {
                 </div>
 
                 {/* Phone Card */}
-                <div className="bg-[#FCF4FF] p-6 rounded-lg shadow-sm flex flex-col items-center text-center h-[350px] transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-[#F2D4F9] hover:shadow-lg hover:delay-150">
+                <div className="bg-[#FCF4FF] p-6 rounded-lg shadow-sm flex flex-col items-center text-center h-[350px] transition-transform duration-300 ease-in-out hover:shadow-lg hover:delay-150">
                     <div className="  flex items-center justify-center mb-4">
                     {/* <HiCodeBracket className="w-24 h-24 text-[#845896]" /> */}
                     <svg width="120" className="w-24 h-24 text-[#5A7E64]" height="120" viewBox="0 0 120 120" fill="none"  xmlns="http://www.w3.org/2000/svg">
@@ -65,7 +65,7 @@ const Solutions = () => {
                 </div>
 
                 {/* Visit Card */}
-                <div className="bg-[#F2FFF6] p-6 rounded-lg shadow-sm flex flex-col items-center text-center h-[350px] transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-[#D1F6D1] hover:shadow-lg hover:delay-150">
+                <div className="bg-[#F2FFF6] p-6 rounded-lg shadow-sm flex flex-col items-center text-center h-[350px] transition-transform duration-300 ease-in-out  hover:shadow-lg hover:delay-150">
                     <div className="  flex items-center justify-center mb-4">
                     {/* <MdOutlineHandshake className="w-24 h-24 text-[#5A7E64] font-normal" /> */}
                     <svg className="w-24 h-24 text-[#5A7E64]" width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -81,7 +81,7 @@ const Solutions = () => {
                         <p className='text-[#001533] font-semibold text-2xl mb-3'>
                         Expand your team with skilled professionals—connect with us today!
                         </p>
-                        <a href="/contact-us" className='inline-flex items-start bg-brandprimary text-white px-6 py-3 rounded-[10px] font-semibold hover:bg-gray-200 transition-colors duration-300'>
+                        <a href="/contact-us" className='inline-flex bg-blue-500 text-white px-6 py-2 rounded-lg transition-all duration-500 ease-in-out delay-100 items-center hover:shadow-lg hover:scale-105'>
                             Contact Us
                         </a>
                     </div>     

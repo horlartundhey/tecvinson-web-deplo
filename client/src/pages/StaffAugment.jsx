@@ -74,7 +74,7 @@ const StaffAugment = () => {
                         <p className='text-[#001533] font-semibold text-2xl mb-8'>
                             Expand your team with skilled professionals—connect with us today!
                         </p>
-                        <a href="/contact-us" className='inline-flex items-center bg-brandprimary text-white px-6 py-3 rounded-[10px] font-semibold hover:bg-gray-200 transition-colors duration-300'>
+                        <a href="/contact-us" className='inline-flex bg-blue-500 text-white px-6 py-2 rounded-lg transition-all duration-500 ease-in-out delay-100 items-center hover:shadow-lg hover:scale-105'>
                             Contact Us
                         </a>
                     </div>

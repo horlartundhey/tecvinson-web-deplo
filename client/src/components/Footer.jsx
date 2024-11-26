@@ -26,7 +26,7 @@ const Footer = () => {
       );
   
       if (response.status === 200) {
-        toast.success("Subscription successful!"); // Display success using toast
+        toast.success("Subscribed successfully!"); // Display success using toast
         setEmail(""); // Clear the email input
       }
     } catch (error) {

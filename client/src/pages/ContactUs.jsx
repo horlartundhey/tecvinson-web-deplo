@@ -86,7 +86,7 @@ const ContactUs = () => {
         });
 
         if (response.status === 200) {
-            toast.success('Message sent successfully!');
+            toast.success('Your message has been sent successfully, we will gett in touch with you shortly!');
             // Reset form fields and errors after success
             setFullName('');
             setEmail('');

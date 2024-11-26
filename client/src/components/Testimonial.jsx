@@ -46,7 +46,7 @@ const Testimonial = () => {
         <div
           style={{
             display: 'flex',
-            gap: '5px',
+            gap: '0px',
             backgroundColor: '#ffffff',
             padding: '5px 0',
             borderRadius: '10px',
@@ -55,7 +55,7 @@ const Testimonial = () => {
           {dots}
         </div>
         {/* Arrows on the right */}
-        <div style={{ display: 'flex', gap: '10px' }}>
+        <div style={{ display: 'flex', gap: '4px' }}>
           <button
             onClick={handlePrevClick}
             className="text-gray-700 hover:text-gray-900 bg-white p-4 rounded-full shadow-md "
@@ -109,7 +109,7 @@ const Testimonial = () => {
                 Our clients’ success stories
             </h1>            
 
-            <div className='w-full py-[50px] relative'>
+            <div className='w-full py-[10px] relative'>
             <Slider ref={sliderRef} {...settings} className="w-full">
             <div className="p-4">
                   <div className="bg-white p-6 rounded-2xl  w-full h-[550px] sm:h-[350px] overflow-hidden border-2 border-solid border-[#E3E3E3]">

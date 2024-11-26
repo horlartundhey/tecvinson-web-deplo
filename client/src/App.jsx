@@ -20,6 +20,8 @@ import CancelPage from './pages/CancelPage'
 import SuccessPage from './pages/SuccessPage'
 import ScrollToTop from './components/ScrollToTop'
 import { AnimatePresence, motion } from 'framer-motion'
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Import toast styles
 
 
 function App() {
@@ -48,7 +50,14 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AnimatePresence>
-
+      <ToastContainer 
+        position="top-right" 
+        autoClose={3000} 
+        hideProgressBar 
+        closeOnClick 
+        pauseOnHover 
+        draggable 
+      />
     </Router>
   )
 }

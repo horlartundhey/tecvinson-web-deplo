@@ -109,30 +109,29 @@ app.post('/api/subscribe', async (req, res) => {
 const contactSchema = new mongoose.Schema({
     fullName: {
         type: String,
-        required: true
+        required: [true, 'Full name is required.']
     },
     email: {
         type: String,
-        required: true,
-        match: [/.+@.+\..+/, 'Please enter a valid email address']
+        required: [true, 'Email is required.'],
+        match: [/.+@.+\..+/, 'Please enter a valid email address.']
     },
     phone: {
         type: String,
-        required: true,
-        match: [/^\+?(\d{1,4}[-\s]?)?(\(?\d{1,4}\)?[-\s]?)?[\d\s-]{7,15}$/, 'Please enter a valid phone number']
-
+        required: [true, 'Phone number is required.'],
+        match: [/^\+?(\d{1,4}[-\s]?)?(\(?\d{1,4}\)?[-\s]?)?[\d\s-]{7,15}$/, 'Please enter a valid phone number.']
     },
     companyName: {
         type: String,
-        required: true
+        required: [true, 'Company name is required.']
     },
     service: {
         type: String,
-        required: true
+        required: [true, 'Service is required.']
     },
     note: {
         type: String,
-        required: true
+        required: [true, 'Note is required.']
     },
     createdAt: {
         type: Date,
@@ -143,37 +142,75 @@ const contactSchema = new mongoose.Schema({
 const Contact = mongoose.model('Contact', contactSchema);
 
 // Handle Contact Form Submission
+// Centralized validation logic for contact form
+const validateContactForm = ({ fullName, email, phone, companyName, service, note }) => {
+    const errors = {};
+
+    if (!fullName || fullName.trim() === '') {
+        errors.fullName = "Full name is required.";
+    }
+
+    if (!email || email.trim() === '' || !/.+@.+\..+/.test(email)) {
+        errors.email = "Please enter a valid email address.";
+    }
+
+    if (!phone || phone.trim() === '' || !/^\+?(\d{1,4}[-\s]?)?(\(?\d{1,4}\)?[-\s]?)?[\d\s-]{7,15}$/.test(phone)) {
+        errors.phone = "Please enter a valid phone number.";
+    }
+
+    if (!companyName || companyName.trim() === '') {
+        errors.companyName = "Company name is required.";
+    }
+
+    if (!service || service.trim() === '') {
+        errors.service = "Service is required.";
+    }
+
+    if (!note || note.trim().length < 10) {
+        errors.note = "Note must be at least 10 characters long.";
+    }
+
+    return errors;
+};
+
+// Handle Contact Form Submission
 app.post('/api/contact', async (req, res) => {
     const { fullName, email, phone, companyName, service, note } = req.body;
 
-    // Validate the input
-    if (!fullName || !email || !phone || !service || !note) {
-        return res.status(400).json({ message: "All fields are required." });
-    }
-
-    // Validate email format
-    if (!/.+@.+\..+/.test(email)) {
-        return res.status(400).json({ message: "Please enter a valid email address." });
+    // Validate input using centralized validation logic
+    const errors = validateContactForm({ fullName, email, phone, companyName, service, note });
+    if (Object.keys(errors).length > 0) {
+        return res.status(400).json({
+            message: "Validation failed. Please correct the errors below.",
+            errors
+        });
     }
 
     try {
         // Save the contact form submission
         const contact = new Contact({
-            fullName,
-            email,
-            phone,
-            companyName,
-            service,
-            note
+            fullName: fullName.trim(),
+            email: email.trim(),
+            phone: phone.trim(),
+            companyName: companyName.trim(),
+            service: service.trim(),
+            note: note.trim()
         });
         await contact.save();
 
         res.status(200).json({ message: "Your message has been sent successfully." });
     } catch (error) {
         console.error("Error saving contact form:", error);
-        res.status(500).json({ message: "Server error" });
+
+        // Specific error handling for duplicate entries, if any
+        if (error.name === 'ValidationError') {
+            return res.status(400).json({ message: "Validation error.", errors: error.errors });
+        }
+
+        res.status(500).json({ message: "Server error. Please try again later." });
     }
 });
+
 
 
 

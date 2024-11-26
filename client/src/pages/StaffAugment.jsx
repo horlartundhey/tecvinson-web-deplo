@@ -32,7 +32,7 @@ const StaffAugment = () => {
                     {/* Contact Information Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
                         {/* Junior Level Consultants */}
-                        <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col  border-t-4 border-[#5D976E] h-[200px]">
+                        <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col  border-t-4 border-[#5D976E] h-auto">
                             {/* Large Number */}
                             <div className="text-gray-300 text-6xl font-bold mb-4">
                             01
@@ -44,7 +44,7 @@ const StaffAugment = () => {
                         </div>
 
                         {/* Intermediate Level Consultants */}
-                        <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col border-t-4 border-[#5D976E] h-[200px]">
+                        <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col border-t-4 border-[#5D976E] h-auto">
                             {/* Large Number */}
                             <div className="text-gray-300 text-6xl font-bold mb-4">
                             02
@@ -56,7 +56,7 @@ const StaffAugment = () => {
                         </div>
 
                         {/* Senior Level Consultants */}
-                        <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col border-t-4 border-[#5D976E] h-[200px]">
+                        <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col border-t-4 border-[#5D976E] h-auto">
                             {/* Large Number */}
                             <div className="text-gray-300 text-6xl font-bold mb-4">
                             03

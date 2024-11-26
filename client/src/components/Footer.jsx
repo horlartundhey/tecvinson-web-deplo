@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import logo from '../assets/teclogo.png'
 import { FaFacebook, FaInstagram, FaLinkedin, FaXTwitter } from 'react-icons/fa6'
 import axios from 'axios';
+import { toast } from "react-toastify";
 
 
 const Footer = () => {
@@ -11,30 +12,33 @@ const Footer = () => {
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
-
+  
     // Basic client-side email validation
     if (!email || !/.+@.+\..+/.test(email)) {
-      setError("Please enter a valid email address.");
+      toast.error("Please enter a valid email address."); // Display error using toast
       return;
     }
-
+  
     try {
-      const response = await axios.post('https://tecvinson-web-server.vercel.app/api/subscribe', { email });
-
+      const response = await axios.post(
+        "https://tecvinson-web-server.vercel.app/api/subscribe",
+        { email }
+      );
+  
       if (response.status === 200) {
-        setMessage("Subscription successful!");
-        setEmail('');
+        toast.success("Subscription successful!"); // Display success using toast
+        setEmail(""); // Clear the email input
       }
     } catch (error) {
       if (error.response) {
         // Server responded with a status other than 200
-        setError(error.response.data.message || "Subscription failed.");
+        toast.error(error.response.data.message || "Subscription failed.");
       } else if (error.request) {
         // Request was made but no response was received
-        setError("No response from the server. Please try again.");
+        toast.error("No response from the server. Please try again.");
       } else {
         // Something else happened
-        setError("An error occurred. Please try again.");
+        toast.error("An error occurred. Please try again.");
       }
     }
   };
@@ -79,9 +83,7 @@ const Footer = () => {
               placeholder="Enter your email"
               value={email}       
               onChange={(e) => {
-                setEmail(e.target.value);
-                setError('');
-                setMessage('');
+                setEmail(e.target.value);               
               }}
               className="p-2 border border-gray-300 rounded-l-md focus:outline-none"
             />

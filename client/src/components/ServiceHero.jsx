@@ -45,8 +45,8 @@ const ServiceHero = () => {
   // Define sub-tabs
   const subTabs = [
     { title: 'Product Management', path: '/product-management' },
-    { title: 'Software Development', path: '/development' },
     { title: 'Product Design', path: '/product-design' },
+    { title: 'Product Development', path: '/development' },
     { title: 'Job Readiness', path: '/job-readiness' },
   ];
 

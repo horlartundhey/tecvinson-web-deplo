@@ -24,9 +24,9 @@ const fadeInVariants = {
         initial="hidden"
         animate={isInView ? 'visible' : 'hidden'}
         transition={{
-          duration: 0.8,
+          duration: 0.3,
           ease: 'easeOut',
-          delay: index * 0.2, // Stagger animation based on index
+          delay: index * 0.1, // Stagger animation based on index
         }}
       >
         <SoftwareCard {...course} />

@@ -2,47 +2,105 @@ import React, { useState } from 'react'
 import { Mail, Phone, MapPin } from 'lucide-react';
 import Footer from '../components/Footer';
 import SectionWithScroll from '../components/SectionWithScroll';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
+import countryList from 'react-select-country-list';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const ContactUs = () => {
     
     const [fullName, setFullName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
-    const [companyName, setCompanyName] = useState('');
-    const [service, setService] = useState('');
-    const [note, setNote] = useState('');
-    const [status, setStatus] = useState('');
-//     const [error, setError] = useState('');
-//   const [message, setMessage] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [companyName, setCompanyName] = useState('');
+  const [service, setService] = useState('');
+  const [note, setNote] = useState('');
+  const [status, setStatus] = useState('');
+  const [selectedCountry, setSelectedCountry] = useState(null);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setStatus('Submitting...');
+  const [errors, setErrors] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    service: '',
+  });
 
-        try {
-            const response = await axios.post('https://tecvinson-web-server.vercel.app/api/contact', {
-                fullName, email, phone, companyName, service, note
-            });
+  const countryOptions = countryList().getData();
 
-            if (response.status === 200) {
-                setStatus('Message sent successfully!');
-                setFullName('');
-                setEmail('');
-                setSubject('');
-                setMessage('');
-            }
-        } catch (error) {
-            setStatus('Error sending message.');
-        }
-    };
-
-      const handleChange = (e) => {
-        setFormData({
-          ...formData,
-          [e.target.name]: e.target.value
-        });
-      };
+  const validate = () => {
+    let isValid = true;
+    const newErrors = {};
+  
+    if (!fullName.trim()) {
+      newErrors.fullName = 'Full name is required.';
+      isValid = false;
+    }
+    if (!email.trim()) {
+      newErrors.email = 'Email address is required.';
+      isValid = false;
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = 'Please enter a valid email address.';
+      isValid = false;
+    }
+    if (!phone.trim()) {
+      newErrors.phone = 'Phone number is required.';
+      isValid = false;
+    } else if (!/^\+?[1-9]\d{1,14}$/.test(phone)) {
+      newErrors.phone = 'Please enter a valid phone number.';
+      isValid = false;
+    }
+    if (!service.trim()) {
+      newErrors.service = 'Please select a service of interest.';
+      isValid = false;
+    }
+  
+    setErrors(newErrors);
+  
+    // Display toast for each validation error
+    Object.keys(newErrors).forEach((key) => {
+      toast.error(newErrors[key]);
+    });
+  
+    return isValid;
+  };
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    if (!validate()) {
+      return; // Validation errors will already be displayed via toast
+    }
+  
+    try {
+      const response = await axios.post('https://tecvinson-web-server.vercel.app/api/contact', {
+        fullName,
+        email,
+        phone,
+        companyName,
+        service,
+        note,
+      });
+  
+      if (response.status === 200) {
+        toast.success('Message sent successfully!');
+        setFullName('');
+        setEmail('');
+        setPhone('');
+        setCompanyName('');
+        setService('');
+        setNote('');
+        setErrors({});
+      }
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || 'Error sending message. Please try again later.'
+      );
+    }
+  };
+  
 
 
   return (
@@ -96,114 +154,120 @@ const ContactUs = () => {
             </p>
 
             
-            {status && <p className="text-brandprimary mb-4">{status}</p>}
+            {/* {status && <p className="text-red mb-4">{status}</p>} */}
 
             <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Full Name */}
                 <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
                     FULL NAME <span className="text-red-500">*</span>
-                </label>
-                <input
+                  </label>
+                  <input
                     type="text"
                     name="fullName"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="Enter your full name"
-                    className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className={`w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                      errors.fullName ? 'border-red-500' : 'border-gray-300'
+                    }`}
                     required
-                />
+                  />
+                  {errors.fullName && <p className="text-red-500 text-sm mt-1">{errors.fullName}</p>}
                 </div>
 
                 {/* Email and Phone Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
+                  {/* Email */}
+                  <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                    EMAIL ADDRESS <span className="text-red-500">*</span>
+                      EMAIL ADDRESS <span className="text-red-500">*</span>
                     </label>
                     <input
-                    type="email"
-                    name="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="example@domain.com"
-                    className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    required
+                      type="email"
+                      name="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="example@domain.com"
+                      className={`w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                        errors.email ? 'border-red-500' : 'border-gray-300'
+                      }`}
+                      required
                     />
-                </div>
-                <div>
+                    {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+                  </div>
+
+                  {/* Phone Number */}
+                  <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                    PHONE NUMBER
+                      PHONE NUMBER <span className="text-red-500">*</span>
                     </label>
-                    <input
-                    type="tel"
-                    name="phone"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    placeholder="XXX XXX XXX XXX"
-                    className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    <PhoneInput
+                      country={selectedCountry ? selectedCountry.value.toLowerCase() : 'us'}
+                      value={phone}
+                      onChange={(value) => setPhone(value)}
+                      placeholder="Enter phone number"
+                      inputStyle={{
+                        width: '100%',
+                        padding: '12px',
+                        border: errors.phone ? '1px solid red' : '1px solid #d1d5db',
+                        borderRadius: '4px',
+                        paddingLeft: '60px',
+                      }}
+                      containerStyle={{
+                        width: '100%',
+                      }}
                     />
-                </div>
-                </div>
-
-                {/* Company Name */}
-                <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                    COMPANY NAME (OPTIONAL)
-                </label>
-                <input
-                    type="text"
-                    name="companyName"
-                    value={companyName}
-                    onChange={(e) => setCompanyName(e.target.value)}
-                    placeholder="Enter your company name"
-                    className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
+                    {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
+                  </div>
                 </div>
 
-                {/* Service of Interest */}
+                {/* Service */}
                 <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
                     SERVICE OF INTEREST <span className="text-red-500">*</span>
-                </label>
-                <select
+                  </label>
+                  <select
                     name="service"
                     value={service}
                     onChange={(e) => setService(e.target.value)}
-                    className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className={`w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                      errors.service ? 'border-red-500' : 'border-gray-300'
+                    }`}
                     required
-                >
+                  >
                     <option value="">Select a service of interest</option>
                     <option value="training">IT Training</option>
                     <option value="consulting">IT Consulting</option>
                     <option value="development">Product Development</option>
                     <option value="staffing">Staff Augmentation</option>
-                </select>
+                  </select>
+                  {errors.service && <p className="text-red-500 text-sm mt-1">{errors.service}</p>}
                 </div>
 
                 {/* Additional Note */}
                 <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
                     ADDITIONAL NOTE (OPTIONAL)
-                </label>
-                <textarea
+                  </label>
+                  <textarea
                     name="note"
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
                     placeholder="Leave a note..."
                     rows={4}
                     className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
+                  />
                 </div>
 
                 {/* Submit Button */}
                 <button
-                type="submit"
-                className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300"
+                  type="submit"
+                  className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300"
                 >
-                Submit
+                  Submit
                 </button>
-            </form>            
+              </form>           
             </div>
             </div>        
       </div>                
@@ -232,6 +296,18 @@ const ContactUs = () => {
 
 </div>
 </SectionWithScroll>
+    <ToastContainer 
+      position="top-right" 
+      autoClose={3000} 
+      hideProgressBar={false} 
+      newestOnTop={false} 
+      closeOnClick 
+      rtl={false} 
+      pauseOnFocusLoss 
+      draggable 
+      pauseOnHover 
+      theme="light"
+    />
 <Footer />
 </>
   )

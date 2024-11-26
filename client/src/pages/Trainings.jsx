@@ -26,7 +26,7 @@ const Trainings = () => {
     },
     {
       icon: <HiCodeBracket className="w-14 h-14" />,
-      title: 'Development',
+      title: 'Product Development',
       description: 'Build expertise in programming and development',
       path: '/development',
     },

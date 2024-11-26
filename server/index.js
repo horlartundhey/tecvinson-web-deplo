@@ -175,11 +175,13 @@ const validateContactForm = ({ fullName, email, phone, companyName, service, not
 
 // Handle Contact Form Submission
 app.post('/api/contact', async (req, res) => {
+    console.log("Incoming request:", req.body); // Log input data
     const { fullName, email, phone, companyName, service, note } = req.body;
 
-    // Validate input using centralized validation logic
+    // Validate input
     const errors = validateContactForm({ fullName, email, phone, companyName, service, note });
     if (Object.keys(errors).length > 0) {
+        console.log("Validation errors:", errors);
         return res.status(400).json({
             message: "Validation failed. Please correct the errors below.",
             errors
@@ -187,7 +189,6 @@ app.post('/api/contact', async (req, res) => {
     }
 
     try {
-        // Save the contact form submission
         const contact = new Contact({
             fullName: fullName.trim(),
             email: email.trim(),
@@ -201,12 +202,9 @@ app.post('/api/contact', async (req, res) => {
         res.status(200).json({ message: "Your message has been sent successfully." });
     } catch (error) {
         console.error("Error saving contact form:", error);
-
-        // Specific error handling for duplicate entries, if any
         if (error.name === 'ValidationError') {
             return res.status(400).json({ message: "Validation error.", errors: error.errors });
         }
-
         res.status(500).json({ message: "Server error. Please try again later." });
     }
 });

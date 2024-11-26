@@ -8,6 +8,7 @@ import countryList from 'react-select-country-list';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 
 const ContactUs = () => {
@@ -69,37 +70,55 @@ const ContactUs = () => {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (!validate()) {
-      return; // Validation errors will already be displayed via toast
+        return; // Validation errors will already be displayed via toast
     }
-  
+
     try {
-      const response = await axios.post('https://tecvinson-web-server.vercel.app/api/contact', {
-        fullName,
-        email,
-        phone,
-        companyName,
-        service,
-        note,
-      });
-  
-      if (response.status === 200) {
-        toast.success('Message sent successfully!');
-        setFullName('');
-        setEmail('');
-        setPhone('');
-        setCompanyName('');
-        setService('');
-        setNote('');
-        setErrors({});
-      }
+        const response = await axios.post('https://tecvinson-web-server.vercel.app/api/contact', {
+            fullName,
+            email,
+            phone,
+            companyName,
+            service,
+            note,
+        });
+
+        if (response.status === 200) {
+            toast.success('Message sent successfully!');
+            // Reset form fields and errors after success
+            setFullName('');
+            setEmail('');
+            setPhone('');
+            setCompanyName('');
+            setService('');
+            setNote('');
+            setErrors({});
+        }
     } catch (error) {
-      toast.error(
-        error.response?.data?.message || 'Error sending message. Please try again later.'
-      );
+        if (error.response) {
+            // Backend errors, such as validation errors (400, 422, etc.)
+            if (error.response.status === 400 || error.response.status === 422) {
+                const errorMessages = Object.values(error.response.data.errors || {});
+                toast.error(`Validation Error: ${errorMessages.join(', ') || 'Please correct the form.'}`);
+            } else {
+                // Generic error response from the backend
+                toast.error(
+                    error.response?.data?.message || 
+                    `Server error: ${error.response.statusText || 'An error occurred.'}`
+                );
+            }
+        } else if (error.request) {
+            // No response received (could be network issue or CORS error)
+            toast.error('Network error: Unable to reach the server. Please try again later.');
+        } else {
+            // Other types of errors (e.g., error in setting up the request)
+            toast.error(`Unexpected error: ${error.message || 'Please try again later.'}`);
+        }
     }
-  };
+};
+
   
 
 
@@ -221,6 +240,20 @@ const ContactUs = () => {
                     {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
                   </div>
                 </div>
+                {/* Company Name */}
+                <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                    COMPANY NAME <span className="text-red-500">*</span>
+                </label>
+                <input
+                    type="text"
+                    name="companyName"
+                    value={companyName}
+                    onChange={(e) => setCompanyName(e.target.value)}
+                    placeholder="Enter your company name"
+                    className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+                </div>
 
                 {/* Service */}
                 <div>
@@ -262,11 +295,16 @@ const ContactUs = () => {
 
                 {/* Submit Button */}
                 <button
-                  type="submit"
-                  className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300"
-                >
-                  Submit
-                </button>
+                    type="submit"
+                    disabled={!fullName || !email || !phone || !service}
+                    className={`w-full py-2 px-4 rounded-md text-white ${
+                        !fullName || !email || !phone || !service
+                        ? 'bg-gray-400 cursor-not-allowed'
+                        : 'bg-blue-600 hover:bg-blue-700'
+                    }`}
+                    >
+                    Submit
+                    </button>
               </form>           
             </div>
             </div>        
@@ -296,7 +334,7 @@ const ContactUs = () => {
 
 </div>
 </SectionWithScroll>
-    <ToastContainer 
+    {/* <ToastContainer 
       position="top-right" 
       autoClose={3000} 
       hideProgressBar={false} 
@@ -307,7 +345,7 @@ const ContactUs = () => {
       draggable 
       pauseOnHover 
       theme="light"
-    />
+    /> */}
 <Footer />
 </>
   )

@@ -30,6 +30,14 @@ function App() {
     <Router>
       <Navbar />
       <ScrollToTop />
+      <ToastContainer 
+        position="top-right" 
+        autoClose={3000} 
+        hideProgressBar 
+        closeOnClick 
+        pauseOnHover 
+        draggable 
+      />
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
@@ -49,15 +57,7 @@ function App() {
           <Route path="/success" element={<SuccessPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </AnimatePresence>
-      <ToastContainer 
-        position="top-right" 
-        autoClose={3000} 
-        hideProgressBar 
-        closeOnClick 
-        pauseOnHover 
-        draggable 
-      />
+      </AnimatePresence>      
     </Router>
   )
 }

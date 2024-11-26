@@ -281,7 +281,7 @@ const ContactUs = () => {
                 {/* Additional Note */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    ADDITIONAL NOTE (OPTIONAL)
+                    ADDITIONAL NOTE <span className="text-red-500">*</span>
                   </label>
                   <textarea
                     name="note"

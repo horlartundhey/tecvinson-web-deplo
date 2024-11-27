@@ -1,16 +1,21 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
+import legacy from '@vitejs/plugin-legacy';
+
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    legacy({
+      targets: ['defaults', 'not IE 11'], // Ensures broad browser compatibility
+    }),
+  ],
   optimizeDeps: {
-    include: ["framer-motion"], // Pre-bundle the dependency
-  },  
+    include: ["framer-motion"],
+  },
   resolve: {
     alias: {
-      '@': '/src', // Allows absolute imports from "src"
+      '@': '/src',
     },
   },
-  
-})
+});

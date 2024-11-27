@@ -105,7 +105,7 @@ const CourseCard = ({
           {/* Apply Button */}
           <div className="mt-6 flex justify-end">
             <button 
-              className="bg-blue-500 hover:bg-white hover:text-blue-500 text-white px-6 py-2 rounded-lg transition-all duration-500 ease-in-out delay-100 flex items-center hover:shadow-neon hover:scale-105"
+              className="bg-blue-500 text-white px-6 py-2 rounded-lg transition-all duration-500 ease-in-out delay-100 flex items-center hover:shadow-lg hover:scale-105"
               onClick={handleApplyNow}
               disabled={isLoading} // Disable button when loading
             >

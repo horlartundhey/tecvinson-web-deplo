@@ -47,7 +47,7 @@ const Trainings = () => {
     hover: {
       boxShadow: '0px 0px 7px 3px rgba(0, 123, 255, 0.4), 0px 0px 10px rgba(0, 123, 255, 0.3)', // Neon blue glow
       scale: 1.02, // Slightly scale up
-      transition: { duration: 0.9, ease: 'easeInOut', delay:0.1 },
+      transition: { duration: 0.2, ease: 'easeInOut', delay:0.1 },
     },
   }
 
@@ -62,7 +62,7 @@ const Trainings = () => {
               className="font-semibold text-[14px]"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, ease: 'easeOut', delay: 0.8 }}
+              transition={{ duration: 0.2, ease: 'easeOut', delay: 0.2 }}
             >
               COURSES OFFERED
             </motion.h3>
@@ -70,7 +70,7 @@ const Trainings = () => {
               className="text-[40px] leading-10 font-semibold"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, ease: 'easeOut', delay: 1 }}
+              transition={{ duration: 0.2, ease: 'easeOut', delay: 0.2}}
             >
               We provide courses in these categories
             </motion.h1>
@@ -81,13 +81,13 @@ const Trainings = () => {
                 {categories.map((category, index) => (
                   <motion.div
                     key={index}
-                    className="bg-white p-6 rounded-xl shadow-md text-center cursor-pointer"
+                    className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center cursor-pointer"
                     
                     initial="rest"
                     whileHover="hover"
                     transition={{ duration: 0.3, ease: 'easeInOut' }}
                   >
-                    <Link to={category.path}>
+                    <Link to={category.path} >
                       <div className="flex justify-center items-center text-blue-600 mb-4">
                         {category.icon}
                       </div>

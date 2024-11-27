@@ -64,7 +64,7 @@ const Services = () => {
                 variants={h3Variants}
                 initial="hidden"
                 animate="visible"
-                transition={{ duration: 0.6, ease: 'easeOut' }}
+                transition={{ duration: 0.2, ease: 'easeOut' }}
               >
                 COURSES OFFERED
               </motion.h3>
@@ -78,7 +78,7 @@ const Services = () => {
                         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                             {categories.map((category, index) => (
                             <Link to={category.path} key={index} className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center ">
-                                <div className=" flex justify-center text-blue-600 mb-4 items-center">
+                                <div className="flex justify-center text-blue-600 mb-4 items-center">
                                 {category.icon}
                                 </div>
                                 <h3 className="text-lg font-semibold text-gray-900 mb-2">{category.title}</h3>

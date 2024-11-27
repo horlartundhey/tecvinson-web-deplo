@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
 import { FaSpinner } from 'react-icons/fa6';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 
 const ApplicationModal = ({ isOpen, onClose, courseData }) => {
   const [formData, setFormData] = useState({
@@ -12,6 +14,7 @@ const ApplicationModal = ({ isOpen, onClose, courseData }) => {
     timezone: '',
     reasonForInterest: ''
   });
+  const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
   const experienceLevels = [
@@ -31,9 +34,24 @@ const ApplicationModal = ({ isOpen, onClose, courseData }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
+    }));
+    setErrors((prev) => ({
+      ...prev,
+      [name]: '', // Clear error when user types
+    }));
+  };
+
+  const handlePhoneChange = (value) => {
+    setFormData((prev) => ({
+      ...prev,
+      phone: value,
+    }));
+    setErrors((prev) => ({
+      ...prev,
+      phone: '', // Clear error when user types
     }));
   };
 
@@ -62,13 +80,28 @@ const ApplicationModal = ({ isOpen, onClose, courseData }) => {
     }
   };
 
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.fullName.trim()) newErrors.fullName = 'Full Name is required.';
+    if (!formData.email.trim() || !/\S+@\S+\.\S+/.test(formData.email))
+      newErrors.email = 'Please enter a valid email.';
+    if (!formData.phone.trim() || formData.phone.length < 10)
+      newErrors.phone = 'Please enter a valid phone number.';
+    if (!formData.currentExperienceLevel)
+      newErrors.currentExperienceLevel = 'Please select your experience level.';
+    if (!formData.timezone) newErrors.timezone = 'Please select your timezone.';
+    if (!formData.reasonForInterest.trim())
+      newErrors.reasonForInterest = 'Please tell us why you are interested in this course.';
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validate()) return;
 
-    if (!formData.fullName || !formData.email || !formData.phoneNumber) {
-      alert('Please fill in all required fields');
-      return;
-    }
+    setLoading(true);
 
     try {
       const response = await fetch('https://tecvinson-web-server.vercel.app/api/save-application', {
@@ -83,7 +116,6 @@ const ApplicationModal = ({ isOpen, onClose, courseData }) => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error('Error response:', errorData);
         throw new Error(errorData.message || 'Unknown error');
       }
 
@@ -93,6 +125,8 @@ const ApplicationModal = ({ isOpen, onClose, courseData }) => {
       }
     } catch (error) {
       console.error('Error submitting application:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -100,7 +134,14 @@ const ApplicationModal = ({ isOpen, onClose, courseData }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-lg max-w-2xl w-full p-6 relative max-h-[90vh] overflow-hidden flex flex-col">
+      <div
+        className="bg-white rounded-lg max-w-2xl w-full p-6 relative flex flex-col"
+        style={{
+          maxHeight: '90vh',
+          overflowY: 'auto',
+          WebkitOverflowScrolling: 'touch',
+        }}
+      >
         <button
           onClick={onClose}
           className="absolute right-4 top-4 text-gray-500 hover:text-gray-700"
@@ -135,6 +176,7 @@ const ApplicationModal = ({ isOpen, onClose, courseData }) => {
                 className="w-full p-2 border border-gray-300 rounded"
                 placeholder="Enter your full name"
               />
+              {errors.fullName && <p className="text-red-500 text-sm mt-1">{errors.fullName}</p>}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -151,22 +193,31 @@ const ApplicationModal = ({ isOpen, onClose, courseData }) => {
                   className="w-full p-2 border border-gray-300 rounded"
                   placeholder="Enter your email"
                 />
+                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Phone Number *
-                </label>
-                <input
-                  type="tel"
-                  name="phoneNumber"
-                  value={formData.phoneNumber}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full p-2 border border-gray-300 rounded"
-                  placeholder="Enter your phone number"
-                />
-              </div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              PHONE NUMBER <span className="text-red-500">*</span>
+            </label>
+            <PhoneInput
+              country="us"
+              value={formData.phone}
+              onChange={handlePhoneChange}
+              placeholder="Enter phone number"
+              inputStyle={{
+                width: '100%',
+                padding: '12px',
+                border: errors.phone ? '1px solid red' : '1px solid #d1d5db',
+                borderRadius: '4px',
+                paddingLeft: '60px',
+              }}
+              containerStyle={{
+                width: '100%',
+              }}
+            />
+            {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
+          </div>
             </div>
 
             <div>

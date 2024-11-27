@@ -5,6 +5,7 @@
     "client": "npm start --prefix client"
   },
   "devDependencies": {
+    "@vitejs/plugin-legacy": "^6.0.0",
     "concurrently": "^9.1.0"
   },
   "dependencies": {

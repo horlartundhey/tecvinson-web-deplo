@@ -157,8 +157,8 @@ const ContactUs = () => {
             </div>
 
             {/* Visit Card */}
-            <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col items-start text-center">
-                <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-4">
+            <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col items-start">
+                <div className="w-12 h-12 bg-blue-50 rounded-lg flex justify-center mb-4">
                 <MapPin className="w-6 h-6 text-[#07548C]" />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">Visit Us</h3>

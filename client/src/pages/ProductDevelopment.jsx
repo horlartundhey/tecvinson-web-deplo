@@ -159,7 +159,7 @@ const CourseCardWithScrollEffect = ({ index, ...course }) => {
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
       transition={{
-        duration: 0.3,
+        duration: 0.2,
         ease: 'easeOut',
         delay: index * 0.1, // Stagger animation based on index
       }}

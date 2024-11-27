@@ -21,6 +21,16 @@ const ProductManCourse = () => {
       const courseData = [
         {
           number: 1,
+          title: "Product Management",
+          imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1732672952/pexels-tima-miroshnichenko-5198252_e3kzty.jpg',
+          prerequisites: "Basic knowledge of Product Management",
+          duration: "3 Months",
+          cost: "500",
+          startDate: "January 15, 2025",
+          endDate: "April 15, 2025"
+        },
+        {
+          number: 1,
           title: "Product Owner",
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1730724287/productOwner_kzhv7s.png',
           prerequisites: "Basic knowledge of Product Ownership",
@@ -72,7 +82,7 @@ const CourseCardWithScrollEffect = ({ index, ...course }) => {
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
       transition={{
-        duration: 0.3,
+        duration: 0.2,
         ease: 'easeOut',
         delay: index * 0.1, // Stagger animation based on index
       }}

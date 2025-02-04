@@ -19,7 +19,7 @@ const Coreservice = () => {
             <div className='bg-[#05385D] w-full m-auto py-[50px] flex flex-col justify-start items-start gap-[30px] lg:px-[40px] px-[20px] rounded-xl'>
 
             {/* Cards Section */}
-                <div className='w-full flex lg:flex-row flex-col justify-between items-start gap-[30px]'>
+                <div className='w-full flex lg:flex-row  flex-col justify-between items-start gap-[30px]'>
 
                 {/* Card 1 */}
                 <div className='bg-[#D2F8FF] w-full h-[240px] rounded-lg p-5 flex flex-col '>

@@ -9,7 +9,7 @@ const ApplicationModal = ({ isOpen, onClose, courseData }) => {
     fullName: '',
     email: '',
     phoneNumber: '',
-    preferredStartDate: '',
+    // preferredStartDate: '',
     currentExperienceLevel: '',
     timezone: '',
     reasonForInterest: ''
@@ -47,46 +47,55 @@ const ApplicationModal = ({ isOpen, onClose, courseData }) => {
   const handlePhoneChange = (value) => {
     setFormData((prev) => ({
       ...prev,
-      phone: value,
+      phoneNumber: value,
     }));
     setErrors((prev) => ({
       ...prev,
-      phone: '', // Clear error when user types
+      phoneNumber: '', // Clear error when user types
     }));
   };
 
-  const redirectToStripe = async () => {
-    try {
-      const response = await fetch('/api/create-checkout-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          courseTitle: courseData.title,
-          amount: courseData.cost,
-          currency: 'usd',
-          customerEmail: formData.email,
-          customerName: formData.fullName
-        }),
-      });
+  // const redirectToStripe = async () => {
+  //   try {
+  //     if (!courseData?.title || !courseData?.cost || !courseData?.category) {
+  //       throw new Error('Incomplete course data for payment');
+  //     }
 
-      const session = await response.json();
-
-      // Redirect to Stripe Checkout
-      window.location.href = session.url;
-    } catch (error) {
-      console.error('Error creating checkout session:', error);
-    }
-  };
+  //     const response = await fetch('/api/create-checkout-session', {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify({          
+  //         courseTitle: courseData.title,
+  //         amount: courseData.cost,
+  //         category: courseData.category,
+  //         currency: 'usd',
+  //         customerEmail: formData.email,
+  //         customerName: formData.fullName,
+  //       }),
+  //     });
+  
+  //     if (!response.ok) {
+  //       throw new Error(`Error: ${response.status} - ${response.statusText}`);
+  //     }
+  
+  //     const session = await response.json();
+  //     window.location.href = session.url;
+  //   } catch (error) {
+  //     console.error('Error creating checkout session:', error);
+  //     setErrors(prev => ({
+  //       ...prev,
+  //       apiError: 'Failed to create checkout session. Please try again.',
+  //     }));
+  //   }
+  // };
 
   const validate = () => {
     const newErrors = {};
     if (!formData.fullName.trim()) newErrors.fullName = 'Full Name is required.';
     if (!formData.email.trim() || !/\S+@\S+\.\S+/.test(formData.email))
       newErrors.email = 'Please enter a valid email.';
-    if (!formData.phone.trim() || formData.phone.length < 10)
-      newErrors.phone = 'Please enter a valid phone number.';
+    if (!formData.phoneNumber.trim() || formData.phoneNumber.length < 10)
+      newErrors.phoneNumber = 'Please enter a valid phone number.';
     if (!formData.currentExperienceLevel)
       newErrors.currentExperienceLevel = 'Please select your experience level.';
     if (!formData.timezone) newErrors.timezone = 'Please select your timezone.';
@@ -103,15 +112,35 @@ const ApplicationModal = ({ isOpen, onClose, courseData }) => {
 
     setLoading(true);
 
+    // Enhanced validation for courseData
+    const requiredCourseFields = ['title', 'category', 'cost'];
+    const missingFields = requiredCourseFields.filter(field => !courseData?.[field]);
+    
+    if (missingFields.length > 0) {
+      console.error('Missing required course data fields:', missingFields);
+      setErrors(prev => ({
+        ...prev,
+        apiError: `Missing required course information: ${missingFields.join(', ')}`
+      }));
+      setLoading(false);
+      return;
+    }
+
+    const requestData = {
+      ...formData,
+      courseTitle: courseData.title,
+      category: courseData.category,
+      courseCost: courseData.cost,      
+    };
+
+    // Log the data being sent
+    console.log('Data being sent:', requestData);
+
     try {
-      const response = await fetch('https://tecvinson-web-server.vercel.app/api/save-application', {
+      const response = await fetch('http://localhost:5000/api/save-application', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          courseTitle: courseData.title,
-          courseCost: courseData.cost,
-        }),
+        body: JSON.stringify(requestData),
       });
 
       if (!response.ok) {
@@ -120,15 +149,23 @@ const ApplicationModal = ({ isOpen, onClose, courseData }) => {
       }
 
       const data = await response.json();
+      
+      // Redirect to Stripe checkout using the URL from the response
       if (data.url) {
-        window.location.href = data.url; // Redirect to Stripe payment
+        window.location.href = data.url;
+      } else {
+        throw new Error('No checkout URL received from server');
       }
     } catch (error) {
       console.error('Error submitting application:', error);
+      setErrors(prev => ({
+        ...prev,
+        apiError: error.message || 'Failed to submit application. Please try again.'
+      }));
     } finally {
       setLoading(false);
     }
-  };
+};
 
   if (!isOpen) return null;
 
@@ -180,45 +217,46 @@ const ApplicationModal = ({ isOpen, onClose, courseData }) => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Email Address *
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full p-2 border border-gray-300 rounded"
-                  placeholder="Enter your email"
-                />
-                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-              </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full p-2 border border-gray-300 rounded"
+                    placeholder="Enter your email"
+                  />
+                  {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+                </div>
 
-              <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              PHONE NUMBER <span className="text-red-500">*</span>
-            </label>
-            <PhoneInput
-              country="us"
-              value={formData.phone}
-              onChange={handlePhoneChange}
-              placeholder="Enter phone number"
-              inputStyle={{
-                width: '100%',
-                padding: '12px',
-                border: errors.phone ? '1px solid red' : '1px solid #d1d5db',
-                borderRadius: '4px',
-                paddingLeft: '60px',
-              }}
-              containerStyle={{
-                width: '100%',
-              }}
-            />
-            {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
-          </div>
+                <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                PHONE NUMBER <span className="text-red-500">*</span>
+              </label>
+              <PhoneInput
+                country="us"
+                value={formData.phoneNumber}
+                onChange={handlePhoneChange}
+                placeholder="Enter phone number"
+                inputStyle={{
+                  width: '100%',
+                  padding: '12px',
+                  border: errors.phoneNumber ? '1px solid red' : '1px solid #d1d5db',
+                  borderRadius: '4px',
+                  paddingLeft: '60px',
+                }}
+                containerStyle={{
+                  width: '100%',
+                }}
+              />
+              {errors.phoneNumber && <p className="text-red-500 text-sm mt-1">{errors.phoneNumber}</p>}
             </div>
+
+          </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">

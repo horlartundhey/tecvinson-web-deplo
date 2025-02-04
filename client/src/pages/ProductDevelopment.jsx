@@ -20,9 +20,10 @@ const ProductDevelopment = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1730727270/image_rycdsz.png',
           prerequisites: "Basic knowledge of Frontend Development",
           duration: "3 Months",
-          cost: "500",
+          cost: "400",
           startDate: "January 15, 2025",
-          endDate: "April 15, 2025"
+          endDate: "April 15, 2025",
+          category: "Product Development"
         },
         {
           number: 2,
@@ -30,9 +31,10 @@ const ProductDevelopment = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1730727335/image_jlj2gh.png',
           prerequisites: "Basic knowledge of Mobile Software Development",
           duration: "3 Months",
-          cost: "500",
+          cost: "400",
           startDate: "January 15, 2025",
-          endDate: "April 15, 2025"
+          endDate: "April 15, 2025",
+          category: "Product Development"
         },
         {
           number: 3,
@@ -40,9 +42,10 @@ const ProductDevelopment = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1730727348/image_uwkhzt.png',
           prerequisites: "Basic knowledge of Backend Development",
           duration: "3 Months",
-          cost: "500",
+          cost: "400",
           startDate: "January 15, 2025",
-          endDate: "April 15, 2025"
+          endDate: "April 15, 2025",
+          category: "Product Development"
         },
         {
           number: 4,
@@ -50,9 +53,10 @@ const ProductDevelopment = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1730727498/image_gm1ywf.png',
           prerequisites: "Basic knowledge of Backend Development",
           duration: "3 Months",
-          cost: "500",
+          cost: "400",
           startDate: "January 15, 2025",
-          endDate: "April 15, 2025"
+          endDate: "April 15, 2025",
+          category: "Product Development"
         },
         {
           number: 5,
@@ -60,9 +64,10 @@ const ProductDevelopment = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1730727509/image_aimrwa.png',
           prerequisites: "Basic knowledge of Backend Development",
           duration: "3 Months",
-          cost: "500",
+          cost: "400",
           startDate: "January 15, 2025",
-          endDate: "April 15, 2025"
+          endDate: "April 15, 2025",
+          category: "Product Development"
         },
         {
           number: 6,
@@ -70,9 +75,10 @@ const ProductDevelopment = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1730727521/image_zi7boq.png',
           prerequisites: "Basic knowledge of Development and Operations",
           duration: "3 Months",
-          cost: "500",
+          cost: "400",
           startDate: "January 15, 2025",
-          endDate: "April 15, 2025"
+          endDate: "April 15, 2025",
+          category: "Product Development"
         },
         {
           number: 7,
@@ -80,9 +86,10 @@ const ProductDevelopment = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1730727543/image_gjkoln.png',
           prerequisites: "Basic knowledge of Software Testing",
           duration: "3 Months",
-          cost: "500",
+          cost: "400",
           startDate: "January 15, 2025",
-          endDate: "April 15, 2025"
+          endDate: "April 15, 2025",
+          category: "Product Development"
         },
         {
           number: 8,
@@ -90,9 +97,10 @@ const ProductDevelopment = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1730727558/image_nvpwvz.png',
           prerequisites: "Basic knowledge of Software Testing",
           duration: "3 Months",
-          cost: "500",
+          cost: "400",
           startDate: "January 15, 2025",
-          endDate: "April 15, 2025"
+          endDate: "April 15, 2025",
+          category: "Product Development"
         },
         {
           number: 9,
@@ -100,9 +108,10 @@ const ProductDevelopment = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1730727567/image_zobchc.png',
           prerequisites: "Basic knowledge of Data Analysis",
           duration: "3 Months",
-          cost: "500",
+          cost: "400",
           startDate: "January 15, 2025",
-          endDate: "April 15, 2025"
+          endDate: "April 15, 2025",
+          category: "Product Development"
         },
         {
           number: 10,
@@ -110,9 +119,10 @@ const ProductDevelopment = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1730727586/image_ieayx1.png',
           prerequisites: "Basic knowledge of Cybersecurity",
           duration: "3 Months",
-          cost: "500",
+          cost: "400",
           startDate: "January 15, 2025",
-          endDate: "April 15, 2025"
+          endDate: "April 15, 2025",
+          category: "Product Development"
         },
         {
           number: 11,
@@ -120,9 +130,10 @@ const ProductDevelopment = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1730727597/image_gm1xpj.png',
           prerequisites: "Basic knowledge of Data Science",
           duration: "3 Months",
-          cost: "500",
+          cost: "400",
           startDate: "January 15, 2025",
-          endDate: "April 15, 2025"
+          endDate: "April 15, 2025",
+          category: "Product Development"
         },
         {
           number: 12,
@@ -130,9 +141,10 @@ const ProductDevelopment = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1732097563/data-engineering_w21ygk.jpg',
           prerequisites: "Basic knowledge of Data Engineering",
           duration: "3 Months",
-          cost: "500",
+          cost: "400",
           startDate: "January 15, 2025",
-          endDate: "April 15, 2025"
+          endDate: "April 15, 2025",
+          category: "Product Development"
         }
       ];
       setCourses(courseData);
@@ -175,7 +187,7 @@ const CourseCardWithScrollEffect = ({ index, ...course }) => {
 
         <div className="mx-auto sm:px-6 lg:px-[150px] px-[20px] py-12">
             <h1 className="text-[40px] font-semibold text-gray-900 mb-8">
-                Software Development Courses
+                Product Development Courses
             </h1>
             
             <div className="space-y-6">

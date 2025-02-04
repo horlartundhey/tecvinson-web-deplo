@@ -48,9 +48,10 @@ const JobReadiness = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1730728323/image_tp2hyp.png',
           prerequisites: "Basic computer literacy",
           duration: "3 Months",
-          cost: "500",
+          cost: "300",
           startDate: "January 15, 2025",
-          endDate: "April 15, 2025"
+          endDate: "April 15, 2025",
+          category: "Job Readiness"
         }
       ];
       setCourses(courseData);

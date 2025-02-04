@@ -47,10 +47,11 @@ const ProductDesign = () => {
                     imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1730728313/image_s5r5j7.png',
                     prerequisites: "Basic knowledge of Product Design",
                     duration: "3 Months",
-                    cost: "500",
+                    cost: "300",
                     startDate: "January 15, 2025",
                     endDate: "April 15, 2025",
-                    description: "Learn how to design user interfaces and experiences for digital products."
+                    description: "Learn how to design user interfaces and experiences for digital products.",
+                    category: "Product Design"
                 },
                 // Add more courses if needed
             ];

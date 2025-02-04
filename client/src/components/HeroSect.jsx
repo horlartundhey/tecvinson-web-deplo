@@ -13,7 +13,7 @@ const HeroSect = () => {
                         Driving Innovation with Simplicity and Togetherness
                     </h1>
                     <p className="text-lg md:text-xl max-w-2xl mx-auto md:mx-0 mb-10">
-                        At Tecvinson, we believe that the best technology solutions are born from simplicity and collaboration. By combining innovative thinking with seamless teamwork.
+                        At Tecvinson, we believe that the best technology solutions are born from simplicity and collaboration, by combining innovative thinking with seamless teamwork.
                     </p>
 
                     <a

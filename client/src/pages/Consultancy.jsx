@@ -116,7 +116,7 @@ const Consultancy = () => {
                 </h1> 
 
                 <div className=" py-10">                                   
-                <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6 items-start justify-center">
+                <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-y-6 gap-x-5 lg:gap-x-[10.25rem] items-start justify-center">
                     <div className="bg-[#FFFFFF] p-4 rounded-lg flex justify-center items-center">
                         <img 
                             src={conglogo} 

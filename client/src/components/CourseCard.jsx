@@ -12,7 +12,8 @@ const CourseCard = ({
   duration, 
   cost, 
   startDate, 
-  endDate,
+  endDate,  
+  category,
   description // Add description field
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,12 +25,13 @@ const CourseCard = ({
     const courseData = {
        title,
        cost,
-       description,
+      //  description,
        prerequisites,
        duration,
        startDate,
        endDate,
-       imageUrl
+       imageUrl,
+       category
     };
     
     console.log("Course Data:", courseData);
@@ -99,6 +101,8 @@ const CourseCard = ({
               <p className="text-xs sm:text-sm text-[#5E5E5E]">{startDate}</p>
               <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">End Date</span>
               <p className="text-xs sm:text-sm text-[#5E5E5E]">{endDate}</p>
+              {/* <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">category</span>
+              <p className="text-xs sm:text-sm text-[#5E5E5E]">{category}</p> */}
             </div>
           </div>
 
@@ -144,7 +148,8 @@ const CourseCard = ({
         onClose={() => setIsModalOpen(false)}
         courseData={{
           title,
-          cost
+          cost,
+          category
         }}
       />
     </>

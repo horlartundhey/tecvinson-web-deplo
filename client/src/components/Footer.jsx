@@ -52,7 +52,7 @@ const Footer = () => {
         <div className='flex flex-col items-start'>
           <img src={logo} alt='Logo' className='mb-4' />
           <p className='text-sm text-gray-600 max-w-xs'>
-          At Tecvinson, we believe that the best technology solutions are born from simplicity and collaboration. By combining innovative thinking with seamless teamwork.
+          At Tecvinson, we believe that the best technology solutions are born from simplicity and collaboration, By combining innovative thinking with seamless teamwork.
           </p>
         </div>
 
@@ -77,7 +77,7 @@ const Footer = () => {
           {message && <p className="text-green-500 mb-4">{message}</p>}
 
           {/* Subscription Form */}
-          <form onSubmit={handleSubscribe} className="flex items-center mb-4">
+          <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row items-stretch mb-4">
             <input
               type="email"
               placeholder="Enter your email"
@@ -93,7 +93,7 @@ const Footer = () => {
             >
               Subscribe
             </button>
-          </form>
+          </form> 
           <div className='flex space-x-4 mt-20'>
             {/* Social Icons - replace with actual icons */}
             <a href='https://linkedin.com/company/tecvinsonab/' target='_blank' className='text-gray-600  text-[20px] hover:text-gray-800'><FaLinkedin /></a>

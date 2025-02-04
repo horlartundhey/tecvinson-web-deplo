@@ -25,7 +25,7 @@ const Aboutcomp = () => {
             {/* Text and Button Section */}
             <div className='lg:w-[50%] w-full flex flex-col justify-start items-start gap-6'>
                 
-                <p className='md:text-[20px] text-[16px] leading-[30px] mb-4 text-justify no-word' style={{ wordSpacing: "0" }}>
+                <p className='md:text-[20px] text-[16px] leading-[1.8] mb-4'>
                 Tecvinson is a dynamic and innovative for-profit organization based in Sweden, committed to delivering exceptional IT Training, Solutions and Product Development, IT Consultancy, and Staff Augmentation services. We serve a diverse clientele, including private individuals, companies, and government entities. Our commitment to excellence, sustainability, and the well-being of our planet, customers, and co-workers is at the heart of everything we do.
                 </p>
 

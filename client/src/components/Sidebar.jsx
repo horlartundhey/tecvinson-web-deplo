@@ -25,7 +25,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className={`h-screen w-64 flex flex-col fixed top-0 left-0 ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'} transition-all duration-300 z-10`}>
+    <div className={`h-screen w-64 flex flex-col fixed  top-0 left-0 ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'} transition-all duration-300 z-10`}>
     {/* Logo */}
     <div className="p-6">
       <div className="flex items-center gap-2">
@@ -40,7 +40,7 @@ const Sidebar = () => {
         <Link
           to={item.path}
           key={index}
-          className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg mb-1 transition-colors
+          className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl mb-1 transition-colors
             ${location.pathname === item.path
               ? 'bg-blue-500 text-white' 
               : `${isDarkMode ? 'text-gray-300 hover:bg-gray-700' : 'text-gray-600 hover:bg-gray-100'}`}

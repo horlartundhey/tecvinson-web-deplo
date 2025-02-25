@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { HiClock } from 'react-icons/hi';
-import { HiBanknotes, HiCalendarDays } from 'react-icons/hi2';
+import { HiBanknotes, HiCalendarDays, HiOutlineBanknotes, HiOutlineCalendarDays, HiOutlineClock } from 'react-icons/hi2';
 import { MdChecklist } from 'react-icons/md';
 import ApplicationModal from './ApplicationModal';
 
@@ -77,7 +77,7 @@ const CourseCard = ({
             {/* Duration */}
             <div className='border border-[#E3E3E3] p-4 sm:p-9 flex flex-col items-start sm:px-4 rounded-xl'>
               <div className='bg-[#E7F3FD] p-2 sm:p-3 rounded-md mb-2 sm:mb-4'>
-                <HiClock  className='w-4 h-4 sm:w-5 sm:h-5 text-[#07548C]'/>
+                <HiOutlineClock  className='w-4 h-4 sm:w-5 sm:h-5 text-[#07548C]'/>
               </div>
               <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">Duration</span>
               <p className="text-xs sm:text-sm text-[#5E5E5E]">{duration}</p>
@@ -86,7 +86,7 @@ const CourseCard = ({
             {/* Cost */}
             <div className='border border-[#E3E3E3] p-4 sm:p-9 flex flex-col items-start sm:px-4 rounded-xl'>
               <div className='bg-[#E7F3FD] p-2 sm:p-3 rounded-md mb-2 sm:mb-4'>
-                <HiBanknotes  className='w-4 h-4 sm:w-5 sm:h-5 text-[#07548C]'/>
+                <HiOutlineBanknotes  className='w-4 h-4 sm:w-5 sm:h-5 text-[#07548C]'/>
               </div>
               <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">Cost</span>
               <p className="text-xs sm:text-sm text-[#5E5E5E]">${cost}</p>
@@ -95,7 +95,7 @@ const CourseCard = ({
             {/* Dates */}
             <div className='border border-[#E3E3E3] p-4 sm:p-9 flex flex-col items-start sm:px-4 rounded-xl'>
               <div className='bg-[#E7F3FD] p-2 sm:p-3 rounded-md mb-2 sm:mb-4'>
-                <HiCalendarDays className='w-4 h-4 sm:w-5 sm:h-5 text-[#07548C]'/>
+                <HiOutlineCalendarDays className='w-4 h-4 sm:w-5 sm:h-5 text-[#07548C]'/>
               </div>
               <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">Start Date</span>
               <p className="text-xs sm:text-sm text-[#5E5E5E]">{startDate}</p>

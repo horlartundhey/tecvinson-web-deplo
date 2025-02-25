@@ -1,55 +1,48 @@
 import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { verifyLoginToken } from '../redux/authSlice';
+import { setToken, verifyLoginToken } from '../redux/authSlice';
+import { store } from '../redux/store';
 
 const VerifyLogin = () => {
-  const { token } = useParams(); // Extract token from URL
+  const { token } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading, error, isAuthenticated } = useSelector(state => state.auth);
+  const { loading, error } = useSelector(state => state.auth);
 
-  console.log('Frontend token:', token); // Log the token for debugging
+  const state = store.getState().auth;
+  console.log({state});
 
+  
   useEffect(() => {
+
+    if (token) {
+      dispatch(setToken(token)); // Save token to Redux state
+    }
+
     const verifyToken = async () => {
-      const result = await dispatch(verifyLoginToken(token)); // Dispatch the token verification action
-      if (verifyLoginToken.fulfilled.match(result)) {
-        navigate('/dashboard'); // Redirect to dashboard on success
-      } else {
-        setTimeout(() => navigate('/login'), 3000); // Redirect to login on failure
+      try {
+        const result = await dispatch(verifyLoginToken(token)).unwrap();
+        if (result) {
+          navigate('/dashboard');
+        }
+      } catch (error) {
+        setTimeout(() => navigate('/login'), 3000);
       }
     };
 
-    if (token) {
-      verifyToken(); // Call the verification function if token exists
-    }
+    verifyToken();
   }, [token, dispatch, navigate]);
 
-  useEffect(() => {
-    // Redirect to dashboard if already authenticated
-    if (isAuthenticated) {
-      navigate('/dashboard');
-    }
-  }, [isAuthenticated, navigate]);
-
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50">
-      <div className="p-8 bg-white rounded-lg shadow-md text-center">
+    <div className="flex justify-center items-center h-screen bg-gray-50">
+      <div className="text-center p-8 bg-white rounded-lg shadow-md">
         {error ? (
-          <div className="text-red-600">
-            <p>{error}</p>
-            <p className="mt-2 text-sm">Redirecting to login page...</p>
-          </div>
+          <div className="text-red-600">{error}</div>
         ) : (
-          <div className="space-y-4">
-            <h2 className="text-xl font-semibold text-gray-800">Verifying your login...</h2>
-            {loading && (
-              <div className="flex justify-center">
-                <div className="w-6 h-6 border-2 border-t-blue-500 border-blue-200 rounded-full animate-spin"></div>
-              </div>
-            )}
-          </div>
+          <>
+            <h2 className="text-xl mb-4">Verifying your login...</h2>
+          </>
         )}
       </div>
     </div>

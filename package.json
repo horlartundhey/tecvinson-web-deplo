@@ -9,6 +9,7 @@
     "concurrently": "^9.1.0"
   },
   "dependencies": {
-    "framer-motion": "^11.11.17"
+    "framer-motion": "^11.11.17",
+    "lodash": "^4.17.21"
   }
 }

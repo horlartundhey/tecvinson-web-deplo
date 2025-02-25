@@ -1,55 +1,69 @@
-// authSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-axios.defaults.withCredentials = true;
-axios.defaults.baseURL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
-// Async thunks
+// Async thunks for authentication actions
 export const verifySession = createAsyncThunk(
-  'auth/verifySession',
+  '/verifySession',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get('/api/verify-session');
+      const response = await axios.get('/api/verify-session', {
+        withCredentials: true,
+      });
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || { message: 'Session verification failed' });
+      return rejectWithValue(error.response.data);
     }
   }
 );
 
-export const initiateLogin = createAsyncThunk(
-  'auth/initiateLogin',
+export const loginUser = createAsyncThunk(
+  '/login',
   async ({ email, uniqueCode }, { rejectWithValue }) => {
     try {
-      const response = await axios.post('/api/initiate', { email, uniqueCode });
+      const response = await axios.post(
+        '/api/initiate',
+        { email, uniqueCode },
+        { withCredentials: true }
+      );
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || { message: 'Login initiation failed' });
+      return rejectWithValue(error.response.data);
     }
   }
 );
 
 export const verifyLoginToken = createAsyncThunk(
-  'auth/verifyLoginToken',
+  '/verifyLogin',
   async (token, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`/api/verify/${token}`);
+      console.log('Token being verified:', token);
+      const response = await axios.get(`/api/verify/${token}`, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || { message: 'Token verification failed' });
+      return rejectWithValue(error.response.data);
     }
   }
 );
 
-export const logout = createAsyncThunk(
-  'auth/logout',
+
+// Update the logout thunk to use the correct API URL
+export const logoutUser = createAsyncThunk(
+  '/logout',
   async (_, { rejectWithValue }) => {
     try {
-      await axios.post('/api/logout');
+      // Make sure this URL matches your backend URL
+      await axios.post('http://localhost:5000/api/logout', {}, { 
+        withCredentials: true 
+      });
       return null;
     } catch (error) {
-      return rejectWithValue(error.response?.data || { message: 'Logout failed' });
+      return rejectWithValue(error.response?.data || error.message);
     }
   }
 );
@@ -59,80 +73,64 @@ const authSlice = createSlice({
   initialState: {
     isAuthenticated: false,
     user: null,
+    token: null,
     loading: false,
     error: null,
-    loginMessage: null
+    lastActivity : Date.now(), // Track last activity timestamp instead of timer
   },
   reducers: {
+    setToken: (state, action) => {
+      state.token = action.payload;
+    },
+    setUser: (state, action) => {
+      state.user = action.payload;
+      state.isAuthenticated = !!action.payload;
+    },
     clearError: (state) => {
       state.error = null;
     },
-    clearLoginMessage: (state) => {
-      state.loginMessage = null;
-    }
+    updateLastActivity: (state) => {
+      state.lastActivity = Date.now();
+    },
   },
   extraReducers: (builder) => {
     builder
-      // Verify Session
-      .addCase(verifySession.pending, (state) => {
-        state.loading = true;
-      })
       .addCase(verifySession.fulfilled, (state, action) => {
         state.isAuthenticated = true;
-        state.user = action.payload.user;
+        state.user = action.payload.user || null;
         state.loading = false;
+        state.lastActivity = Date.now();
       })
-      .addCase(verifySession.rejected, (state, action) => {
-        state.isAuthenticated = false;
-        state.user = null;
+      .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message;
-      })
-
-      // Login Initiation
-      .addCase(initiateLogin.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(initiateLogin.fulfilled, (state, action) => {
-        state.loading = false;
-        state.loginMessage = action.payload.message;
-      })
-      .addCase(initiateLogin.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload?.message;
-      })
-
-      // Verify Login Token
-      .addCase(verifyLoginToken.pending, (state) => {
-        state.loading = true;
+        state.isAuthenticated = true;
+        state.user = action.payload.user || null;
+        state.token = action.payload.token || null;
+        state.lastActivity = Date.now();
       })
       .addCase(verifyLoginToken.fulfilled, (state, action) => {
         state.isAuthenticated = true;
-        state.user = action.payload.user;
+        state.user = action.payload.user || null;
         state.loading = false;
+        state.lastActivity = Date.now();
       })
-      .addCase(verifyLoginToken.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload?.message;
-        state.isAuthenticated = false; 
-        state.user = null; 
-      })
-
-      // Logout
-      .addCase(logout.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(logout.fulfilled, (state) => {
+      .addCase(logoutUser.fulfilled, (state) => {
         state.isAuthenticated = false;
         state.user = null;
-        state.loading = false;
+        state.token = null;
+        state.lastActivity = null;
       })
-      .addCase(logout.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload?.message;
-      });
-  }
+      .addMatcher(
+        (action) => action.type.endsWith('/rejected'),
+        (state, action) => {
+          state.loading = false;
+          state.error = action.payload?.message || 'An error occurred';
+          state.isAuthenticated = false;
+          state.user = null;
+        }
+      );
+  },
 });
 
-export const { clearError, clearLoginMessage } = authSlice.actions;
+export const { setToken, setUser, clearError, updateLastActivity } = authSlice.actions;
 export default authSlice.reducer;

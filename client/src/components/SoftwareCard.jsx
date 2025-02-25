@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { HiClock } from 'react-icons/hi';
-import { HiBanknotes, HiCalendarDays } from 'react-icons/hi2';
+import { HiBanknotes, HiCalendarDays, HiOutlineBanknotes, HiOutlineCalendarDays, HiOutlineClock } from 'react-icons/hi2';
 import { MdChecklist } from 'react-icons/md';
 import ApplicationModal from './ApplicationModal';
 
@@ -25,7 +25,7 @@ const SoftwareCard = ({
     const courseData = {
        title,
        cost,
-       description,
+      //  description,
        prerequisites,
        duration,
        startDate,
@@ -62,49 +62,49 @@ const SoftwareCard = ({
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            {/* Prerequisites */}
-            <div className="border border-[#E3E3E3] p-4 sm:p-9 flex flex-col items-start sm:px-4 rounded-xl">
-              <div className="bg-[#E7F3FD] p-2 sm:p-3 rounded-md mb-2 sm:mb-4">
-                <MdChecklist className="w-4 h-4 sm:w-5 sm:h-5 text-[#07548C]" />
-              </div>
-              <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">
-                Prerequisites:
-              </span>
-              <p className="text-xs sm:text-sm text-[#5E5E5E]">{prerequisites}</p>
-            </div>
-
-
-            {/* Duration */}
-            <div className='border border-[#E3E3E3] p-4 sm:p-9 flex flex-col items-start sm:px-4 rounded-xl'>
-              <div className='bg-[#E7F3FD] p-2 sm:p-3 rounded-md mb-2 sm:mb-4'>
-                <HiClock  className='w-4 h-4 sm:w-5 sm:h-5 text-[#07548C]'/>
-              </div>
-              <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">Duration</span>
-              <p className="text-xs sm:text-sm text-[#5E5E5E]">{duration}</p>
-            </div>
-
-            {/* Cost */}
-            <div className='border border-[#E3E3E3] p-4 sm:p-9 flex flex-col items-start sm:px-4 rounded-xl'>
-              <div className='bg-[#E7F3FD] p-2 sm:p-3 rounded-md mb-2 sm:mb-4'>
-                <HiBanknotes  className='w-4 h-4 sm:w-5 sm:h-5 text-[#07548C]'/>
-              </div>
-              <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">Cost</span>
-              <p className="text-xs sm:text-sm text-[#5E5E5E]">${cost}</p>
-            </div>
-
-            {/* Dates */}
-            <div className='border border-[#E3E3E3] p-4 sm:p-9 flex flex-col items-start sm:px-4 rounded-xl'>
-              <div className='bg-[#E7F3FD] p-2 sm:p-3 rounded-md mb-2 sm:mb-4'>
-                <HiCalendarDays className='w-4 h-4 sm:w-5 sm:h-5 text-[#07548C]'/>
-              </div>
-              <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">Start Date</span>
-              <p className="text-xs sm:text-sm text-[#5E5E5E]">{startDate}</p>
-              <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">End Date</span>
-              <p className="text-xs sm:text-sm text-[#5E5E5E]">{endDate}</p>
-              {/* <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">category</span>
-              <p className="text-xs sm:text-sm text-[#5E5E5E]">{category}</p> */}
-            </div>
-          </div>
+                      {/* Prerequisites */}
+                      <div className="border border-[#E3E3E3] p-4 sm:p-9 flex flex-col items-start sm:px-4 rounded-xl">
+                        <div className="bg-[#E7F3FD] p-2 sm:p-3 rounded-md mb-2 sm:mb-4">
+                          <MdChecklist className="w-4 h-4 sm:w-5 sm:h-5 text-[#07548C]" />
+                        </div>
+                        <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">
+                          Prerequisites:
+                        </span>
+                        <p className="text-xs sm:text-sm text-[#5E5E5E]">{prerequisites}</p>
+                      </div>
+          
+          
+                      {/* Duration */}
+                      <div className='border border-[#E3E3E3] p-4 sm:p-9 flex flex-col items-start sm:px-4 rounded-xl'>
+                        <div className='bg-[#E7F3FD] p-2 sm:p-3 rounded-md mb-2 sm:mb-4'>
+                          <HiOutlineClock  className='w-4 h-4 sm:w-5 sm:h-5 text-[#07548C]'/>
+                        </div>
+                        <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">Duration</span>
+                        <p className="text-xs sm:text-sm text-[#5E5E5E]">{duration}</p>
+                      </div>
+          
+                      {/* Cost */}
+                      <div className='border border-[#E3E3E3] p-4 sm:p-9 flex flex-col items-start sm:px-4 rounded-xl'>
+                        <div className='bg-[#E7F3FD] p-2 sm:p-3 rounded-md mb-2 sm:mb-4'>
+                          <HiOutlineBanknotes  className='w-4 h-4 sm:w-5 sm:h-5 text-[#07548C]'/>
+                        </div>
+                        <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">Cost</span>
+                        <p className="text-xs sm:text-sm text-[#5E5E5E]">${cost}</p>
+                      </div>
+          
+                      {/* Dates */}
+                      <div className='border border-[#E3E3E3] p-4 sm:p-9 flex flex-col items-start sm:px-4 rounded-xl'>
+                        <div className='bg-[#E7F3FD] p-2 sm:p-3 rounded-md mb-2 sm:mb-4'>
+                          <HiOutlineCalendarDays className='w-4 h-4 sm:w-5 sm:h-5 text-[#07548C]'/>
+                        </div>
+                        <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">Start Date</span>
+                        <p className="text-xs sm:text-sm text-[#5E5E5E]">{startDate}</p>
+                        <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">End Date</span>
+                        <p className="text-xs sm:text-sm text-[#5E5E5E]">{endDate}</p>
+                        {/* <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">category</span>
+                        <p className="text-xs sm:text-sm text-[#5E5E5E]">{category}</p> */}
+                      </div>
+                    </div>
 
           {/* Apply Button */}
           <div className="mt-6 flex justify-end">

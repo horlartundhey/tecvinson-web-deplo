@@ -8,6 +8,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
+const { generateCohorts } = require('./utils/cohortUtils');
 
 // const router = express.Router();
 
@@ -307,6 +308,13 @@ const applicationSchema = new mongoose.Schema({
       type: String,
       required: true
   },
+  year: { type: String, required: true },
+  cohort: {
+    id: String,
+    name: String,
+    dateRange: String,
+    fullName: String
+  },
   currentExperienceLevel: String,
   timezone: String,
   reasonForInterest: String,
@@ -331,7 +339,6 @@ const applicationSchema = new mongoose.Schema({
       type: Date,
       default: Date.now
   },
-  cohort: String,
   stripeSessionId: String
 });
 
@@ -357,6 +364,20 @@ app.post('/api/save-application', async (req, res) => {
           cancel_url: `${process.env.CLIENT_URL}/cancel`,
       });
 
+      console.log('Received application data:', req.body);
+
+      const { year, cohort } = req.body;
+
+      const cohorts = generateCohorts(parseInt(req.body.year));
+      const selectedCohort = cohorts.find(c => c.id === req.body.cohort.id);
+      
+      if (!selectedCohort || selectedCohort.isDisabled) {
+      console.log('Invalid cohort selected:', cohort);
+      return res.status(400).json({
+        message: 'Selected cohort is not available'
+      });
+    }
+      
       // Save application with all necessary fields
       const application = new Application({
           fullName: req.body.fullName,
@@ -364,12 +385,18 @@ app.post('/api/save-application', async (req, res) => {
           phoneNumber: req.body.phoneNumber,
           currentExperienceLevel: req.body.currentExperienceLevel,
           timezone: req.body.timezone,
+          year: req.body.year,          
           reasonForInterest: req.body.reasonForInterest,
           courseTitle: req.body.courseTitle,
           category: req.body.category,
           courseCost: req.body.courseCost,
           paymentStatus: 'Pending', // Default status before payment completion
-          cohort: req.body.cohort,
+          cohort: {
+            id: req.body.cohort.id,
+            name: req.body.cohort.name,
+            dateRange: req.body.cohort.dateRange,
+            fullName: req.body.cohort.fullName
+          },
           stripeSessionId: session.id,
           applicationDate: new Date(),
       });
@@ -419,75 +446,109 @@ app.post('/api/webhook', express.raw({type: 'application/json'}), async (req, re
 
 
 // Get applications with filters endpoint
-app.get('/api/applications', verifyToken, async (req, res) => {
+app.get('/api/applications', async (req, res) => {
   try {
-      const {
-          category,
-          search,
-          dateFrom,
-          dateTo,
-          cohort,
-          page = 1,
-          limit = 10
-      } = req.query;
+    const {
+      category,
+      search,
+      dateFrom,
+      dateTo,
+      year,
+      cohort,
+      subcategory, // Add subcategory filter
+      page = 1,
+      limit = 10,
+    } = req.query;
 
-      // Build query
-      const query = {};
-      
-      if (category && category !== 'All') {
-          query.category = category;  // Filter by category
-      }
-      
-      if (search) {
-          query.$or = [
-              { fullName: { $regex: search, $options: 'i' } },
-              { email: { $regex: search, $options: 'i' } },
-              { phoneNumber: { $regex: search, $options: 'i' } }
-          ];
-      }
-      
-      if (dateFrom || dateTo) {
-          query.applicationDate = {};
-          if (dateFrom) query.applicationDate.$gte = new Date(dateFrom);
-          if (dateTo) query.applicationDate.$lte = new Date(dateTo);
-      }
+    console.log('Received Query Parameters:', req.query);
 
-      if (cohort && cohort !== 'All') {
-          query.cohort = cohort;
-      }
+    // Build query
+    const query = {};
 
-      // Execute query with pagination
-      const skip = (page - 1) * limit;
-      
-      const [applications, total] = await Promise.all([
-          Application.find(query)
-              .skip(skip)
-              .limit(parseInt(limit))
-              .sort({ applicationDate: -1 }),
-          Application.countDocuments(query)
-      ]);
+    // Apply category filter (exact match)
+    if (category && category !== 'All') {
+      query.category = category; // Exact match instead of regex
+    }
 
-      res.json({
-          applications: applications.map(app => ({
-              id: app._id,
-              name: app.fullName,
-              course: app.courseTitle,
-              dateApplied: app.applicationDate,
-              email: app.email,
-              phone: app.phoneNumber,
-              status: app.paymentStatus,
-              category: app.category,
-              cohort: app.cohort
-          })),
-          totalPages: Math.ceil(total / limit),
-          currentPage: parseInt(page),
-          total
-      });
+    if (search) {
+      query.$or = [
+        { fullName: { $regex: search, $options: 'i' } },
+        { email: { $regex: search, $options: 'i' } },
+        { phoneNumber: { $regex: search, $options: 'i' } },
+      ];
+    }
+
+    if (year) query.year = year;
+    if (cohort) query['cohort.name'] = cohort; // Filter by cohort name
+
+    if (subcategory && subcategory !== 'All Subcategories') {
+      query.courseTitle = subcategory; // Exact match for course title
+    }
+
+    if (dateFrom || dateTo) {
+      query.applicationDate = {};
+      if (dateFrom) query.applicationDate.$gte = new Date(dateFrom);
+      if (dateTo) query.applicationDate.$lte = new Date(dateTo);
+    }
+
+    console.log('MongoDB Query:', query);
+
+    // Execute query with pagination
+    const skip = (page - 1) * limit;
+
+    const [applications, total] = await Promise.all([
+      Application.find(query)
+        .skip(skip)
+        .limit(parseInt(limit))
+        .sort({ applicationDate: -1 }),
+      Application.countDocuments(query),
+    ]);
+
+    console.log('Found Applications Count:', applications.length);
+
+    // Get all unique course titles for the category
+    let courseTitles = [];
+    if (category && category !== 'All') {
+      courseTitles = await Application.distinct('courseTitle', { category });
+    } else {
+      courseTitles = await Application.distinct('courseTitle');
+    }
+
+    console.log('Course Titles:', courseTitles);
+
+    // Map applications to include the new fields
+    const response = {
+      applications: applications.map((app) => ({
+        id: app._id,
+        name: app.fullName,
+        email: app.email,
+        phone: app.phoneNumber,
+        currentExperienceLevel: app.currentExperienceLevel || 'Not provided',
+        reasonForInterest: app.reasonForInterest || 'No reason provided',
+        course: app.courseTitle,
+        category: app.category,
+        year: app.year,
+        cohort: app.cohort || null,
+        courseCost: app.courseCost,
+        paymentStatus: app.paymentStatus,
+        dateApplied: app.applicationDate,
+        status: app.paymentStatus,
+      })),
+      courseTitles: courseTitles.filter(Boolean),
+      totalPages: Math.ceil(total / limit),
+      currentPage: parseInt(page),
+      total,
+    };
+
+    console.log('Final Response:', response);
+
+    res.json(response);
   } catch (error) {
-      console.error('Error fetching applications:', error);
-      res.status(500).json({ message: 'Server error' });
+    console.error('Error fetching applications:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
+
 
 
 

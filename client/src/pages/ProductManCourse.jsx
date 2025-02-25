@@ -25,7 +25,7 @@ const ProductManCourse = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1732672952/pexels-tima-miroshnichenko-5198252_e3kzty.jpg',
           prerequisites: "Basic knowledge of Product Management",
           duration: "3 Months",
-          cost: "300",
+          cost: "5",
           startDate: "January 15, 2025",
           endDate: "April 15, 2025",
           category: "Product Management"

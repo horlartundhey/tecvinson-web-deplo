@@ -79,7 +79,7 @@ const ServiceHero = () => {
                           // Check if current path starts with service path or matches sub-tabs for "IT Training"
                           location.pathname.startsWith(service.path) ||
                           (service.id === 'it-training' && isSubTabPath)
-                            ? 'border-blue-500 text-blue-500 bg-blue-50'
+                            ? 'border-[#0C8CE9] text-[#0C8CE9] bg-blue-50'
                             : 'border-gray-300 text-gray-500 hover:text-gray-800 hover:border-gray-400'
                         }
                       `}

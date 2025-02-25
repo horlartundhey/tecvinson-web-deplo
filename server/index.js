@@ -308,6 +308,11 @@ const applicationSchema = new mongoose.Schema({
       type: String,
       required: true
   },
+  country: {
+    type: String,
+    required: true
+  },
+
   year: { type: String, required: true },
   cohort: {
     id: String,
@@ -366,7 +371,16 @@ app.post('/api/save-application', async (req, res) => {
 
       console.log('Received application data:', req.body);
 
-      const { year, cohort } = req.body;
+      
+
+      const { year, cohort, country } = req.body;
+
+      // Validate country
+      if (!country) {
+        return res.status(400).json({
+        message: 'Country is required'
+      });
+      }
 
       const cohorts = generateCohorts(parseInt(req.body.year));
       const selectedCohort = cohorts.find(c => c.id === req.body.cohort.id);
@@ -385,6 +399,7 @@ app.post('/api/save-application', async (req, res) => {
           phoneNumber: req.body.phoneNumber,
           currentExperienceLevel: req.body.currentExperienceLevel,
           timezone: req.body.timezone,
+          country: req.body.country,
           year: req.body.year,          
           reasonForInterest: req.body.reasonForInterest,
           courseTitle: req.body.courseTitle,
@@ -455,6 +470,7 @@ app.get('/api/applications', async (req, res) => {
       dateTo,
       year,
       cohort,
+      country,
       subcategory, // Add subcategory filter
       page = 1,
       limit = 10,
@@ -480,6 +496,7 @@ app.get('/api/applications', async (req, res) => {
 
     if (year) query.year = year;
     if (cohort) query['cohort.name'] = cohort; // Filter by cohort name
+    if (country) query.country = country; // Filter by country
 
     if (subcategory && subcategory !== 'All Subcategories') {
       query.courseTitle = subcategory; // Exact match for course title
@@ -514,7 +531,11 @@ app.get('/api/applications', async (req, res) => {
       courseTitles = await Application.distinct('courseTitle');
     }
 
+     // Get all unique countries
+     const countries = await Application.distinct('country');
+
     console.log('Course Titles:', courseTitles);
+    console.log('Countries:', countries);
 
     // Map applications to include the new fields
     const response = {
@@ -523,6 +544,7 @@ app.get('/api/applications', async (req, res) => {
         name: app.fullName,
         email: app.email,
         phone: app.phoneNumber,
+        country: app.country || 'Not provided',
         currentExperienceLevel: app.currentExperienceLevel || 'Not provided',
         reasonForInterest: app.reasonForInterest || 'No reason provided',
         course: app.courseTitle,
@@ -535,13 +557,13 @@ app.get('/api/applications', async (req, res) => {
         status: app.paymentStatus,
       })),
       courseTitles: courseTitles.filter(Boolean),
+      countries: countries.filter(Boolean), // Return available countries for filtering
       totalPages: Math.ceil(total / limit),
       currentPage: parseInt(page),
       total,
     };
 
     console.log('Final Response:', response);
-
     res.json(response);
   } catch (error) {
     console.error('Error fetching applications:', error);
@@ -623,108 +645,115 @@ app.post('/api/subscribe', async (req, res) => {
     }
 });
 
-// Define the Contact Schema
 const contactSchema = new mongoose.Schema({
-    fullName: {
-        type: String,
-        required: [true, 'Full name is required.']
-    },
-    email: {
-        type: String,
-        required: [true, 'Email is required.'],
-        match: [/.+@.+\..+/, 'Please enter a valid email address.']
-    },
-    phone: {
-        type: String,
-        required: [true, 'Phone number is required.'],
-        match: [/^\+?(\d{1,4}[-\s]?)?(\(?\d{1,4}\)?[-\s]?)?[\d\s-]{7,15}$/, 'Please enter a valid phone number.']
-    },
-    companyName: {
-        type: String,
-        required: [true, 'Company name is required.']
-    },
-    service: {
-        type: String,
-        required: [true, 'Service is required.']
-    },
-    note: {
-        type: String,
-        required: [true, 'Note is required.']
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    }
+  fullName: {
+      type: String,
+      required: [true, 'Full name is required.']
+  },
+  email: {
+      type: String,
+      required: [true, 'Email is required.'],
+      match: [/.+@.+\..+/, 'Please enter a valid email address.']
+  },
+  phone: {
+      type: String,
+      required: [true, 'Phone number is required.'],
+      match: [/^\+?(\d{1,4}[-\s]?)?(\(?\d{1,4}\)?[-\s]?)?[\d\s-]{7,15}$/, 'Please enter a valid phone number.']
+  },
+  companyName: {
+      type: String,
+      required: [true, 'Company name is required.']
+  },
+  // Updated to array of strings for multi-select
+  services: {
+      type: [String],
+      required: [true, 'At least one service is required.'],
+      validate: {
+          validator: function(v) {
+              return Array.isArray(v) && v.length > 0;
+          },
+          message: 'Please select at least one service of interest.'
+      }
+  },
+  note: {
+      type: String,
+      required: [true, 'Note is required.']
+  },
+  createdAt: {
+      type: Date,
+      default: Date.now
+  }
 });
 
 const Contact = mongoose.model('Contact', contactSchema);
 
 // Handle Contact Form Submission
 // Centralized validation logic for contact form
-const validateContactForm = ({ fullName, email, phone, companyName, service, note }) => {
-    const errors = {};
+const validateContactForm = ({ fullName, email, phone, companyName, services, note }) => {
+  const errors = {};
 
-    if (!fullName || fullName.trim() === '') {
-        errors.fullName = "Full name is required.";
-    }
+  if (!fullName || fullName.trim() === '') {
+      errors.fullName = "Full name is required.";
+  }
 
-    if (!email || email.trim() === '' || !/.+@.+\..+/.test(email)) {
-        errors.email = "Please enter a valid email address.";
-    }
+  if (!email || email.trim() === '' || !/.+@.+\..+/.test(email)) {
+      errors.email = "Please enter a valid email address.";
+  }
 
-    if (!phone || phone.trim() === '' || !/^\+?(\d{1,4}[-\s]?)?(\(?\d{1,4}\)?[-\s]?)?[\d\s-]{7,15}$/.test(phone)) {
-        errors.phone = "Please enter a valid phone number.";
-    }
+  if (!phone || phone.trim() === '' || !/^\+?(\d{1,4}[-\s]?)?(\(?\d{1,4}\)?[-\s]?)?[\d\s-]{7,15}$/.test(phone)) {
+      errors.phone = "Please enter a valid phone number.";
+  }
 
-    if (!companyName || companyName.trim() === '') {
-        errors.companyName = "Company name is required.";
-    }
+  if (!companyName || companyName.trim() === '') {
+      errors.companyName = "Company name is required.";
+  }
 
-    if (!service || service.trim() === '') {
-        errors.service = "Service is required.";
-    }
+  // Validate services array
+  if (!services || !Array.isArray(services) || services.length === 0) {
+      errors.services = "Please select at least one service of interest.";
+  }
 
-    if (!note || note.trim().length < 10) {
-        errors.note = "Note must be at least 10 characters long.";
-    }
+  if (!note || note.trim().length < 10) {
+      errors.note = "Note must be at least 10 characters long.";
+  }
 
-    return errors;
+  return errors;
 };
 
 // Handle Contact Form Submission
 app.post('/api/contact', async (req, res) => {
-    console.log("Incoming request:", req.body); // Log input data
-    const { fullName, email, phone, companyName, service, note } = req.body;
+  console.log("Incoming request:", req.body); // Log input data
+  const { fullName, email, phone, companyName, services, note } = req.body;
 
-    // Validate input
-    const errors = validateContactForm({ fullName, email, phone, companyName, service, note });
-    if (Object.keys(errors).length > 0) {
-        console.log("Validation errors:", errors);
-        return res.status(400).json({
-            message: "Validation failed. Please correct the errors below.",
-            errors
-        });
-    }
+  // Validate input
+  const errors = validateContactForm({ fullName, email, phone, companyName, services, note });
+  if (Object.keys(errors).length > 0) {
+      console.log("Validation errors:", errors);
+      return res.status(400).json({
+          message: "Validation failed. Please correct the errors below.",
+          errors
+      });
+  }
 
-    try {
-        const contact = new Contact({
-            fullName: fullName.trim(),
-            email: email.trim(),
-            phone: phone.trim(),
-            companyName: companyName.trim(),
-            service: service.trim(),
-            note: note.trim()
-        });
-        await contact.save();
+  try {
+      const contact = new Contact({
+          fullName: fullName.trim(),
+          email: email.trim(),
+          phone: phone.trim(),
+          companyName: companyName.trim(),
+          services: services, // Now storing as an array
+          note: note.trim()
+      });
+      await contact.save();
 
-        res.status(200).json({ message: "Your message has been sent successfully." });
-    } catch (error) {
-        console.error("Error saving contact form:", error);
-        if (error.name === 'ValidationError') {
-            return res.status(400).json({ message: "Validation error.", errors: error.errors });
-        }
-        res.status(500).json({ message: "Server error. Please try again later." });
-    }
+      res.status(200).json({ message: "Your message has been sent successfully." });
+  } catch (error) {
+      console.error("Error saving contact form:", error);
+      if (error.name === 'ValidationError') {
+          return res.status(400).json({ message: "Validation error.", errors: error.errors });
+      }
+      res.status(500).json({ message: "Server error. Please try again later." });
+  }
 });
 
 

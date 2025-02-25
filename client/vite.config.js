@@ -7,6 +7,9 @@ export default defineConfig({
     react(),
     svgrPlugin(),
   ],
+  server: {
+    historyApiFallback: true, // Ensures correct routing
+  },
   optimizeDeps: {
     include: ["framer-motion"],
   },

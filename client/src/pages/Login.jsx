@@ -17,7 +17,7 @@ const Login = () => {
     setMessage('');
 
     try {
-      const response = await axios.post('http://localhost:5000/api/initiate', {
+      const response = await axios.post('https://tecvinson-web-server.vercel.app/api/initiate', {
         email,
         uniqueCode
       });

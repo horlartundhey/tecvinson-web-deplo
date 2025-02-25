@@ -5,12 +5,12 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import generateCohorts from './cohortmanager';
 
-
 const ApplicationModal = ({ isOpen, onClose, courseData }) => {
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     phoneNumber: '',
+    country: '',
     courseOfInterest: '',
     year: new Date().getFullYear().toString(),
     cohort: '',
@@ -49,6 +49,29 @@ const ApplicationModal = ({ isOpen, onClose, courseData }) => {
     'GMT+08:00', 'GMT+09:00', 'GMT+10:00', 'GMT+11:00', 'GMT+12:00'
   ];
   
+  const countries = [
+    'Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Australia', 
+    'Austria', 'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 
+    'Bhutan', 'Bolivia', 'Bosnia and Herzegovina', 'Botswana', 'Brazil', 'Brunei', 'Bulgaria', 'Burkina Faso', 'Burundi', 
+    'Cabo Verde', 'Cambodia', 'Cameroon', 'Canada', 'Central African Republic', 'Chad', 'Chile', 'China', 'Colombia', 
+    'Comoros', 'Congo', 'Costa Rica', 'Croatia', 'Cuba', 'Cyprus', 'Czech Republic', 'Denmark', 'Djibouti', 'Dominica', 
+    'Dominican Republic', 'Ecuador', 'Egypt', 'El Salvador', 'Equatorial Guinea', 'Eritrea', 'Estonia', 'Eswatini', 'Ethiopia', 
+    'Fiji', 'Finland', 'France', 'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana', 'Greece', 'Grenada', 'Guatemala', 'Guinea', 
+    'Guinea-Bissau', 'Guyana', 'Haiti', 'Honduras', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 
+    'Israel', 'Italy', 'Jamaica', 'Japan', 'Jordan', 'Kazakhstan', 'Kenya', 'Kiribati', 'Korea, North', 'Korea, South', 
+    'Kosovo', 'Kuwait', 'Kyrgyzstan', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Liechtenstein', 'Lithuania', 
+    'Luxembourg', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Marshall Islands', 'Mauritania', 
+    'Mauritius', 'Mexico', 'Micronesia', 'Moldova', 'Monaco', 'Mongolia', 'Montenegro', 'Morocco', 'Mozambique', 'Myanmar', 
+    'Namibia', 'Nauru', 'Nepal', 'Netherlands', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'North Macedonia', 'Norway', 
+    'Oman', 'Pakistan', 'Palau', 'Palestine', 'Panama', 'Papua New Guinea', 'Paraguay', 'Peru', 'Philippines', 'Poland', 
+    'Portugal', 'Qatar', 'Romania', 'Russia', 'Rwanda', 'Saint Kitts and Nevis', 'Saint Lucia', 'Saint Vincent and the Grenadines', 
+    'Samoa', 'San Marino', 'Sao Tome and Principe', 'Saudi Arabia', 'Senegal', 'Serbia', 'Seychelles', 'Sierra Leone', 
+    'Singapore', 'Slovakia', 'Slovenia', 'Solomon Islands', 'Somalia', 'South Africa', 'South Sudan', 'Spain', 'Sri Lanka', 
+    'Sudan', 'Suriname', 'Sweden', 'Switzerland', 'Syria', 'Taiwan', 'Tajikistan', 'Tanzania', 'Thailand', 'Timor-Leste', 
+    'Togo', 'Tonga', 'Trinidad and Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 'Tuvalu', 'Uganda', 'Ukraine', 
+    'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay', 'Uzbekistan', 'Vanuatu', 'Vatican City', 
+    'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe'
+  ];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -72,7 +95,6 @@ const ApplicationModal = ({ isOpen, onClose, courseData }) => {
       phoneNumber: '', // Clear error when user types
     }));
   };
-
 
   const handleYearChange = (e) => {
     const newYear = e.target.value;
@@ -111,47 +133,15 @@ const ApplicationModal = ({ isOpen, onClose, courseData }) => {
     }));
   };
 
-  // const redirectToStripe = async () => {
-  //   try {
-  //     if (!courseData?.title || !courseData?.cost || !courseData?.category) {
-  //       throw new Error('Incomplete course data for payment');
-  //     }
-
-  //     const response = await fetch('/api/create-checkout-session', {
-  //       method: 'POST',
-  //       headers: { 'Content-Type': 'application/json' },
-  //       body: JSON.stringify({          
-  //         courseTitle: courseData.title,
-  //         amount: courseData.cost,
-  //         category: courseData.category,
-  //         currency: 'usd',
-  //         customerEmail: formData.email,
-  //         customerName: formData.fullName,
-  //       }),
-  //     });
-  
-  //     if (!response.ok) {
-  //       throw new Error(`Error: ${response.status} - ${response.statusText}`);
-  //     }
-  
-  //     const session = await response.json();
-  //     window.location.href = session.url;
-  //   } catch (error) {
-  //     console.error('Error creating checkout session:', error);
-  //     setErrors(prev => ({
-  //       ...prev,
-  //       apiError: 'Failed to create checkout session. Please try again.',
-  //     }));
-  //   }
-  // };
-
   const validate = () => {
     const newErrors = {};
     if (!formData.fullName.trim()) newErrors.fullName = 'Full Name is required.';
     if (!formData.email.trim() || !/\S+@\S+\.\S+/.test(formData.email))
       newErrors.email = 'Please enter a valid email.';
     if (!formData.phoneNumber.trim() || formData.phoneNumber.length < 10)
-      newErrors.phoneNumber = 'Please enter a valid phone number.';   
+      newErrors.phoneNumber = 'Please enter a valid phone number.';
+    if (!formData.country.trim())
+      newErrors.country = 'Please select your country.';
     if (!formData.cohort)
       newErrors.cohort = 'Please select a cohort.';
     if (!formData.currentExperienceLevel)
@@ -196,8 +186,8 @@ const ApplicationModal = ({ isOpen, onClose, courseData }) => {
 
       console.log('Sending application data:', requestData);
 
-      // const response = await fetch('http://localhost:5000/api/save-application', {
-      const response = await fetch('https://tecvinson-web-server.vercel.app/api/save-application', {
+      const response = await fetch('http://localhost:5000/api/save-application', {
+      // const response = await fetch('https://tecvinson-web-server.vercel.app/api/save-application', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -279,46 +269,64 @@ const ApplicationModal = ({ isOpen, onClose, courseData }) => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full p-2 border border-gray-300 rounded"
-                    placeholder="Enter your email"
-                  />
-                  {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-                </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Email Address *
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full p-2 border border-gray-300 rounded"
+                  placeholder="Enter your email"
+                />
+                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+              </div>
 
-                <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                PHONE NUMBER <span className="text-red-500">*</span>
-              </label>
-              <PhoneInput
-                country="us"
-                value={formData.phoneNumber}
-                onChange={handlePhoneChange}
-                placeholder="Enter phone number"
-                inputStyle={{
-                  width: '100%',
-                  padding: '12px',
-                  border: errors.phoneNumber ? '1px solid red' : '1px solid #d1d5db',
-                  borderRadius: '4px',
-                  paddingLeft: '60px',
-                }}
-                containerStyle={{
-                  width: '100%',
-                }}
-              />
-              {errors.phoneNumber && <p className="text-red-500 text-sm mt-1">{errors.phoneNumber}</p>}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  PHONE NUMBER <span className="text-red-500">*</span>
+                </label>
+                <PhoneInput
+                  country="us"
+                  value={formData.phoneNumber}
+                  onChange={handlePhoneChange}
+                  placeholder="Enter phone number"
+                  inputStyle={{
+                    width: '100%',
+                    padding: '12px',
+                    border: errors.phoneNumber ? '1px solid red' : '1px solid #d1d5db',
+                    borderRadius: '4px',
+                    paddingLeft: '60px',
+                  }}
+                  containerStyle={{
+                    width: '100%',
+                  }}
+                />
+                {errors.phoneNumber && <p className="text-red-500 text-sm mt-1">{errors.phoneNumber}</p>}
+              </div>
             </div>
 
-          </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Country <span className="text-red-500">*</span>
+              </label>
+              <select
+                name="country"
+                value={formData.country}
+                onChange={handleInputChange}
+                required
+                className="w-full p-2 border border-gray-300 rounded"
+              >
+                <option value="">Select your country</option>
+                {countries.map(country => (
+                  <option key={country} value={country}>{country}</option>
+                ))}
+              </select>
+              {errors.country && <p className="text-red-500 text-sm mt-1">{errors.country}</p>}
+            </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -333,86 +341,88 @@ const ApplicationModal = ({ isOpen, onClose, courseData }) => {
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Year <span className="text-red-500">*</span>
-              </label>
-              <select
-                name="year"
-                value={formData.year}
-                onChange={(e) => setFormData(prev => ({ ...prev, year: e.target.value }))}
-                className="w-full p-2 border rounded"
-              >
-                {Array.from({ length: 5 }, (_, i) => {
-                  const year = new Date().getFullYear() + i;
-                  return (
-                    <option key={year} value={year}>
-                      {year}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Year <span className="text-red-500">*</span>
+                </label>
+                <select
+                  name="year"
+                  value={formData.year}
+                  onChange={(e) => setFormData(prev => ({ ...prev, year: e.target.value }))}
+                  className="w-full p-2 border rounded"
+                >
+                  {Array.from({ length: 2 }, (_, i) => {
+                    const year = new Date().getFullYear() + i;
+                    return (
+                      <option key={year} value={year}>
+                        {year}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Cohort <span className="text-red-500">*</span>
+                </label>
+                <select
+                  name="cohort"
+                  value={formData.cohort?.id || ''}
+                  onChange={handleCohortChange}
+                  className="w-full p-2 border rounded"
+                >
+                  <option value="">Select Cohort</option>
+                  {cohorts.map((cohort) => (
+                    <option
+                      key={cohort.id}
+                      value={cohort.id}
+                      disabled={cohort.isDisabled}
+                    >
+                      {cohort.name} ({cohort.dateRange})
                     </option>
-                  );
-                })}
-              </select>
+                  ))}
+                </select>
+                {errors.cohort && (
+                  <p className="text-red-500 text-sm mt-1">{errors.cohort}</p>
+                )}
+              </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Cohort <span className="text-red-500">*</span>
-              </label>
-              <select
-                name="cohort"
-                value={formData.cohort?.id || ''}
-                onChange={handleCohortChange}
-                className="w-full p-2 border rounded"
-              >
-                <option value="">Select Cohort</option>
-                {cohorts.map((cohort) => (
-                  <option
-                    key={cohort.id}
-                    value={cohort.id}
-                    disabled={cohort.isDisabled}
-                  >
-                    {cohort.name} ({cohort.dateRange})
-                  </option>
-                ))}
-              </select>
-              {errors.cohort && (
-                <p className="text-red-500 text-sm mt-1">{errors.cohort}</p>
-              )}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium mb-1">
+                  CURRENT EXPERIENCE LEVEL <span className="text-red-500">*</span>
+                </label>
+                <select
+                  name="currentExperienceLevel"
+                  onChange={handleInputChange}
+                  className="w-full p-2 border rounded"
+                >
+                  <option value="">Select experience level</option>
+                  {experienceLevels.map(level => (
+                    <option key={level} value={level}>{level}</option>
+                  ))}
+                </select>
+                {errors.currentExperienceLevel && <p className="text-red-500 text-sm mt-1">{errors.currentExperienceLevel}</p>}
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">
+                  TIME ZONE <span className="text-red-500">*</span>
+                </label>
+                <select
+                  name="timezone"
+                  onChange={handleInputChange}
+                  className="w-full p-2 border rounded"
+                >
+                  <option value="">Select time zone</option>
+                  {timezones.map(timezone => (
+                    <option key={timezone} value={timezone}>{timezone}</option>
+                  ))}
+                </select>
+                {errors.timezone && <p className="text-red-500 text-sm mt-1">{errors.timezone}</p>}
+              </div>
             </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">
-                CURRENT EXPERIENCE LEVEL <span className="text-red-500">*</span>
-              </label>
-              <select
-                name="currentExperienceLevel"
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded"
-              >
-                <option value="">Enter your company name</option>
-                {experienceLevels.map(level => (
-                  <option key={level} value={level}>{level}</option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">
-                TIME ZONE <span className="text-red-500">*</span>
-              </label>
-              <select
-                name="timezone"
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded"
-              >
-                <option value="">Time Zone *</option>
-                {timezones.map(timezone => (
-                  <option key={timezone} value={timezone}>{timezone}</option>
-                ))}
-              </select>
-            </div>
-          </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -427,7 +437,14 @@ const ApplicationModal = ({ isOpen, onClose, courseData }) => {
                 rows={4}
                 placeholder="Tell us why you're interested in taking this course"
               />
+              {errors.reasonForInterest && <p className="text-red-500 text-sm mt-1">{errors.reasonForInterest}</p>}
             </div>
+
+            {errors.apiError && (
+              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+                {errors.apiError}
+              </div>
+            )}
 
             <div className="flex justify-end space-x-4">
               <button

@@ -15,7 +15,9 @@ const ContactUs = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [companyName, setCompanyName] = useState('');
-  const [service, setService] = useState('');
+  const [selectedServices, setSelectedServices] = useState([]);
+
+  // const [service, setService] = useState('');
   const [note, setNote] = useState('');
   const [selectedCountry, setSelectedCountry] = useState({ value: 'se' });
 
@@ -25,6 +27,26 @@ const ContactUs = () => {
     phone: '',
     service: '',
   });
+
+  // Service options
+  const serviceOptions = [
+    "IT Training",
+    "Solutions & Product Development",
+    "IT Consultancy",
+    "Staff Augmentation",
+    "Internship Opportunity",
+  ];
+
+  // Handle service checkbox changes
+  const handleServiceChange = (option) => {
+    setSelectedServices(prevSelected => {
+      if (prevSelected.includes(option)) {
+        return prevSelected.filter(item => item !== option);
+      } else {
+        return [...prevSelected, option];
+      }
+    });
+  };
 
   const validate = () => {
     let isValid = true;
@@ -71,7 +93,7 @@ const ContactUs = () => {
         email,
         phone,
         companyName,
-        service,
+        services: selectedServices,
         note,
       });
 
@@ -81,7 +103,7 @@ const ContactUs = () => {
         setEmail('');
         setPhone('');
         setCompanyName('');
-        setService('');
+        setSelectedServices([]);
         setNote('');
         setErrors({});
       }
@@ -238,33 +260,31 @@ const ContactUs = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    SERVICE OF INTEREST <span className="text-red-500">*</span>
+                    SERVICES OF INTEREST <span className="text-red-500">*</span>
+                    <span className="text-sm font-normal text-gray-500 ml-2">(Select all that apply)</span>
                   </label>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {[
-                      "IT Training",
-                      "Solutions & Product Development",
-                      "IT Consultancy",
-                      "Staff Augmentation",
-                      "Internship Opportunity",
-                    ].map((option) => (
+                    {serviceOptions.map((option) => (
                       <label
                         key={option}
                         className={`flex items-center space-x-2 p-3 border rounded-md cursor-pointer hover:bg-blue-50 transition-all duration-200 
-                          ${service === option ? "border-[#0C8CE9] text-[#0C8CE9] font-semibold" : "border-gray-300 text-gray-700"}`}
+                          ${selectedServices.includes(option) ? "border-[#0C8CE9] bg-blue-50 text-[#0C8CE9] font-semibold" : "border-gray-300 text-gray-700"}`}
                       >
                         <input
-                          type="radio"
-                          name="service"
+                          type="checkbox"
+                          name="services"
                           value={option}
-                          checked={service === option}
-                          onChange={(e) => setService(e.target.value)}
+                          checked={selectedServices.includes(option)}
+                          onChange={() => handleServiceChange(option)}
                           className="text-blue-600 focus:ring-[#0C8CE9]"
                         />
                         <span className="text-sm">{option}</span>
                       </label>
                     ))}
                   </div>
+                  {errors.selectedServices && (
+                    <p className="text-red-500 text-sm mt-1">{errors.selectedServices}</p>
+                  )}
                 </div>
 
 

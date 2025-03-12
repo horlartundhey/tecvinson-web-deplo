@@ -93,6 +93,7 @@ const Testimonial = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          dots: true, // Ensure dots are visible on mobile
         },
       },
     ],
@@ -146,7 +147,7 @@ const Testimonial = () => {
               },
             ].map((testimonial, index) => (
               <div key={index} className="p-4">
-                <div className="bg-white p-6 rounded-2xl border border-gray-300 h-[350px] flex flex-col justify-between">
+                <div className="bg-white p-6 rounded-2xl border border-gray-300 h-auto min-h-[350px] flex flex-col justify-between">
                   <p className="text-base italic leading-relaxed text-[#5E5E5E]">
                     {testimonial.quote}
                   </p>

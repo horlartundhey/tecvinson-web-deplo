@@ -117,136 +117,135 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-// Login initiation endpoint
-app.post('/api/initiate', async (req, res) => {
-    const { email, uniqueCode } = req.body;
+
+// Temporary OTP storage (use Redis in production)
+const otpStorage = new Map();
+
+// Generate a 6-digit OTP
+function generateOTP() {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+}
+
+// Send OTP endpoint
+app.post('/api/send-otp', async (req, res) => {
+  const { email } = req.body;
+
+  // Validate email domain
+  const domain = email.split('@')[1];
+  const allowedDomains = ['tecvinsonacademy.com', 'tecvinson.com'];
   
-    try {
-      // Add rate limiting for security
-    // const attempts = await LoginAttempt.countDocuments({
-    //   email,
-    //   createdAt: { $gt: new Date(Date.now() - 15 * 60 * 1000) } // 15 minutes
-    // });
+  if (!allowedDomains.includes(domain)) {
+    return res.status(400).json({ 
+      message: 'OTP is only available for Tecvinson email domains' 
+    });
+  }
 
-    // if (attempts > 5) {
-    //   return res.status(429).json({ 
-    //     message: 'Too many login attempts. Please try again later.' 
-    //   });
-    // }
-
-      const user = await User.findOne({ email, uniqueCode });
-    
-    // Record the attempt
-    // await LoginAttempt.create({ email });
-    
-    if (!user || !user.isActive) {
-      // Use the same response for security
-      return res.json({ 
-        message: 'If your email and code are valid, you will receive a login link shortly.' 
-      });
+  try {
+    // Check if user exists
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
     }
 
-    // Generate a secure token
-    const loginToken = crypto.randomBytes(32).toString('hex');
-    
-    // Save token with user reference and short expiration
-    await LoginToken.create({
-      email: user.email,
-      token: loginToken,
-      userId: user._id // Add user reference
+    // Generate OTP
+    const otp = generateOTP();
+
+    // Store OTP with expiration (10 minutes)
+    otpStorage.set(email, {
+      otp,
+      createdAt: Date.now(),
+      expires: Date.now() + 10 * 60 * 1000 // 10 minutes
     });
 
-    // Create a client-side route (not API route)
-    const loginLink = `${process.env.CLIENT_URL}/verify-login/${loginToken}`;
-
-    // Send email with improved template
+    // Send OTP via email
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
-      to: user.email,
-      subject: 'Your Secure Login Link',
+      to: email,
+      subject: 'Your Login OTP',
       html: `
-        <div style="padding: 20px; max-width: 600px; margin: 0 auto;">
-          <h2>Secure Login Link</h2>
-          <p>A login was requested for your account. Click the button below to log in:</p>
-          <div style="margin: 25px 0;">
-            <a href="${loginLink}" 
-               style="background: #007bff; color: white; padding: 12px 24px; 
-                      text-decoration: none; border-radius: 4px;">
-              Login to your account
-            </a>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2>One-Time Password (OTP)</h2>
+          <p>Your OTP for login is:</p>
+          <div style="font-size: 24px; font-weight: bold; color: #007bff;">
+            ${otp}
           </div>
-          <p><strong>This link will expire in 1 hour for security.</strong></p>
-          <p>If you didn't request this login, please ignore this email.</p>
+          <p>This OTP will expire in 10 minutes.</p>
         </div>
       `
     });
 
-    res.json({ 
-      message: 'If your email and code are valid, you will receive a login link shortly.' 
+    res.json({ message: 'OTP sent successfully' });
+  } catch (error) {
+    console.error('OTP sending error:', error);
+    res.status(500).json({ message: 'Error sending OTP' });
+  }
+});
+
+// Verify OTP endpoint
+app.post('/api/verify-otp', async (req, res) => {
+  const { email, otp } = req.body;
+
+  try {
+    // Retrieve stored OTP
+    const storedOtpData = otpStorage.get(email);
+
+    // Check if OTP exists and is valid
+    if (!storedOtpData) {
+      return res.status(400).json({ message: 'No OTP found. Please request a new one.' });
+    }
+
+    // Check if OTP has expired
+    if (Date.now() > storedOtpData.expires) {
+      otpStorage.delete(email);
+      return res.status(400).json({ message: 'OTP has expired. Please request a new one.' });
+    }
+
+    // Verify OTP
+    if (storedOtpData.otp !== otp) {
+      return res.status(400).json({ message: 'Invalid OTP' });
+    }
+
+    // Find the user
+    const user = await User.findOne({ email });
+    
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Generate JWT
+    const jwt_token = jwt.sign(
+      { 
+        userId: user._id,
+        email: user.email,
+        role: user.role
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: '24h' }
+    );
+
+    // Set JWT as HttpOnly cookie
+    res.cookie('jwt', jwt_token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 24 * 60 * 60 * 1000 // 24 hours
+    });
+
+    // Clear the used OTP
+    otpStorage.delete(email);
+
+    res.json({
+      user: {
+        email: user.email,
+        role: user.role
+      },
+      message: 'Login successful'
     });
   } catch (error) {
-    console.error('Login initiation error:', error);
-    res.status(500).json({ 
-      message: 'An error occurred. Please try again later.' 
-    });
+    console.error('OTP verification error:', error);
+    res.status(500).json({ message: 'Server error' });
   }
-  });
-
-  // Verify login token and complete login
-  app.get('/api/verify/:token', async (req, res) => {
-    const { token } = req.params;
-  
-    try {
-      const loginToken = await LoginToken.findOneAndDelete({ 
-        token,
-        createdAt: { $gt: new Date(Date.now() - 3600000) } // Verify token age
-      });
-      
-      if (!loginToken) {
-        return res.status(400).json({ message: 'Invalid or expired login link.' });
-      }
-  
-      const user = await User.findOne({ email: loginToken.email });
-      
-      if (!user) {
-        return res.status(400).json({ message: 'User not found.' });
-      }
-  
-      // Update last login
-      user.lastLogin = new Date();
-      await user.save();
-  
-      // Generate JWT
-      const jwt_token = jwt.sign(
-        { 
-          userId: user._id,
-          email: user.email,
-          role: user.role
-        },
-        process.env.JWT_SECRET,
-        { expiresIn: '24h' }
-      );
-  
-      // Set JWT as HttpOnly cookie
-      res.cookie('jwt', jwt_token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 24 * 60 * 60 * 1000 // 24 hours
-      });
-  
-      res.json({
-        user: {
-          email: user.email,
-          role: user.role
-        },
-        message: 'Login successful'
-      });
-    } catch (error) {
-      console.error('Login verification error:', error);
-      res.status(500).json({ message: 'An error occurred. Please try again later.' });
-    }
-  });
+}); 
   
   // Logout endpoint
   app.post('/api/logout', (req, res) => {

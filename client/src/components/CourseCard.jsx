@@ -3,6 +3,7 @@ import { HiClock } from 'react-icons/hi';
 import { HiBanknotes, HiCalendarDays, HiOutlineBanknotes, HiOutlineCalendarDays, HiOutlineClock } from 'react-icons/hi2';
 import { MdChecklist } from 'react-icons/md';
 import ApplicationModal from './ApplicationModal';
+import ImportantNoticeModal from './ImportantNoticeModal';
 
 const CourseCard = ({ 
   number, 
@@ -16,141 +17,103 @@ const CourseCard = ({
   category,
   description // Add description field
 }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);  // Loading state
-
-  const handleApplyNow = () => {
-    setIsLoading(true); // Show loading animation
-
-    const courseData = {
-       title,
-       cost,
-      //  description,
-       prerequisites,
-       duration,
-       startDate,
-       endDate,
-       imageUrl,
-       category
+  const [isNoticeModalOpen, setIsNoticeModalOpen] = useState(false);
+    const [isApplicationModalOpen, setIsApplicationModalOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+  
+    const handleApplyNow = () => {
+      setIsLoading(true);
+  
+      // Simulate a delay (e.g., API call) before opening the notice modal
+      setTimeout(() => {
+        setIsLoading(false);
+        setIsNoticeModalOpen(true); // Open notice modal first
+      }, 1000);
     };
-    
-    console.log("Course Data:", courseData);
-
-    // Simulate a delay (e.g., API call) before opening the modal
-    setTimeout(() => {
-      setIsLoading(false);   // Hide loading animation
-      setIsModalOpen(true);   // Open modal after loading
-    }, 2000); // Adjust the delay as needed
-  };
+  
+    const handleContinueToApplication = () => {
+      setIsNoticeModalOpen(false);
+      setIsApplicationModalOpen(true);
+    };
+  
+    const courseData = {
+      title,
+      cost,
+      prerequisites,
+      duration,
+      startDate,
+      endDate,
+      imageUrl,
+      category
+    };
 
   return (
    <>
-      <div className="flex flex-col md:flex-row gap-6 bg-white p-6 border border-gray-200">
+      <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 p-6 flex flex-col h-[30rem]"> {/* Set a fixed height */}
         {/* Course Image */}
-        <div className="md:w-1/3">
+        <div className="relative">
           <img 
             src={imageUrl} 
             alt={title} 
-            className="w-full h-[200px] md:h-[400px] object-cover object-top rounded-xl	"
+            className="w-full h-[10rem] object-cover rounded-lg"
           />
         </div>
-
-        {/* Course Details */}
-        <div className="md:w-2/3">
-          <h3 className="text-xl font-semibold mb-6">
-            {number}. {title}
-          </h3>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            {/* Prerequisites */}
-            <div className="border border-[#E3E3E3] p-4 sm:p-9 flex flex-col items-start sm:px-4 rounded-xl">
-              <div className="bg-[#E7F3FD] p-2 sm:p-3 rounded-md mb-2 sm:mb-4">
-                <MdChecklist className="w-4 h-4 sm:w-5 sm:h-5 text-[#07548C]" />
-              </div>
-              <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">
-                Prerequisites:
-              </span>
-              <p className="text-xs sm:text-sm text-[#5E5E5E]">{prerequisites}</p>
+        
+        {/* Course Info */}
+        <div className="mt-4 flex flex-col flex-grow">
+          <h3 className="text-[24px] font-semibold text-gray-900 mb-3">{title}</h3>
+          
+          <div className="flex items-center mb-2">
+            <div className="font-bold text-[20px] text-[#C77800]">
+              ${cost}
             </div>
-
-
-            {/* Duration */}
-            <div className='border border-[#E3E3E3] p-4 sm:p-9 flex flex-col items-start sm:px-4 rounded-xl'>
-              <div className='bg-[#E7F3FD] p-2 sm:p-3 rounded-md mb-2 sm:mb-4'>
-                <HiOutlineClock  className='w-4 h-4 sm:w-5 sm:h-5 text-[#07548C]'/>
-              </div>
-              <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">Duration</span>
-              <p className="text-xs sm:text-sm text-[#5E5E5E]">{duration}</p>
-            </div>
-
-            {/* Cost */}
-            <div className='border border-[#E3E3E3] p-4 sm:p-9 flex flex-col items-start sm:px-4 rounded-xl'>
-              <div className='bg-[#E7F3FD] p-2 sm:p-3 rounded-md mb-2 sm:mb-4'>
-                <HiOutlineBanknotes  className='w-4 h-4 sm:w-5 sm:h-5 text-[#07548C]'/>
-              </div>
-              <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">Cost</span>
-              <p className="text-xs sm:text-sm text-[#5E5E5E]">${cost}</p>
-            </div>
-
-            {/* Dates */}
-            <div className='border border-[#E3E3E3] p-4 sm:p-9 flex flex-col items-start sm:px-4 rounded-xl'>
-              <div className='bg-[#E7F3FD] p-2 sm:p-3 rounded-md mb-2 sm:mb-4'>
-                <HiOutlineCalendarDays className='w-4 h-4 sm:w-5 sm:h-5 text-[#07548C]'/>
-              </div>
-              <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">Start Date</span>
-              <p className="text-xs sm:text-sm text-[#5E5E5E]">{startDate}</p>
-              <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">End Date</span>
-              <p className="text-xs sm:text-sm text-[#5E5E5E]">{endDate}</p>
-              {/* <span className="text-xs sm:text-sm font-bold text-[#001533] uppercase mb-1 sm:mb-2 text-left">category</span>
-              <p className="text-xs sm:text-sm text-[#5E5E5E]">{category}</p> */}
+            <div className="text-[#001533] text-[20px] font-normal flex items-center ml-2">
+              <span className="mx-2">•</span> {duration}
             </div>
           </div>
-
-          {/* Apply Button */}
-          <div className="mt-6 flex justify-end">
-            <button 
-              className="bg-blue-500 text-white px-6 py-2 rounded-lg transition-all duration-500 ease-in-out delay-100 flex items-center hover:shadow-lg hover:scale-105"
-              onClick={handleApplyNow}
-              disabled={isLoading} // Disable button when loading
-            >
-              {isLoading ? (
-                <svg
-                  className="animate-spin h-5 w-5 mr-3 text-white"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C6.268 0 0 6.268 0 14h4z"
-                  ></path>
+          <hr className='my-3' />
+          
+          {prerequisites && (
+            <div className="text-[16px] text-[#5E5E5E] font-normal mb-4 flex items-start">
+              <span className="text-[#001533] font-bold inline-block mt-0.5 mr-1">NB:</span>
+              {prerequisites}
+            </div>
+          )}
+          
+          {/* Spacer to push the button to the bottom */}
+          <div className="flex-grow"></div>
+          
+          {/* Apply Now Button */}
+          <button 
+            onClick={handleApplyNow}
+            className="bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg px-2 py-3 transition-colors text-center w-1/2"
+          >
+            {isLoading ? (
+              <div className="flex items-center justify-center">
+                <svg className="animate-spin h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
                 </svg>
-              ) : (
-                "Apply Now"
-              )}
-            </button>
-          </div>
+                Loading...
+              </div>
+            ) : (
+              "Apply Now"
+            )}
+          </button>
         </div>
       </div>
 
+    <ImportantNoticeModal
+        isOpen={isNoticeModalOpen}
+        onClose={() => setIsNoticeModalOpen(false)}
+        onContinue={handleContinueToApplication}
+      />
+
       {/* Application Modal */}
       <ApplicationModal 
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        courseData={{
-          title,
-          cost,
-          category
-        }}
+        isOpen={isApplicationModalOpen}
+        onClose={() => setIsApplicationModalOpen(false)}
+        courseData={courseData}
       />
     </>
   

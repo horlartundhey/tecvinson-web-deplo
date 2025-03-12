@@ -145,6 +145,17 @@ const ProductDevelopment = () => {
           startDate: "January 15, 2025",
           endDate: "April 15, 2025",
           category: "Product Development"
+        },
+        {
+          number: 13,
+          title: "Generative A.I",
+          imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1741705971/generative-ai_ema6rf.webp',
+          prerequisites: "Basic knowledge of Artificial Intelligence",
+          duration: "3 Months",
+          cost: "400",
+          startDate: "January 15, 2025",
+          endDate: "April 15, 2025",
+          category: "Product Development"
         }
       ];
       setCourses(courseData);
@@ -190,11 +201,24 @@ const CourseCardWithScrollEffect = ({ index, ...course }) => {
                 Product Development Courses
             </h1>
             
-            <div className="space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {courses.map((course, index) => (                
                 <CourseCardWithScrollEffect key={course.number} {...course} index={index} />
                 ))}            
             </div>
+
+            {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {courses.map(course => (
+                <CourseCard
+                  key={course.id}
+                  title={course.title}
+                  imageUrl={course.imageUrl}
+                  cost={course.cost}
+                  duration={course.duration}
+                  requirementNote={course.requirementNote}
+                />
+              ))}
+      </div> */}
         </div>
 
         <BodyContainer />

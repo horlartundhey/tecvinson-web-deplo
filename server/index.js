@@ -108,8 +108,8 @@ const userSchema = new mongoose.Schema({
     }
   });
   
-  const User = mongoose.model('User', userSchema);
-  const LoginToken = mongoose.model('LoginToken', loginTokenSchema);
+  const User = mongoose.models.User || mongoose.model('User', userSchema);
+  const LoginToken = mongoose.models.LoginToken || mongoose.model('LoginToken', loginTokenSchema);
   
 
 // Resend email client
@@ -394,7 +394,7 @@ const applicationSchema = new mongoose.Schema({
   stripeSessionId: String
 });
 
-const Application = mongoose.model('Application', applicationSchema);
+const Application = mongoose.models.Application || mongoose.model('Application', applicationSchema);
 
 app.post('/api/save-application', async (req, res) => {
   try {
@@ -635,7 +635,7 @@ const subscriptionSchema = new mongoose.Schema({
     }
 });
 
-const Subscription = mongoose.model('Subscription', subscriptionSchema);
+const Subscription = mongoose.models.Subscription || mongoose.model('Subscription', subscriptionSchema);
 
 // Save application data
 // app.post('/api/save-application', async (req, res) => {
@@ -732,7 +732,7 @@ const contactSchema = new mongoose.Schema({
   }
 });
 
-const Contact = mongoose.model('Contact', contactSchema);
+const Contact = mongoose.models.Contact || mongoose.model('Contact', contactSchema);
 
 // Handle Contact Form Submission
 // Centralized validation logic for contact form

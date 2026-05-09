@@ -6,9 +6,11 @@ export const verifySession = createAsyncThunk(
   '/verifySession',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get('/api/verify-session', {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        'https://tecvinson-web-server.vercel.app/api/verify-session',
+        // 'http://localhost:5000/api/verify-session',
+        { withCredentials: true }
+      );
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

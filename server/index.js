@@ -1,4 +1,13 @@
 require('dotenv').config();
+
+// Validate required environment variables at startup
+const REQUIRED_ENV_VARS = ['MONGO_URI', 'JWT_SECRET'];
+const missingVars = REQUIRED_ENV_VARS.filter(v => !process.env[v]);
+if (missingVars.length > 0) {
+  console.error('FATAL: Missing required environment variables:', missingVars.join(', '));
+  process.exit(1);
+}
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
@@ -15,12 +24,24 @@ const { generateCohorts } = require('./utils/cohortUtils');
 
 
 const app = express();
-app.use(cors(
-    { 
-        origin: process.env.CLIENT_URL,
-        credentials: true
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  'http://localhost:5173',
+  'https://tecvinson.com',
+  'https://www.tecvinson.com',
+].filter(Boolean);
+
+app.use(cors({
+  origin: (origin, callback) => {
+    // Allow requests with no origin (e.g. curl, mobile apps)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error(`CORS: Origin ${origin} not allowed`));
     }
-));
+  },
+  credentials: true,
+}));
 app.use(express.json());
 
 app.use(cookieParser());
@@ -222,10 +243,11 @@ app.post('/api/verify-otp', async (req, res) => {
     );
 
     // Set JWT as HttpOnly cookie
+    const isProduction = process.env.NODE_ENV === 'production';
     res.cookie('jwt', jwt_token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      secure: isProduction,
+      sameSite: isProduction ? 'none' : 'lax',
       maxAge: 24 * 60 * 60 * 1000 // 24 hours
     });
 
@@ -265,10 +287,11 @@ app.post('/api/login-password', async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: '24h' }
     );
+    const isProd = process.env.NODE_ENV === 'production';
     res.cookie('jwt', jwt_token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      secure: isProd,
+      sameSite: isProd ? 'none' : 'lax',
       maxAge: 24 * 60 * 60 * 1000
     });
     res.json({ user: { email: user.email, role: user.role }, message: 'Login successful' });
@@ -297,7 +320,12 @@ app.post('/api/set-password', verifyToken, async (req, res) => {
 
   // Logout endpoint
   app.post('/api/logout', (req, res) => {
-    res.clearCookie('jwt');
+    const isProduction = process.env.NODE_ENV === 'production';
+    res.clearCookie('jwt', {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: isProduction ? 'none' : 'lax',
+    });
     res.json({ message: 'Logged out successfully' });
   });
 

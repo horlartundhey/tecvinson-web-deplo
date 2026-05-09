@@ -12,6 +12,7 @@
   "description": "",
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",
+    "bcryptjs": "^3.0.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
@@ -20,6 +21,7 @@
     "mongoose": "^8.8.1",
     "nodemailer": "^6.9.16",
     "react-redux": "^9.2.0",
+    "resend": "^6.12.3",
     "stripe": "^17.3.1"
   }
 }

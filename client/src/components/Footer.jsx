@@ -3,6 +3,7 @@ import logo from '../assets/teclogo.png';
 import { FaFacebook, FaInstagram, FaLinkedin, FaXTwitter } from 'react-icons/fa6';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -21,6 +22,7 @@ const Footer = () => {
     try {
       const response = await axios.post(
         'https://tecvinson-web-server.vercel.app/api/subscribe',
+        // 'http://localhost:5000/api/subscribe',
         { email }
       );
 
@@ -85,8 +87,8 @@ const Footer = () => {
           <div className='flex space-x-4 mt-20'>
             {/* Social Icons - replace with actual icons */}
             <a href='https://linkedin.com/company/tecvinsonab/' target='_blank' className='text-gray-600  text-[20px] hover:text-gray-800'><FaLinkedin /></a>
-            <a href='#' target='_blank' className='text-gray-600 text-[20px]  hover:text-gray-800'><FaInstagram /></a>
-            <a href='#' target='_blank' className='text-gray-600 text-[20px] hover:text-gray-800'><FaXTwitter /></a>
+            <a href='https://web.facebook.com/profile.php?id=100091523033144&name=xhp_nt__fb__action__open_user&_rdc=1&_rdr#' target='_blank' className='text-gray-600 text-[20px]  hover:text-gray-800'><FaFacebook /></a>
+            {/* <a href='#' target='_blank' className='text-gray-600 text-[20px] hover:text-gray-800'><FaTwitter /></a> */}
           </div>
         </div>
 
@@ -94,11 +96,11 @@ const Footer = () => {
         <div className='flex flex-col items-start lg:items-start order-3 lg:order-2'>
           <h2 className='text-lg font-semibold mb-4'>Quick Links</h2>
           <ul className='space-y-2'>
-            <li><a href='/' className='text-brandprimary font-semibold hover:text-gray-800'>Home</a></li>
-            <li><a href='/about-us' className='text-brandprimary font-semibold hover:text-gray-800'>About Us</a></li>
-            {/* <li><a href='/services' className='text-brandprimary font-semibold hover:text-gray-800'>Services</a></li>             */}
-            <li><a href='/solutions' className='text-brandprimary font-semibold hover:text-gray-800'>Solutions</a></li>
-            <li><a href='/contact-us' className='text-brandprimary font-semibold hover:text-gray-800'>Contact Us</a></li>
+            <li><Link to='/' className='text-brandprimary font-semibold hover:text-gray-800'>Home</Link></li>
+            <li><Link to='/about-us' className='text-brandprimary font-semibold hover:text-gray-800'>About Us</Link></li>
+            {/* <li><Link to='/services' className='text-brandprimary font-semibold hover:text-gray-800'>Services</Link></li>             */}
+            <li><Link to='/solutions' className='text-brandprimary font-semibold hover:text-gray-800'>Solutions</Link></li>
+            <li><Link to='/contact-us' className='text-brandprimary font-semibold hover:text-gray-800'>Contact Us</Link></li>
           </ul>
         </div>
       </div>

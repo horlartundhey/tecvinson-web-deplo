@@ -70,8 +70,8 @@ const ContactUs = () => {
       newErrors.phone = 'Please enter a valid phone number.';
       isValid = false;
     }
-    if (!service.trim()) {
-      newErrors.service = 'Please select a service of interest.';
+    if (selectedServices.length === 0) {
+      newErrors.selectedServices = 'Please select a service of interest.';
       isValid = false;
     }
 
@@ -89,6 +89,7 @@ const ContactUs = () => {
 
     try {
       const response = await axios.post('https://tecvinson-web-server.vercel.app/api/contact', {
+      // const response = await axios.post('http://localhost:5000/api/contact', {
         fullName,
         email,
         phone,

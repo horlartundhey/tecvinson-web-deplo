@@ -1,14 +1,23 @@
-import { GraduationCap, LayoutGrid } from 'lucide-react';
+import { GraduationCap, LayoutGrid, Mail, MessageSquare, LogOut } from 'lucide-react';
 import React from 'react'
 import logoDark from '../assets/teclogo.png';
 import logoLight from '../assets/tecvinson-light.png';
 import { useTheme } from '../contexts/ThemeContext';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../redux/authSlice';
 
 const Sidebar = () => {
     // Navigation items
     const { isDarkMode } = useTheme();
     const location = useLocation();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+      await dispatch(logoutUser());
+      navigate('/login');
+    };
 
   const navItems = [
     {
@@ -21,6 +30,16 @@ const Sidebar = () => {
       title: 'Enrolments',
       icon: <GraduationCap className="w-5 h-5" />,
       path: "/enrollments",
+    },
+    {
+      title: 'Subscribers',
+      icon: <Mail className="w-5 h-5" />,
+      path: "/subscribers",
+    },
+    {
+      title: 'Contact Us',
+      icon: <MessageSquare className="w-5 h-5" />,
+      path: "/contacts",
     },
   ];
 
@@ -43,7 +62,7 @@ const Sidebar = () => {
           className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl mb-1 transition-colors
             ${location.pathname === item.path
               ? 'bg-blue-500 text-white' 
-              : `${isDarkMode ? 'text-gray-300 hover:bg-gray-700' : 'text-gray-600 hover:bg-gray-100'}`}
+              : `${isDarkMode ? 'text-gray-300 hover:bg-gray-700' : 'text-gray-600 hover:bg-gray-100'}`}  
           `}
         >
           {item.icon}
@@ -51,6 +70,19 @@ const Sidebar = () => {
         </Link>
       ))}
     </nav>
+
+    {/* Logout */}
+    <div className="px-4 pb-6">
+      <button
+        onClick={handleLogout}
+        className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl transition-colors text-red-500 ${
+          isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-red-50'
+        }`}
+      >
+        <LogOut className="w-5 h-5" />
+        <span className="font-medium">Logout</span>
+      </button>
+    </div>
   </div>
   )
 }

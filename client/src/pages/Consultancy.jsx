@@ -105,81 +105,81 @@ const Consultancy = () => {
                         </div>
         </div>
 
-        <div className='w-full m-auto py-[10px] flex lg:flex-row flex-col justify-between items-start gap-[50px] lg:px-[150px] px-[20px] mt-10 mb-14'>
-
-            <div className='lg:w-full w-full flex flex-col justify-center items-start gap-6'>
-                <h3 className='font-semibold text-[20px]'>
-                    Our Clients
-                </h3>
-                <h1 className='text-[40px] font-semibold' style={{lineHeight:'normal'}}>
-                    Here are some companies we’ve worked with
-                </h1> 
-
-                <div className=" py-10">                                   
-                <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-y-6 gap-x-5 lg:gap-x-[10.25rem] items-start justify-center">
-                    <div className="bg-[#FFFFFF] p-4 rounded-lg flex justify-center items-center">
-                        <img 
-                            src={conglogo} 
-                            alt="Logo 1"
-                            className="w-full h-auto max-h-[80px] object-contain rounded-lg"
-                        />
-                    </div>
-                    <div className="bg-[#FFFFFF] p-4 rounded-lg flex justify-center items-center">
-                        <img 
-                            src={conglogo2} 
-                            alt="Logo 2"
-                            className="w-full h-auto max-h-[80px] object-contain rounded-lg"
-                        />
-                    </div>
-                    <div className="bg-[#FFFFFF] p-4 rounded-lg flex justify-center items-center">
-                        <img 
-                            src={conglogo3} 
-                            alt="Logo 3"
-                            className="w-full h-auto max-h-[80px] object-contain rounded-lg"
-                        />
-                    </div>
-                    <div className="bg-[#FFFFFF] p-4 rounded-lg flex justify-center items-center">
-                        <img 
-                            src={conglogo4} 
-                            alt="Logo 4"
-                            className="w-full h-auto max-h-[80px] object-contain rounded-lg"
-                        />
-                    </div>
-                    <div className="bg-[#FFFFFF] p-4 rounded-lg flex justify-center items-center">
-                        <img 
-                            src={conglogo5}
-                            alt="Logo 5"
-                            className="w-full h-auto max-h-[80px] object-contain rounded-lg"
-                        />
-                    </div>
-                    <div className="bg-[#FFFFFF] p-4 rounded-lg flex justify-center items-center">
-                        <img 
-                            src={conglogo6}
-                            alt="Logo 6"
-                            className="w-full h-auto max-h-[80px] object-contain rounded-lg"
-                        />
-                    </div>
-                    <div className="bg-[#FFFFFF] p-4 rounded-lg flex justify-center items-center">
-                        <img 
-                            src={conglogo7}
-                            alt="Logo 7"
-                            className="w-full h-auto max-h-[80px] object-contain rounded-lg"
-                        />
-                    </div>
-                    <div className="bg-[#FFFFFF] p-4 rounded-lg flex justify-center items-center">
-                        <img 
-                            src={conglogo8}
-                            alt="Logo 8"
-                            className="w-full h-auto max-h-[80px] object-contain rounded-lg"
-                        />
-                    </div>
-                </div>
-
-                </div>
-
-
-            </div>
-        </div>
+       <div className='w-full m-auto py-[10px] flex lg:flex-row flex-col justify-between items-start gap-[50px] lg:px-[150px] px-[20px] mt-10'>
+       
+                   <div className='lg:w-full w-full flex flex-col  items-start gap-6'>
+                       <h3 className='font-semibold text-[20px]'>
+                           Our Clients
+                       </h3>
+                       <h1 className='text-[40px] font-semibold'>
+                           Here are some companies we’ve worked with
+                       </h1> 
+       
+                       <div className=" py-10">                                   
+                                       <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-y-6 gap-x-5 lg:gap-x-[14.25rem] items-start justify-center">
+                                           <div className="bg-[#FFFFFF] p-4 rounded-lg flex justify-center items-center">
+                                               <img 
+                                                   src={conglogo} 
+                                                   alt="Logo 1"
+                                                   className="w-full h-auto max-h-[80px] object-contain rounded-lg"
+                                               />
+                                           </div>
+                                           <div className="bg-[#FFFFFF] p-4 rounded-lg flex justify-center items-center">
+                                               <img 
+                                                   src={conglogo2} 
+                                                   alt="Logo 2"
+                                                   className="w-full h-auto max-h-[80px] object-contain rounded-lg"
+                                               />
+                                           </div>
+                                           <div className="bg-[#FFFFFF] p-4 rounded-lg flex justify-center items-center">
+                                               <img 
+                                                   src={conglogo3} 
+                                                   alt="Logo 3"
+                                                   className="w-full h-auto max-h-[80px] object-contain rounded-lg"
+                                               />
+                                           </div>
+                                           <div className="bg-[#FFFFFF] p-4 rounded-lg flex justify-center items-center">
+                                               <img 
+                                                   src={conglogo4} 
+                                                   alt="Logo 4"
+                                                   className="w-full h-auto max-h-[80px] object-contain rounded-lg"
+                                               />
+                                           </div>
+                                           <div className="bg-[#FFFFFF] p-4 rounded-lg flex justify-center items-center">
+                                               <img 
+                                                   src={conglogo5}
+                                                   alt="Logo 5"
+                                                   className="w-full h-auto max-h-[80px] object-contain rounded-lg"
+                                               />
+                                           </div>
+                                           <div className="bg-[#FFFFFF] p-4 rounded-lg flex justify-center items-center">
+                                               <img 
+                                                   src={conglogo6}
+                                                   alt="Logo 6"
+                                                   className="w-full h-auto max-h-[80px] object-contain rounded-lg"
+                                               />
+                                           </div>
+                                           <div className="bg-[#FFFFFF] p-4 rounded-lg flex justify-center items-center">
+                                               <img 
+                                                   src={conglogo7}
+                                                   alt="Logo 7"
+                                                   className="w-full h-auto max-h-[80px] object-contain rounded-lg"
+                                               />
+                                           </div>
+                                           <div className="bg-[#FFFFFF] p-4 rounded-lg flex justify-center items-center">
+                                               <img 
+                                                   src={conglogo8}
+                                                   alt="Logo 8"
+                                                   className="w-full h-auto max-h-[80px] object-contain rounded-lg"
+                                               />
+                                           </div>
+                                       </div>
+                       
+                                       </div>
+       
+       
+                   </div>
+               </div>
 
         <BodyContainer />
         <Footer />

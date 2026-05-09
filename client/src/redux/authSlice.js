@@ -52,16 +52,16 @@ export const verifyLoginToken = createAsyncThunk(
 
 export const logoutUser = createAsyncThunk(
   '/logout',
-  async (_, { rejectWithValue }) => {
+  async () => {
     try {
-      // await axios.post('http://localhost:5000/api/logout', {}, { 
       await axios.post('https://tecvinson-web-server.vercel.app/api/logout', {}, { 
+      // await axios.post('http://localhost:5000/api/logout', {}, { 
         withCredentials: true 
       });
-      return null;
-    } catch (error) {
-      return rejectWithValue(error.response?.data || error.message);
+    } catch (_) {
+      // Ignore server errors — always clear local auth
     }
+    return null;
   }
 );
 
@@ -71,8 +71,8 @@ export const sendOTP = createAsyncThunk(
   async (email, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        // 'http://localhost:5000/api/send-otp',
         'https://tecvinson-web-server.vercel.app/api/send-otp',
+        // 'http://localhost:5000/api/send-otp',
         { email },
         { withCredentials: true }
       );
@@ -88,14 +88,31 @@ export const verifyOTP = createAsyncThunk(
   async ({ email, otp }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        // 'http://localhost:5000/api/verify-otp',
         'https://tecvinson-web-server.vercel.app/api/verify-otp',
+        // 'http://localhost:5000/api/verify-otp',
         { email, otp },
         { withCredentials: true }
       );
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || { message: 'Invalid OTP' });
+    }
+  }
+);
+
+export const loginWithPassword = createAsyncThunk(
+  '/loginWithPassword',
+  async ({ email, password }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        'https://tecvinson-web-server.vercel.app/api/login-password',
+        // 'http://localhost:5000/api/login-password',
+        { email, password },
+        { withCredentials: true }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || { message: 'Invalid email or password' });
     }
   }
 );
@@ -192,6 +209,22 @@ const authSlice = createSlice({
       .addCase(verifyOTP.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload?.message || 'Invalid OTP';
+      })
+
+      // Password login reducers
+      .addCase(loginWithPassword.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(loginWithPassword.fulfilled, (state, action) => {
+        state.loading = false;
+        state.isAuthenticated = true;
+        state.user = action.payload.user || null;
+        state.lastActivity = Date.now();
+      })
+      .addCase(loginWithPassword.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload?.message || 'Invalid email or password';
       })
       
       // Generic error handler

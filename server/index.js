@@ -7,7 +7,8 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
+const bcrypt = require('bcryptjs');
 const { generateCohorts } = require('./utils/cohortUtils');
 
 // const router = express.Router();
@@ -73,6 +74,10 @@ const userSchema = new mongoose.Schema({
       required: true,
       unique: true
     },
+    password: {
+      type: String,
+      default: null
+    },
     role: {
       type: String,
       enum: ['user', 'admin', 'superAdmin'],
@@ -107,15 +112,8 @@ const userSchema = new mongoose.Schema({
   const LoginToken = mongoose.model('LoginToken', loginTokenSchema);
   
 
-// Configure your email transport
-const transporter = nodemailer.createTransport({
-  // Configure with your email service
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASSWORD
-  }
-});
+// Resend email client
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 
 // Temporary OTP storage (use Redis in production)
@@ -158,8 +156,8 @@ app.post('/api/send-otp', async (req, res) => {
     });
 
     // Send OTP via email
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+    await resend.emails.send({
+      from: process.env.FROM_EMAIL,
       to: email,
       subject: 'Your Login OTP',
       html: `
@@ -247,6 +245,56 @@ app.post('/api/verify-otp', async (req, res) => {
   }
 }); 
   
+// Email+Password login endpoint
+app.post('/api/login-password', async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({ message: 'Email and password are required' });
+  }
+  try {
+    const user = await User.findOne({ email });
+    if (!user || !user.password) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+    const jwt_token = jwt.sign(
+      { userId: user._id, email: user.email, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: '24h' }
+    );
+    res.cookie('jwt', jwt_token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 24 * 60 * 60 * 1000
+    });
+    res.json({ user: { email: user.email, role: user.role }, message: 'Login successful' });
+  } catch (error) {
+    console.error('Password login error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Set/update password for a user (admin use — requires existing JWT)
+app.post('/api/set-password', verifyToken, async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password || password.length < 8) {
+    return res.status(400).json({ message: 'Valid email and password (min 8 chars) are required' });
+  }
+  try {
+    const hashed = await bcrypt.hash(password, 12);
+    const user = await User.findOneAndUpdate({ email }, { password: hashed }, { new: true });
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    res.json({ message: 'Password updated successfully' });
+  } catch (error) {
+    console.error('Set password error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
   // Logout endpoint
   app.post('/api/logout', (req, res) => {
     res.clearCookie('jwt');
@@ -755,8 +803,47 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 
+// Get all subscribers (protected)
+app.get('/api/subscribers', verifyToken, async (req, res) => {
+  try {
+    const { search = '', page = 1, limit = 20 } = req.query;
+    const query = search ? { email: { $regex: search, $options: 'i' } } : {};
+    const skip = (page - 1) * limit;
+    const [subscribers, total] = await Promise.all([
+      Subscription.find(query).sort({ subscribedAt: -1 }).skip(skip).limit(parseInt(limit)),
+      Subscription.countDocuments(query),
+    ]);
+    res.json({ subscribers, total, totalPages: Math.ceil(total / limit), currentPage: parseInt(page) });
+  } catch (error) {
+    console.error('Error fetching subscribers:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
-
+// Get all contact submissions (protected)
+app.get('/api/contacts', verifyToken, async (req, res) => {
+  try {
+    const { search = '', page = 1, limit = 20 } = req.query;
+    const query = search
+      ? {
+          $or: [
+            { fullName: { $regex: search, $options: 'i' } },
+            { email: { $regex: search, $options: 'i' } },
+            { companyName: { $regex: search, $options: 'i' } },
+          ],
+        }
+      : {};
+    const skip = (page - 1) * limit;
+    const [contacts, total] = await Promise.all([
+      Contact.find(query).sort({ submittedAt: -1 }).skip(skip).limit(parseInt(limit)),
+      Contact.countDocuments(query),
+    ]);
+    res.json({ contacts, total, totalPages: Math.ceil(total / limit), currentPage: parseInt(page) });
+  } catch (error) {
+    console.error('Error fetching contacts:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
 // Start the server
 app.listen(process.env.PORT, () => console.log(`Server running on port ${process.env.PORT}`));

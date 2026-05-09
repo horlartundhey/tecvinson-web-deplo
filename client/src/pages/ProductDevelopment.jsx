@@ -20,7 +20,7 @@ const ProductDevelopment = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1730727270/image_rycdsz.png',
           prerequisites: "Basic knowledge of Frontend Development",
           duration: "3 Months",
-          cost: "400",
+          cost: "500",
           startDate: "January 15, 2025",
           endDate: "April 15, 2025",
           category: "Product Development"
@@ -31,7 +31,7 @@ const ProductDevelopment = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1730727335/image_jlj2gh.png',
           prerequisites: "Basic knowledge of Mobile Software Development",
           duration: "3 Months",
-          cost: "400",
+          cost: "500",
           startDate: "January 15, 2025",
           endDate: "April 15, 2025",
           category: "Product Development"
@@ -42,7 +42,7 @@ const ProductDevelopment = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1730727348/image_uwkhzt.png',
           prerequisites: "Basic knowledge of Backend Development",
           duration: "3 Months",
-          cost: "400",
+          cost: "500",
           startDate: "January 15, 2025",
           endDate: "April 15, 2025",
           category: "Product Development"
@@ -53,7 +53,7 @@ const ProductDevelopment = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1730727498/image_gm1ywf.png',
           prerequisites: "Basic knowledge of Backend Development",
           duration: "3 Months",
-          cost: "400",
+          cost: "500",
           startDate: "January 15, 2025",
           endDate: "April 15, 2025",
           category: "Product Development"
@@ -64,7 +64,7 @@ const ProductDevelopment = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1730727509/image_aimrwa.png',
           prerequisites: "Basic knowledge of Backend Development",
           duration: "3 Months",
-          cost: "400",
+          cost: "500",
           startDate: "January 15, 2025",
           endDate: "April 15, 2025",
           category: "Product Development"
@@ -75,7 +75,7 @@ const ProductDevelopment = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1730727521/image_zi7boq.png',
           prerequisites: "Basic knowledge of Development and Operations",
           duration: "3 Months",
-          cost: "400",
+          cost: "500",
           startDate: "January 15, 2025",
           endDate: "April 15, 2025",
           category: "Product Development"
@@ -86,7 +86,7 @@ const ProductDevelopment = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1730727543/image_gjkoln.png',
           prerequisites: "Basic knowledge of Software Testing",
           duration: "3 Months",
-          cost: "400",
+          cost: "500",
           startDate: "January 15, 2025",
           endDate: "April 15, 2025",
           category: "Product Development"
@@ -97,7 +97,7 @@ const ProductDevelopment = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1730727558/image_nvpwvz.png',
           prerequisites: "Basic knowledge of Software Testing",
           duration: "3 Months",
-          cost: "400",
+          cost: "500",
           startDate: "January 15, 2025",
           endDate: "April 15, 2025",
           category: "Product Development"
@@ -108,7 +108,7 @@ const ProductDevelopment = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1730727567/image_zobchc.png',
           prerequisites: "Basic knowledge of Data Analysis",
           duration: "3 Months",
-          cost: "400",
+          cost: "500",
           startDate: "January 15, 2025",
           endDate: "April 15, 2025",
           category: "Product Development"
@@ -119,7 +119,7 @@ const ProductDevelopment = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1730727586/image_ieayx1.png',
           prerequisites: "Basic knowledge of Cybersecurity",
           duration: "3 Months",
-          cost: "400",
+          cost: "500",
           startDate: "January 15, 2025",
           endDate: "April 15, 2025",
           category: "Product Development"
@@ -130,7 +130,7 @@ const ProductDevelopment = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1730727597/image_gm1xpj.png',
           prerequisites: "Basic knowledge of Data Science",
           duration: "3 Months",
-          cost: "400",
+          cost: "500",
           startDate: "January 15, 2025",
           endDate: "April 15, 2025",
           category: "Product Development"
@@ -141,7 +141,7 @@ const ProductDevelopment = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1732097563/data-engineering_w21ygk.jpg',
           prerequisites: "Basic knowledge of Data Engineering",
           duration: "3 Months",
-          cost: "400",
+          cost: "500",
           startDate: "January 15, 2025",
           endDate: "April 15, 2025",
           category: "Product Development"
@@ -152,7 +152,7 @@ const ProductDevelopment = () => {
           imageUrl: 'https://res.cloudinary.com/kamisama/image/upload/v1741705971/generative-ai_ema6rf.webp',
           prerequisites: "Basic knowledge of Artificial Intelligence",
           duration: "3 Months",
-          cost: "400",
+          cost: "500",
           startDate: "January 15, 2025",
           endDate: "April 15, 2025",
           category: "Product Development"

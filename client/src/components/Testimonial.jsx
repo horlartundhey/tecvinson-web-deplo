@@ -137,7 +137,7 @@ const Testimonial = () => {
                 quote:
                   'BisCom TDigits thrives on delivering top-tier IT products, and Tecvinson AB has been instrumental in ensuring our backend processes are optimized and future-ready. Their collaborative approach and ability to tackle complex challenges head-on have made them a key partner in our success.',
                 name: 'Celestine Bamisaye',
-                role: 'CEO, BisCom TDigits',
+                role: 'CTO, BisCom TDigits',
               },
               {
                 quote:

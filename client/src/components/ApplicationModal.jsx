@@ -407,8 +407,8 @@ const ApplicationModal = ({ isOpen, onClose, courseData }) => {
 
       console.log('Sending application data:', requestData);
 
-      // const response = await fetch('http://localhost:5000/api/save-application', {
       const response = await fetch('https://tecvinson-web-server.vercel.app/api/save-application', {
+      // const response = await fetch('http://localhost:5000/api/save-application', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -633,7 +633,7 @@ const ApplicationModal = ({ isOpen, onClose, courseData }) => {
                       value={cohort.id}
                       disabled={cohort.isDisabled}
                     >
-                      {cohort.name} ({cohort.dateRange})
+                      {`Cohort ${cohort.id.split('-')[1]} (${cohort.dateRange})`}
                     </option>
                   ))}
                 </select>

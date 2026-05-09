@@ -7,6 +7,7 @@ import { HiArrowsUpDown, HiBanknotes, HiClock, HiFire, HiMiniCalendarDays, HiSta
 import { useTheme } from '../contexts/ThemeContext';
 import { MdCreditScore, MdRecentActors } from 'react-icons/md';
 import { logoutUser, updateLastActivity } from '../redux/authSlice'; // Import the logout action
+import { store } from '../redux/store';
 
 
 const Dashboard = () => {
@@ -76,6 +77,7 @@ const Dashboard = () => {
   const fetchApplications = async () => {
     try {
       const response = await fetch('https://tecvinson-web-server.vercel.app/api/applications');
+      // const response = await fetch('http://localhost:5000/api/applications');
       const data = await response.json();
 
       if (response.ok) {

@@ -34,6 +34,8 @@ import NavbarLayout from './layouts/NavbarLayout'
 import DashboardLayout from './layouts/DashboardLayout'
 import { ThemeProvider } from './contexts/ThemeContext'
 import Enrollments from './pages/Enrollments'
+import Subscribers from './pages/Subscribers'
+import Contacts from './pages/Contacts'
 
 
 
@@ -88,6 +90,8 @@ const AppContent = () => {
         <Route element={<DashboardLayout />}>        
         <Route element={<Dashboard />} path="/dashboard" />
         <Route element={<Enrollments />} path="/enrollments" />
+        <Route element={<Subscribers />} path="/subscribers" />
+        <Route element={<Contacts />} path="/contacts" />
         </Route>
 
         </Routes>

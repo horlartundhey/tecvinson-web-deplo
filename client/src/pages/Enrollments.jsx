@@ -105,8 +105,8 @@ const Enrollments = () => {
       const cleanParams = Object.fromEntries(
         Object.entries(queryParams).filter(([_, value]) => value !== undefined)
       );
-      // const response = await axios.get('http://localhost:5000/api/applications', {
       const response = await axios.get('https://tecvinson-web-server.vercel.app/api/applications', {
+      // const response = await axios.get('http://localhost:5000/api/applications', {
         withCredentials: true,
         headers: {
           'Content-Type': 'application/json',

@@ -4,8 +4,7 @@ require('dotenv').config();
 const REQUIRED_ENV_VARS = ['MONGO_URI', 'JWT_SECRET'];
 const missingVars = REQUIRED_ENV_VARS.filter(v => !process.env[v]);
 if (missingVars.length > 0) {
-  console.error('FATAL: Missing required environment variables:', missingVars.join(', '));
-  process.exit(1);
+  console.error('WARNING: Missing required environment variables:', missingVars.join(', '));
 }
 
 const express = require('express');
@@ -31,17 +30,22 @@ const allowedOrigins = [
   'https://www.tecvinson.com',
 ].filter(Boolean);
 
-app.use(cors({
+const corsOptions = {
   origin: (origin, callback) => {
-    // Allow requests with no origin (e.g. curl, mobile apps)
+    // Allow requests with no origin (e.g. curl, Postman, server-to-server)
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error(`CORS: Origin ${origin} not allowed`));
+      // Return false (not an Error) so cors sends a proper rejection without crashing
+      callback(null, false);
     }
   },
   credentials: true,
-}));
+};
+
+// Handle preflight OPTIONS requests for all routes
+app.options('*', cors(corsOptions));
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use(cookieParser());

@@ -845,5 +845,15 @@ app.get('/api/contacts', verifyToken, async (req, res) => {
   }
 });
 
+// Keep-alive ping — prevents MongoDB Atlas free tier from pausing
+app.get('/api/ping', async (req, res) => {
+  try {
+    await Subscription.countDocuments({});
+    res.json({ status: 'ok', timestamp: new Date().toISOString() });
+  } catch (error) {
+    res.status(500).json({ status: 'error', message: error.message });
+  }
+});
+
 // Start the server
 app.listen(process.env.PORT, () => console.log(`Server running on port ${process.env.PORT}`));

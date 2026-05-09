@@ -15,7 +15,7 @@ const Dashboard = () => {
   const dispatch = useDispatch(); // Initialize useDispatch
   const INACTIVITY_TIMEOUT = 2 * 60 * 60 * 1000;
 
-  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const { isAuthenticated, user, token } = useSelector((state) => state.auth);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isDarkMode, setIsDarkMode } = useTheme();
 
@@ -76,8 +76,11 @@ const Dashboard = () => {
 
   const fetchApplications = async () => {
     try {
-      const response = await fetch('https://tecvinson-web-server.vercel.app/api/applications');
-      // const response = await fetch('http://localhost:5000/api/applications');
+      const response = await fetch('https://tecvinson-web-server.vercel.app/api/applications', {
+      // const response = await fetch('http://localhost:5000/api/applications', {
+        credentials: 'include',
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
       const data = await response.json();
 
       if (response.ok) {

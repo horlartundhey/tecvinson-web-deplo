@@ -8,7 +8,7 @@ import { debounce } from 'lodash';
 
 const Subscribers = () => {
   const navigate = useNavigate();
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated, token } = useSelector((state) => state.auth);
   const { isDarkMode, setIsDarkMode } = useTheme();
 
   const [subscribers, setSubscribers] = useState([]);
@@ -29,6 +29,7 @@ const Subscribers = () => {
       const response = await axios.get('https://tecvinson-web-server.vercel.app/api/subscribers', {
         // 'http://localhost:5000/api/subscribers'
         withCredentials: true,
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
         params: { page, limit: 20, search: search.trim() || undefined },
       });
       setSubscribers(response.data.subscribers);

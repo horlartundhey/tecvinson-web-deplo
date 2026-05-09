@@ -60,8 +60,13 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
     // Middleware to verify JWT
   const verifyToken = async (req, res, next) => {
     try {
-      const token = req.cookies.jwt;
-      
+      // Accept token from cookie OR Authorization header (for cross-origin clients)
+      let token = req.cookies.jwt;
+      const authHeader = req.headers.authorization;
+      if (!token && authHeader && authHeader.startsWith('Bearer ')) {
+        token = authHeader.slice(7);
+      }
+
       if (!token) {
         return res.status(401).json({ 
           success: false,
@@ -298,7 +303,7 @@ app.post('/api/login-password', async (req, res) => {
       sameSite: isProd ? 'none' : 'lax',
       maxAge: 24 * 60 * 60 * 1000
     });
-    res.json({ user: { email: user.email, role: user.role }, message: 'Login successful' });
+    res.json({ user: { email: user.email, role: user.role }, token: jwt_token, message: 'Login successful' });
   } catch (error) {
     console.error('Password login error:', error);
     res.status(500).json({ message: 'Server error' });

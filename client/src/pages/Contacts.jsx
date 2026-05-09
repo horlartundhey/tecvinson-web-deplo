@@ -8,7 +8,7 @@ import { debounce } from 'lodash';
 
 const Contacts = () => {
   const navigate = useNavigate();
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated, token } = useSelector((state) => state.auth);
   const { isDarkMode, setIsDarkMode } = useTheme();
 
   const [contacts, setContacts] = useState([]);
@@ -30,6 +30,7 @@ const Contacts = () => {
       const response = await axios.get('https://tecvinson-web-server.vercel.app/api/contacts', {
         // 'http://localhost:5000/api/contacts'
         withCredentials: true,
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
         params: { page, limit: 20, search: search.trim() || undefined },
       });
       setContacts(response.data.contacts);

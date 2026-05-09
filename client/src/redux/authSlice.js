@@ -4,16 +4,20 @@ import axios from 'axios';
 // Existing async thunks
 export const verifySession = createAsyncThunk(
   '/verifySession',
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, getState }) => {
     try {
+      const { token } = getState().auth;
       const response = await axios.get(
         'https://tecvinson-web-server.vercel.app/api/verify-session',
         // 'http://localhost:5000/api/verify-session',
-        { withCredentials: true }
+        {
+          withCredentials: true,
+          headers: token ? { Authorization: `Bearer ${token}` } : {},
+        }
       );
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response?.data || { message: 'Session invalid' });
     }
   }
 );
@@ -222,6 +226,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.isAuthenticated = true;
         state.user = action.payload.user || null;
+        state.token = action.payload.token || null;
         state.lastActivity = Date.now();
       })
       .addCase(loginWithPassword.rejected, (state, action) => {
